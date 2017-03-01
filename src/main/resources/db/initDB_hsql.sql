@@ -41,7 +41,7 @@ CREATE TABLE meals
   id            INTEGER IDENTITY PRIMARY KEY,
   name          VARCHAR(50) NOT NULL,
   price         VARCHAR(8)  NOT NULL,
-  date          TIMESTAMP   NOT NULL,
+  date          DATE   NOT NULL,
   restaurant_id INTEGER     NOT NULL,
   FOREIGN KEY ( restaurant_id ) REFERENCES restaurants (id)
     ON DELETE CASCADE

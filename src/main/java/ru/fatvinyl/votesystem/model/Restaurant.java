@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,7 +13,8 @@ import java.util.Set;
  */
 
 @NamedQueries({
-        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT r FROM Restaurant r WHERE r.user.id=:userId ORDER BY m.dateTime DESC")
+        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.mealList m WHERE m.date=:date ORDER BY r.name")
+
 })
 
 @Entity
@@ -23,10 +26,19 @@ public class Restaurant extends NamedEntity {
     @NotNull
     private Integer amount_votes;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
-    private Set<Meal> mealSet;
+    @OneToMany(mappedBy = "restaurant")
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
+    @OrderBy("name")
+    private List<Meal> mealList;
 
     public Restaurant() {
+    }
+
+    public Restaurant(Integer id, String name, Integer amount_votes, Meal...meals) {
+        this.id = id;
+        this.name = name;
+        this.amount_votes = amount_votes;
+        this.mealList = Arrays.asList(meals);
     }
 
     public Integer getAmount_votes() {
@@ -37,11 +49,11 @@ public class Restaurant extends NamedEntity {
         this.amount_votes = amount_votes;
     }
 
-    public Set<Meal> getMealSet() {
-        return mealSet;
+    public List<Meal> getmealList() {
+        return mealList;
     }
 
-    public void setMealSet(Set<Meal> mealSet) {
-        this.mealSet = mealSet;
+    public void setmealList(List<Meal> mealList) {
+        this.mealList = mealList;
     }
 }

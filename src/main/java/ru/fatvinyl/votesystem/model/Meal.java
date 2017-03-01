@@ -5,10 +5,12 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
+import ru.fatvinyl.votesystem.util.DateTimeUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 /**
@@ -33,7 +35,7 @@ public class Meal extends NamedEntity {
 
     @Column(name = "date", nullable = false)
     @NotNull
-//    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
