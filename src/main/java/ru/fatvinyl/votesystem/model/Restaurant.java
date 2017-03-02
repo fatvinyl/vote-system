@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Anton Yolgin
@@ -24,9 +25,9 @@ public class Restaurant extends NamedEntity {
 
     @Column(name = "amount_votes", nullable = false)
     @NotNull
-    private Integer amount_votes;
+    private Integer amountVotes;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
 //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
     @OrderBy("name")
     private List<Meal> mealList;
@@ -34,19 +35,19 @@ public class Restaurant extends NamedEntity {
     public Restaurant() {
     }
 
-    public Restaurant(Integer id, String name, Integer amount_votes, Meal...meals) {
+    public Restaurant(Integer id, String name, Integer amountVotes, Meal...meals) {
         this.id = id;
         this.name = name;
-        this.amount_votes = amount_votes;
+        this.amountVotes = amountVotes;
         this.mealList = Arrays.asList(meals);
     }
 
-    public Integer getAmount_votes() {
-        return amount_votes;
+    public Integer getAmountVotes() {
+        return amountVotes;
     }
 
-    public void setAmount_votes(Integer amount_votes) {
-        this.amount_votes = amount_votes;
+    public void setAmountVotes(Integer amount_votes) {
+        this.amountVotes = amount_votes;
     }
 
     public List<Meal> getmealList() {
@@ -55,5 +56,15 @@ public class Restaurant extends NamedEntity {
 
     public void setmealList(List<Meal> mealList) {
         this.mealList = mealList;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + getId() +
+                ", name=" + name +
+                ", amount_votes=" + amountVotes +
+                ", mealList=" + mealList  +
+                "} ";
     }
 }

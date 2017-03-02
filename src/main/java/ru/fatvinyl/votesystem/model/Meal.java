@@ -46,6 +46,13 @@ public class Meal extends NamedEntity {
     public Meal() {
     }
 
+    public Meal(Integer id, String name, String price, LocalDate date) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.date = date;
+    }
+
     public String getPrice() {
         return price;
     }
@@ -68,5 +75,16 @@ public class Meal extends NamedEntity {
 
     public void setRestaurant_id(Restaurant restaurant_id) {
         this.restaurant = restaurant_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "id=" + getId() +
+                ", name=" + name +
+                ", price='" + price +
+                ", date=" + date +
+//                ", restaurant=" + restaurant +
+                "}";
     }
 }
