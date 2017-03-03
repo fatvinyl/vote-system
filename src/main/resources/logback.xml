@@ -4,10 +4,8 @@
     <!-- To enable JMX Management -->
     <jmxConfigurator/>
 
-    <property name="DEV_HOME" value="C:/java/VoteSystem/vote-system/" />
-
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>${DEV_HOME}/log/topjava.log</file>
+        <file>${VOTESYSTEM_ROOT}/log/topjava.log</file>
 
         <encoder>
             <charset>UTF-8</charset>
