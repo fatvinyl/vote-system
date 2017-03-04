@@ -1,40 +1,55 @@
 package ru.fatvinyl.votesystem.repository;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.fatvinyl.votesystem.RestaurantTestData;
 import ru.fatvinyl.votesystem.model.Restaurant;
-import ru.fatvinyl.votesystem.util.DateTimeUtil;
 
-import java.time.LocalDate;
+
+import java.util.Arrays;
 import java.util.Collection;
 
-import static ru.fatvinyl.votesystem.RestaurantTestData.RESTAURANTS;
-import static ru.fatvinyl.votesystem.RestaurantTestData.RESTAURANT_MATCHER;
+import static ru.fatvinyl.votesystem.MealTestData.TEST_DATE;
+import static ru.fatvinyl.votesystem.RestaurantTestData.*;
 
 /**
  * @author Anton Yolgin
  */
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringJUnit4ClassRunner.class)
-//@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class RestaurantRepositoryImplTest {
+public class RestaurantRepositoryImplTest extends AbstractRepositoryTest{
+
 
     @Autowired
     protected RestaurantRepository repository;
 
     @Test
-    public void getAllTest() throws Exception {
-        LocalDate localDate = LocalDate.parse("2017-01-11", DateTimeUtil.DATE_FORMATTER);
-        Collection<Restaurant> actual = repository.getAll(localDate);
+    public void testGetAll() throws Exception {
+        Collection<Restaurant> actual = repository.getAll(TEST_DATE);
         RESTAURANT_MATCHER.assertCollectionEquals(RESTAURANTS, actual);
+    }
+
+    @Test
+    public void testGetById() throws Exception {
+        Restaurant actual = repository.get(RESTAURANT1_ID, TEST_DATE);
+        RESTAURANT_MATCHER.assertEquals(RESTAURANT1, actual);
+    }
+
+    //    @Test
+//    public void testSave() throws Exception  {
+//        Restaurant created = getCreated();
+//        repository.save(created);
+//        RESTAURANT_MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT3, RESTAURANT2, created, RESTAURANT1), repository.getAll(TEST_DATE));
+//    }
+    @Test
+    public void testUpdate() throws Exception {
+        Restaurant updated = getUpdated();
+        repository.save(updated);
+        RESTAURANT_MATCHER.assertEquals(updated, repository.get(RESTAURANT1_ID, TEST_DATE));
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+        repository.delete(RESTAURANT1_ID);
+        RESTAURANT_MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT3, RESTAURANT2), repository.getAll(TEST_DATE));
     }
 
 }

@@ -12,4 +12,11 @@ import java.util.List;
 public interface RestaurantRepository {
 
     List<Restaurant> getAll(LocalDate date);
+
+    Restaurant get(int id, LocalDate mealDate);
+
+    Restaurant save(Restaurant restaurant);
+
+    boolean delete(int id);
+
 }

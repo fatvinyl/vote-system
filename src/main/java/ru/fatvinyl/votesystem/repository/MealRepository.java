@@ -4,6 +4,7 @@ import ru.fatvinyl.votesystem.model.Meal;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -14,11 +15,8 @@ public interface MealRepository {
 
     Meal save(Meal meal, int restaurantId);
 
-    boolean delete(int id, int restaurantId);
+    boolean delete(int id);
 
-    Meal get(int id, int restaurantId);
+    Meal get(int id);
 
-    Collection<Meal> getAll();
-
-    Collection<Meal> getByDate(LocalDate date);
 }

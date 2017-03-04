@@ -14,21 +14,23 @@ import java.util.stream.Collectors;
  */
 
 @NamedQueries({
-        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.mealList m WHERE m.date=:date ORDER BY r.name")
-
+        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.mealList m WHERE m.date=:date ORDER BY r.name"),
+        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id"),
+        @NamedQuery(name = Restaurant.GET, query = "SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.mealList m WHERE r.id=:id AND m.date=:mealdate")
 })
 
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends NamedEntity {
     public static final String ALL_SORTED = "Restaurant.getAll";
+    public static final String DELETE = "Restaurant.delete";
+    public static final String GET = "Restaurant.get";
 
     @Column(name = "amount_votes", nullable = false)
     @NotNull
     private Integer amountVotes;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
     @OrderBy("name")
     private List<Meal> mealList;
 

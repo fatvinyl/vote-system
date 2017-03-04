@@ -19,14 +19,16 @@ import java.time.LocalDateTime;
 
 
 @NamedQueries({
-//        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC")
+        @NamedQuery(name = Meal.GET, query = "SELECT m FROM Meal m WHERE m.id=:id"),
+        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id")
 })
 
 @Entity
 @Table(name = "meals")
 public class Meal extends NamedEntity {
 
-    public static final String ALL_SORTED = "Meal.getAll";
+    public static final String GET = "Meal.get";
+    public static final String DELETE = "Meal.delete";
 
     @Column(name = "price", nullable = false)
     @NotBlank
@@ -69,12 +71,12 @@ public class Meal extends NamedEntity {
         this.date = date;
     }
 
-    public Restaurant getRestaurant_id() {
+    public Restaurant getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant_id(Restaurant restaurant_id) {
-        this.restaurant = restaurant_id;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override

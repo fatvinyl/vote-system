@@ -21,4 +21,21 @@ public class RestaurantServceImpl implements RestaurantServce {
     public List<Restaurant> getAll(LocalDate date) {
         return repository.getAll(date);
     }
+
+    @Override
+    public Restaurant get(int id, LocalDate mealDate) {
+        return repository.get(id, mealDate);
+    }
+
+    @Override
+    public Restaurant save(Restaurant restaurant) {
+        return repository.save(restaurant);
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return repository.delete(id);
+    }
+
+
 }
