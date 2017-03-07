@@ -18,13 +18,13 @@ public class RestaurantServceImpl implements RestaurantServce {
     private RestaurantRepository repository;
 
     @Override
-    public List<Restaurant> getAll(LocalDate date) {
-        return repository.getAll(date);
+    public List<Restaurant> getAllByDate(LocalDate date) {
+        return repository.getAllByDate(date);
     }
 
     @Override
     public Restaurant get(int id, LocalDate mealDate) {
-        return repository.get(id, mealDate);
+        return repository.getByMealDate(id, mealDate);
     }
 
     @Override

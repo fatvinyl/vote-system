@@ -1,6 +1,8 @@
 DROP TABLE user_roles
 IF EXISTS;
-DROP TABLE meals
+DROP TABLE dishes
+IF EXISTS;
+DROP TABLE votes
 IF EXISTS;
 DROP TABLE restaurants
 IF EXISTS;
@@ -9,10 +11,33 @@ IF EXISTS;
 
 CREATE TABLE restaurants
 (
-  id           INTEGER IDENTITY PRIMARY KEY,
-  name         VARCHAR(30) NOT NULL,
-  amount_votes INTEGER DEFAULT 0
+  id   INTEGER IDENTITY PRIMARY KEY,
+  name VARCHAR(30) NOT NULL
 );
+
+CREATE TABLE votes
+(
+  id            INTEGER IDENTITY PRIMARY KEY,
+  amount        INTEGER   DEFAULT 0,
+  date          DATE DEFAULT now(),
+  restaurant_id INTEGER   NOT NULL,
+  FOREIGN KEY (restaurant_id ) REFERENCES restaurants (id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE dishes
+(
+  id            INTEGER IDENTITY PRIMARY KEY,
+  name          VARCHAR(50) NOT NULL,
+  price         VARCHAR(8)  NOT NULL,
+  date          DATE DEFAULT now(),
+  restaurant_id INTEGER     NOT NULL,
+  FOREIGN KEY ( restaurant_id ) REFERENCES restaurants (id)
+    ON DELETE CASCADE
+);
+CREATE INDEX meals_unique_name_idx
+  ON dishes (restaurant_id, name);
+
 
 CREATE TABLE users
 (
@@ -36,15 +61,3 @@ CREATE TABLE user_roles
     ON DELETE CASCADE
 );
 
-CREATE TABLE meals
-(
-  id            INTEGER IDENTITY PRIMARY KEY,
-  name          VARCHAR(50) NOT NULL,
-  price         VARCHAR(8)  NOT NULL,
-  date          DATE   DEFAULT now(),
-  restaurant_id INTEGER     NOT NULL,
-  FOREIGN KEY ( restaurant_id ) REFERENCES restaurants (id)
-    ON DELETE CASCADE
-);
-CREATE INDEX meals_unique_name_idx
-  ON meals (restaurant_id, name)

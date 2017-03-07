@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/datatables/1.10.13/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="webjars/datetimepicker/2.5.4/jquery.datetimepicker.css">
-    <link rel="shortcut icon" href="resources/images/icon-meal.png">
+    <link rel="shortcut icon" href="resources/images/icon-dish.png">
 
     <!--http://stackoverflow.com/a/24070373/548473-->
     <script type="text/javascript" src="webjars/jquery/3.1.1-1/jquery.min.js"></script>

@@ -1,72 +1,74 @@
 package ru.fatvinyl.votesystem.model;
 
-import org.hibernate.validator.constraints.Range;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author Anton Yolgin
  */
 
 @NamedQueries({
-        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.mealList m WHERE m.date=:date ORDER BY r.name"),
+        @NamedQuery(name = Restaurant.ALL_BY_DATE, query = "SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishList m WHERE m.date=:date ORDER BY r.name"),
+        @NamedQuery(name = Restaurant.ALL, query = "SELECT r FROM Restaurant r ORDER BY r.name"),
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id"),
-        @NamedQuery(name = Restaurant.GET, query = "SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.mealList m WHERE r.id=:id AND m.date=:mealdate")
+        @NamedQuery(name = Restaurant.GET, query = "SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishList m WHERE r.id=:id AND m.date=:mealdate")
 })
 
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends NamedEntity {
-    public static final String ALL_SORTED = "Restaurant.getAll";
+    public static final String ALL_BY_DATE = "Restaurant.getAllByDate";
+    public static final String ALL = "Restaurant.getAll";
     public static final String DELETE = "Restaurant.delete";
-    public static final String GET = "Restaurant.get";
+    public static final String GET = "Restaurant.getByMealDate";
 
-    @Column(name = "amount_votes", nullable = false)
-    @NotNull
-    private Integer amountVotes;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("name")
-    private List<Meal> mealList;
+    private List<Dish> dishList;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    private Vote vote;
 
     public Restaurant() {
     }
 
-    public Restaurant(Integer id, String name, Integer amountVotes, Meal...meals) {
+    public Restaurant(Integer id, String name, Dish... dishes) {
         this.id = id;
         this.name = name;
-        this.amountVotes = amountVotes;
-        this.mealList = Arrays.asList(meals);
+        this.dishList = Arrays.asList(dishes);
+    }
+    public Restaurant(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+        this.dishList = new ArrayList<>();
     }
 
-    public Integer getAmountVotes() {
-        return amountVotes;
+    public List<Dish> getDishList() {
+        return dishList;
     }
 
-    public void setAmountVotes(Integer amount_votes) {
-        this.amountVotes = amount_votes;
+    public void setDishList(List<Dish> dishList) {
+        this.dishList = dishList;
     }
 
-    public List<Meal> getmealList() {
-        return mealList;
+    public Vote getVote() {
+        return vote;
     }
 
-    public void setmealList(List<Meal> mealList) {
-        this.mealList = mealList;
+    public void setVote(Vote vote) {
+        this.vote = vote;
     }
 
     @Override
     public String toString() {
         return "Restaurant{" +
                 "id=" + getId() +
-                ", name=" + name +
-                ", amount_votes=" + amountVotes +
-                ", mealList=" + mealList  +
+                ", name=" + getName() +
+                ", dishList=" + dishList +
                 "} ";
     }
 }

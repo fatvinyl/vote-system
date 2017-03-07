@@ -32,8 +32,8 @@
                         <tr>
                             <td>${restaurant.name}</td>
                             <td>
-                                <c:forEach items="${restaurant.getmealList()}" var="meal">
-                                    ${meal.name}... ${meal.price}р<br />
+                                <c:forEach items="${restaurant.getmealList()}" var="dish">
+                                    ${dish.name}... ${dish.price}р<br />
                                 </c:forEach>
                             </td>
                             <td>${restaurant.amountVotes}</td>

@@ -5,7 +5,7 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <a href="meals" class="navbar-brand">Vote System</a>
+        <a href="dishes" class="navbar-brand">Vote System</a>
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  * @author Anton Yolgin
  */
-public class MealRepositoryImplTest extends AbstractRepositoryTest{
+public class DishRepositoryImplTest extends AbstractRepositoryTest{
     @Test
     public void testSave() throws Exception {
 

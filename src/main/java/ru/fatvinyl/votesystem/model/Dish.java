@@ -3,32 +3,30 @@ package ru.fatvinyl.votesystem.model;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.fatvinyl.votesystem.util.DateTimeUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 /**
  * @author Anton Yolgin
  */
 
-
+@SuppressWarnings("JpaQlInspection")
 @NamedQueries({
-        @NamedQuery(name = Meal.GET, query = "SELECT m FROM Meal m WHERE m.id=:id"),
-        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id")
+        @NamedQuery(name = Dish.GET, query = "SELECT m FROM Dish m WHERE m.id=:id"),
+        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish m WHERE m.id=:id")
 })
 
 @Entity
 @Table(name = "meals")
-public class Meal extends NamedEntity {
+public class Dish extends NamedEntity {
 
-    public static final String GET = "Meal.get";
-    public static final String DELETE = "Meal.delete";
+    public static final String GET = "Dish.getByMealDate";
+    public static final String DELETE = "Dish.delete";
 
     @Column(name = "price", nullable = false)
     @NotBlank
@@ -45,10 +43,10 @@ public class Meal extends NamedEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    public Meal() {
+    public Dish() {
     }
 
-    public Meal(Integer id, String name, String price, LocalDate date) {
+    public Dish(Integer id, String name, String price, LocalDate date) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -81,7 +79,7 @@ public class Meal extends NamedEntity {
 
     @Override
     public String toString() {
-        return "Meal{" +
+        return "Dish{" +
                 "id=" + getId() +
                 ", name=" + name +
                 ", price='" + price +

@@ -11,9 +11,11 @@ import java.util.List;
 
 public interface RestaurantRepository {
 
-    List<Restaurant> getAll(LocalDate date);
+    List<Restaurant> getAllByDate(LocalDate date);
 
-    Restaurant get(int id, LocalDate mealDate);
+    List<Restaurant> getAll();
+
+    Restaurant getByMealDate(int id, LocalDate mealDate);
 
     Restaurant save(Restaurant restaurant);
 

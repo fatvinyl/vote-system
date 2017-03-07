@@ -23,15 +23,22 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     private EntityManager em;
 
     @Override
-    public List<Restaurant> getAll(LocalDate date) {
+    public List<Restaurant> getAllByDate(LocalDate date) {
 
-        return em.createNamedQuery(Restaurant.ALL_SORTED, Restaurant.class)
+        return em.createNamedQuery(Restaurant.ALL_BY_DATE, Restaurant.class)
                 .setParameter("date", date)
                 .getResultList();
     }
 
     @Override
-    public Restaurant get(int id, LocalDate mealdate) {
+    public List<Restaurant> getAll() {
+        return em.createNamedQuery(Restaurant.ALL, Restaurant.class)
+                .getResultList();
+    }
+
+
+    @Override
+    public Restaurant getByMealDate(int id, LocalDate mealdate) {
         List<Restaurant> restaurants = em.createNamedQuery(Restaurant.GET, Restaurant.class)
                 .setParameter("id", id)
                 .setParameter("mealdate", mealdate)
