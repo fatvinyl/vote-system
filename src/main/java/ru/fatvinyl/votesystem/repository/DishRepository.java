@@ -2,6 +2,9 @@ package ru.fatvinyl.votesystem.repository;
 
 import ru.fatvinyl.votesystem.model.Dish;
 
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  *
  *
@@ -14,5 +17,7 @@ public interface DishRepository {
     boolean delete(int id);
 
     Dish get(int id);
+
+    List<Dish> getAllByDate(LocalDate date, int restaurantId);
 
 }

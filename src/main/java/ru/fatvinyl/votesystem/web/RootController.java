@@ -27,7 +27,7 @@ public class RootController {
 
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
     public String users(Model model) {
-        model.addAttribute("restaurants", service.getAllByDate(LocalDate.now()));
+        model.addAttribute("restaurants", service.getAllWIthVotesAndDishes(LocalDate.now()));
         return "restaurants";
     }
 

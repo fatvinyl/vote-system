@@ -23,9 +23,9 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     private EntityManager em;
 
     @Override
-    public List<Restaurant> getAllByDate(LocalDate date) {
+    public List<Restaurant> getAllWIthVotesAndDishes(LocalDate date) {
 
-        return em.createNamedQuery(Restaurant.ALL_BY_DATE, Restaurant.class)
+        return em.createNamedQuery(Restaurant.ALL_WITH_VOTES_AND_DISHES, Restaurant.class)
                 .setParameter("date", date)
                 .getResultList();
     }
@@ -38,10 +38,10 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
 
     @Override
-    public Restaurant getByMealDate(int id, LocalDate mealdate) {
+    public Restaurant getByMealDate(int id, LocalDate date) {
         List<Restaurant> restaurants = em.createNamedQuery(Restaurant.GET, Restaurant.class)
                 .setParameter("id", id)
-                .setParameter("mealdate", mealdate)
+                .setParameter("date", date)
                 .getResultList();
         return DataAccessUtils.singleResult(restaurants);
     }

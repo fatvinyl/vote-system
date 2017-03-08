@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface RestaurantRepository {
 
-    List<Restaurant> getAllByDate(LocalDate date);
+    List<Restaurant> getAllWIthVotesAndDishes(LocalDate date);
 
     List<Restaurant> getAll();
 

@@ -17,16 +17,19 @@ import java.time.LocalDate;
 
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
-        @NamedQuery(name = Dish.GET, query = "SELECT m FROM Dish m WHERE m.id=:id"),
-        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish m WHERE m.id=:id")
+        @NamedQuery(name = Dish.GET, query = "SELECT d FROM Dish d WHERE d.id=:id"),
+        @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id"),
+        @NamedQuery(name = Dish.GET_ALL_BY_DATE, query = "SELECT d FROM Dish d WHERE d.date=:date " +
+                "AND d.restaurant.id=:restaurantId ORDER BY d.name")
 })
 
 @Entity
-@Table(name = "meals")
+@Table(name = "dishes")
 public class Dish extends NamedEntity {
 
-    public static final String GET = "Dish.getByMealDate";
+    public static final String GET = "Dish.get";
     public static final String DELETE = "Dish.delete";
+    public static final String GET_ALL_BY_DATE = "Dish.getAllByDate";
 
     @Column(name = "price", nullable = false)
     @NotBlank
@@ -46,12 +49,14 @@ public class Dish extends NamedEntity {
     public Dish() {
     }
 
+    //The constructor is used to create test objects
     public Dish(Integer id, String name, String price, LocalDate date) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.date = date;
     }
+
 
     public String getPrice() {
         return price;
@@ -84,7 +89,6 @@ public class Dish extends NamedEntity {
                 ", name=" + name +
                 ", price='" + price +
                 ", date=" + date +
-//                ", restaurant=" + restaurant +
                 "}";
     }
 }

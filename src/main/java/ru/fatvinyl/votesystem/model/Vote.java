@@ -14,15 +14,29 @@ import java.time.LocalDate;
  * @author Anton Yolgin
  */
 
+@NamedQueries({
+        @NamedQuery(name = Vote.INCREMENT, query = "UPDATE Vote v SET v.amount=v.amount+1 " +
+                "WHERE v.date=:date AND v.restaurant.id=:restaurantId"),
+        @NamedQuery(name = Vote.DECREMENT, query = "UPDATE Vote v SET v.amount=v.amount-1"+
+                "WHERE v.date=:date AND v.restaurant.id=:restaurantId"),
+        @NamedQuery(name = Vote.GET, query = "SELECT v FROM Vote v WHERE v.id=:id")
+})
+
+
 @Entity
 @Table(name = "votes")
-public class Vote extends BaseEntity{
+public class Vote extends BaseEntity {
+
+    public static final String INCREMENT = "Vote.increment";
+    public static final String DECREMENT = "Vote.decrement";
+    public static final String GET = "Vote.get";
 
     @Column(name = "amount")
     @NotNull
     private Integer amount;
 
     @Column(name = "date")
+    @NotNull
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate date;
 
@@ -32,6 +46,23 @@ public class Vote extends BaseEntity{
     private Restaurant restaurant;
 
     public Vote() {
+    }
+
+    public Vote(Integer amount, Integer restaurantId) {
+        this(null, amount, LocalDate.now(), restaurantId);
+    }
+
+    //The constructor is used to create test objects
+    public Vote(Integer id, Integer amount, LocalDate date) {
+        this(id, amount, date, null);
+    }
+
+    public Vote(Integer id, Integer amount, LocalDate date, Integer restaurantId) {
+        this.id = id;
+        this.amount = amount;
+        this.date = date;
+        this.restaurant = new Restaurant();
+        this.restaurant.setId(restaurantId);
     }
 
     public Integer getAmount() {
@@ -62,9 +93,8 @@ public class Vote extends BaseEntity{
     public String toString() {
         return "Vote{" +
                 "id=" + getId() +
-                "amount=" + amount +
+                ", amount=" + amount +
                 ", date=" + date +
-                ", restaurant=" + restaurant +
                 '}';
     }
 }

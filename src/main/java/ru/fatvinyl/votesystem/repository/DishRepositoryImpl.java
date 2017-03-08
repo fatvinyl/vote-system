@@ -8,6 +8,7 @@ import ru.fatvinyl.votesystem.model.Restaurant;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class DishRepositoryImpl implements DishRepository {
     @Transactional
     @Override
     public boolean delete(int id) {
-        return em.createNamedQuery(Dish.GET)
+        return em.createNamedQuery(Dish.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
     }
@@ -50,6 +51,14 @@ public class DishRepositoryImpl implements DishRepository {
                 .setParameter("id", id)
                 .getResultList();
         return DataAccessUtils.singleResult(dishes);
+    }
+
+    @Override
+    public List<Dish> getAllByDate(LocalDate date, int restaurantId) {
+        return em.createNamedQuery(Dish.GET_ALL_BY_DATE, Dish.class)
+                .setParameter("date", date)
+                .setParameter("restaurantId", restaurantId)
+                .getResultList();
     }
 
 }
