@@ -2,12 +2,13 @@ DROP TABLE user_roles
 IF EXISTS;
 DROP TABLE dishes
 IF EXISTS;
+DROP TABLE users
+IF EXISTS;
 DROP TABLE votes
 IF EXISTS;
 DROP TABLE restaurants
 IF EXISTS;
-DROP TABLE users
-IF EXISTS;
+
 
 CREATE TABLE restaurants
 (
@@ -18,9 +19,9 @@ CREATE TABLE restaurants
 CREATE TABLE votes
 (
   id            INTEGER IDENTITY PRIMARY KEY,
-  amount        INTEGER   DEFAULT 0,
-  date          DATE DEFAULT now(),
-  restaurant_id INTEGER   NOT NULL,
+  amount        INTEGER DEFAULT 0,
+  date          DATE    DEFAULT now(),
+  restaurant_id INTEGER NOT NULL,
   FOREIGN KEY (restaurant_id ) REFERENCES restaurants (id)
     ON DELETE CASCADE
 );
@@ -41,13 +42,14 @@ CREATE INDEX meals_unique_name_idx
 
 CREATE TABLE users
 (
-  id         INTEGER IDENTITY PRIMARY KEY,
-  name       VARCHAR(30) NOT NULL,
-  email      VARCHAR(50) NOT NULL,
-  password   VARCHAR(50) NOT NULL,
-  registered TIMESTAMP DEFAULT now(),
-  enabled    BOOLEAN   DEFAULT TRUE,
-  vote_id    INTEGER   DEFAULT NULL
+  id            INTEGER IDENTITY PRIMARY KEY,
+  name          VARCHAR(30) NOT NULL,
+  email         VARCHAR(50) NOT NULL,
+  password      VARCHAR(50) NOT NULL,
+  registered    TIMESTAMP DEFAULT now(),
+  enabled       BOOLEAN   DEFAULT TRUE,
+  vote_id INTEGER   DEFAULT NULL,
+  FOREIGN KEY (vote_id) REFERENCES votes (id)
 );
 CREATE UNIQUE INDEX users_unique_email_idx
   ON users (email);

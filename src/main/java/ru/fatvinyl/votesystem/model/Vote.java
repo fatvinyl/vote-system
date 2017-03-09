@@ -16,9 +16,9 @@ import java.time.LocalDate;
 
 @NamedQueries({
         @NamedQuery(name = Vote.INCREMENT, query = "UPDATE Vote v SET v.amount=v.amount+1 " +
-                "WHERE v.date=:date AND v.restaurant.id=:restaurantId"),
+                "WHERE v.id=:voteId"),
         @NamedQuery(name = Vote.DECREMENT, query = "UPDATE Vote v SET v.amount=v.amount-1"+
-                "WHERE v.date=:date AND v.restaurant.id=:restaurantId"),
+                "WHERE v.id=:voteId"),
         @NamedQuery(name = Vote.GET, query = "SELECT v FROM Vote v WHERE v.id=:id")
 })
 

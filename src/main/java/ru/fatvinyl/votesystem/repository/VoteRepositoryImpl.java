@@ -3,6 +3,7 @@ package ru.fatvinyl.votesystem.repository;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.fatvinyl.votesystem.model.User;
 import ru.fatvinyl.votesystem.model.Vote;
 
 import javax.persistence.EntityManager;
@@ -21,27 +22,35 @@ public class VoteRepositoryImpl implements VoteRepository{
    @PersistenceContext
     public EntityManager em;
 
+
     @Override
-    public Vote create(int restaurantId) {
+    public Vote create(int restaurantId, int userId) {
         Vote created = new Vote(1, restaurantId);
         em.persist(created);
-       return created;
+        User userRef = em.getReference(User.class, userId);
+        userRef.setVote(created);
+        em.merge(userRef);
+        return created;
     }
 
-
     @Override
-    public boolean increment(LocalDate date, int restaurantId) {
+    public boolean update(int voteId, int userId) {
+        Vote voteRef = em.getReference(Vote.class, voteId);
+        User userRef = em.getReference(User.class, userId);
+        userRef.setVote(voteRef);
+        em.merge(userRef);
         return  em.createNamedQuery(Vote.INCREMENT)
-                .setParameter("restaurantId", restaurantId)
-                .setParameter("date", date)
+                .setParameter("voteId", voteId)
                 .executeUpdate()!=0;
     }
 
     @Override
-    public boolean decrement(LocalDate date, int restaurantId) {
+    public boolean delete(int voteId, int userId) {
+        User userRef = em.getReference(User.class, userId);
+        userRef.setVote(null);
+        em.merge(userRef);
         return  em.createNamedQuery(Vote.DECREMENT)
-                .setParameter("restaurantId", restaurantId)
-                .setParameter("date", date)
+                .setParameter("voteId", voteId)
                 .executeUpdate()!=0;
     }
 
