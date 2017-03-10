@@ -17,7 +17,6 @@ import java.time.LocalDate;
 
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
-        @NamedQuery(name = Dish.GET, query = "SELECT d FROM Dish d WHERE d.id=:id"),
         @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id"),
         @NamedQuery(name = Dish.GET_ALL_BY_DATE, query = "SELECT d FROM Dish d WHERE d.date=:date " +
                 "AND d.restaurant.id=:restaurantId ORDER BY d.name")
@@ -27,7 +26,6 @@ import java.time.LocalDate;
 @Table(name = "dishes")
 public class Dish extends NamedEntity {
 
-    public static final String GET = "Dish.get";
     public static final String DELETE = "Dish.delete";
     public static final String GET_ALL_BY_DATE = "Dish.getAllByDate";
 

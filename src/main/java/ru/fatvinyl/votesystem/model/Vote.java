@@ -19,7 +19,6 @@ import java.time.LocalDate;
                 "WHERE v.id=:voteId"),
         @NamedQuery(name = Vote.DECREMENT, query = "UPDATE Vote v SET v.amount=v.amount-1"+
                 "WHERE v.id=:voteId"),
-        @NamedQuery(name = Vote.GET, query = "SELECT v FROM Vote v WHERE v.id=:id")
 })
 
 
@@ -29,7 +28,6 @@ public class Vote extends BaseEntity {
 
     public static final String INCREMENT = "Vote.increment";
     public static final String DECREMENT = "Vote.decrement";
-    public static final String GET = "Vote.get";
 
     @Column(name = "amount")
     @NotNull

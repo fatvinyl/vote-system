@@ -47,10 +47,7 @@ public class DishRepositoryImpl implements DishRepository {
 
     @Override
     public Dish get(int id) {
-        List<Dish> dishes = em.createNamedQuery(Dish.GET, Dish.class)
-                .setParameter("id", id)
-                .getResultList();
-        return DataAccessUtils.singleResult(dishes);
+        return em.find(Dish.class, id);
     }
 
     @Override

@@ -54,12 +54,11 @@ public class VoteRepositoryImpl implements VoteRepository{
                 .executeUpdate()!=0;
     }
 
+
     @Override
     public Vote get(int id) {
-        List<Vote> vote = em.createNamedQuery(Vote.GET, Vote.class)
-                .setParameter("id", id)
-                .getResultList();
-        return DataAccessUtils.singleResult(vote);
+        return em.find(Vote.class, id);
     }
+
 
 }

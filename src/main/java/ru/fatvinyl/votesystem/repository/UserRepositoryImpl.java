@@ -1,9 +1,9 @@
 package ru.fatvinyl.votesystem.repository;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.fatvinyl.votesystem.model.User;
-import ru.fatvinyl.votesystem.model.Vote;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,35 +13,53 @@ import java.util.List;
  * @author Anton Yolgin
  */
 
+
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+@Transactional(readOnly = true)
+public class UserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
     public EntityManager em;
 
+    @Transactional
     @Override
     public User save(User user) {
-        return null;
+        if (user.isNew()) {
+            em.persist(user);
+            return user;
+        } else {
+            return em.merge(user);
+        }
     }
 
+    @Transactional
     @Override
     public boolean delete(int id) {
-        return false;
+        return em.createNamedQuery(User.DELETE)
+                .setParameter("id", id)
+                .executeUpdate() != 0;
     }
 
     @Override
     public User get(int id) {
-        return null;
+        List<User> users = em.createNamedQuery(User.GET, User.class)
+                .setParameter("id", id)
+                .getResultList();
+        return DataAccessUtils.singleResult(users);
     }
 
     @Override
     public User getByEmail(String email) {
-        return null;
+        List<User> users = em.createNamedQuery(User.BY_EMAIL, User.class)
+                .setParameter("email", email)
+                .getResultList();
+        return DataAccessUtils.singleResult(users);
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        return em.createNamedQuery(User.ALL_SORTED, User.class)
+                .getResultList();
     }
 
 
