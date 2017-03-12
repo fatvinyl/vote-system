@@ -21,12 +21,12 @@ public class RestaurantTestData {
 
     public static final ModelMatcher<Restaurant> RESTAURANT_MATCHER = ModelMatcher.of(Restaurant.class);
 
-    public static final int RESTAURANT1_ID = 0;
-    public static final int RESTAURANT_CREATED_ID = 3;
+    public static final int RESTAURANT1_ID = 1;
+    public static final int RESTAURANT_CREATED_ID = 4;
 
     public static final Restaurant RESTAURANT1 = new Restaurant(RESTAURANT1_ID, "Шашлыкофф", VOTE1,  DISH_1, DISH_2);
-    public static final Restaurant RESTAURANT2 = new Restaurant(1, "Макдоналдс", VOTE2, DISH_3, DISH_4);
-    public static final Restaurant RESTAURANT3 = new Restaurant(2, "Лаундж", VOTE3, DISH_5, DISH_6);
+    public static final Restaurant RESTAURANT2 = new Restaurant(2, "Макдоналдс", VOTE2, DISH_3, DISH_4);
+    public static final Restaurant RESTAURANT3 = new Restaurant(3, "Лаундж", VOTE3, DISH_5, DISH_6);
 
     public static final List<Restaurant> RESTAURANTS = Arrays.asList(RESTAURANT3, RESTAURANT2, RESTAURANT1);
 

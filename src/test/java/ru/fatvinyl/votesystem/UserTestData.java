@@ -15,9 +15,9 @@ import java.util.Objects;
 public class UserTestData {
     private static final Logger LOG = LoggerFactory.getLogger(UserTestData.class);
 
-    public static final int ADMIN_ID = 0;
-    public static final int USER_ID1 = 1;
-    public static final int USER_ID2 = 2;
+    public static final int ADMIN_ID = 1;
+    public static final int USER_ID1 = 2;
+    public static final int USER_ID2 = 3;
 
     public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@mail.com", "admin", Role.ROLE_USER, Role.ROLE_ADMIN);
     public static final User USER1 = new User(USER_ID1, "User_1", "user1@mail.com", "password_1", Role.ROLE_USER);

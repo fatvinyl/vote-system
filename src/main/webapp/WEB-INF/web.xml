@@ -4,6 +4,7 @@
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <display-name>VoteSystem</display-name>
+
     <!--<filter>-->
         <!--<filter-name>springSecurityFilterChain</filter-name>-->
         <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->

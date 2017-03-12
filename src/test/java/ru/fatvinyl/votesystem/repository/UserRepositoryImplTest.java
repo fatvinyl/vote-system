@@ -2,6 +2,7 @@ package ru.fatvinyl.votesystem.repository;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import ru.fatvinyl.votesystem.model.Role;
 import ru.fatvinyl.votesystem.model.User;
 
@@ -26,6 +27,11 @@ public class UserRepositoryImplTest extends AbstractRepositoryTest {
         User created = repository.save(newUser);
         newUser.setId(created.getId());
         USER_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, newUser, USER1, USER2), repository.getAll());
+    }
+
+    @Test(expected = DataAccessException.class)
+    public void testDuplicateMailSave() throws Exception {
+        repository.save(new User(null, "Duplicate", "user1@mail.com", "newPass", Role.ROLE_USER));
     }
 
     @Test

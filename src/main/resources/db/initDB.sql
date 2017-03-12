@@ -1,24 +1,24 @@
-DROP TABLE user_roles
-IF EXISTS;
-DROP TABLE dishes
-IF EXISTS;
-DROP TABLE users
-IF EXISTS;
-DROP TABLE votes
-IF EXISTS;
-DROP TABLE restaurants
-IF EXISTS;
+DROP TABLE
+IF EXISTS user_roles;
+DROP TABLE
+IF EXISTS dishes;
+DROP TABLE
+IF EXISTS users;
+DROP TABLE
+IF EXISTS  votes;
+DROP TABLE
+IF EXISTS restaurants;
 
 
 CREATE TABLE restaurants
 (
-  id   INTEGER IDENTITY PRIMARY KEY,
+  id  SERIAL PRIMARY KEY UNIQUE,
   name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE votes
 (
-  id            INTEGER IDENTITY PRIMARY KEY,
+  id            SERIAL PRIMARY KEY,
   amount        INTEGER DEFAULT 0,
   date          DATE    DEFAULT now(),
   restaurant_id INTEGER NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE votes
 
 CREATE TABLE dishes
 (
-  id            INTEGER IDENTITY PRIMARY KEY,
+  id            SERIAL PRIMARY KEY,
   name          VARCHAR(50) NOT NULL,
   price         VARCHAR(8)  NOT NULL,
   date          DATE DEFAULT now(),
@@ -42,7 +42,7 @@ CREATE INDEX meals_unique_name_idx
 
 CREATE TABLE users
 (
-  id            INTEGER IDENTITY PRIMARY KEY,
+  id            SERIAL PRIMARY KEY,
   name          VARCHAR(30) NOT NULL,
   email         VARCHAR(50) NOT NULL,
   password      VARCHAR(50) NOT NULL,
