@@ -50,7 +50,7 @@ public class RestaurantRepositoryImplTest extends AbstractRepositoryTest {
 
 //    @Test
 //    public void testGetByMealDate() throws Exception {
-//        Restaurant actual = repository.getByMealDate(RESTAURANT1_ID, TEST_DATE);
+//        Restaurant actual = repository.getByDate(RESTAURANT1_ID, TEST_DATE);
 //        RESTAURANT_MATCHER.assertEquals(RESTAURANT1, actual);
 //    }
 

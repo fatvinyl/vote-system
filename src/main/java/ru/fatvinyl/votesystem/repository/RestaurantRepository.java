@@ -15,7 +15,7 @@ public interface RestaurantRepository {
 
     List<Restaurant> getAll();
 
-    Restaurant getByMealDate(int id, LocalDate mealDate);
+    Restaurant getByDate(int id, LocalDate mealDate);
 
     Restaurant save(Restaurant restaurant);
 

@@ -23,7 +23,7 @@ public class Restaurant extends NamedEntity {
     public static final String ALL_WITH_VOTES_AND_DISHES = "Restaurant.getAllWIthVotesAndDishes";
     public static final String ALL = "Restaurant.getAll";
     public static final String DELETE = "Restaurant.delete";
-    public static final String GET = "Restaurant.getByMealDate";
+    public static final String GET = "Restaurant.getByDate";
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")

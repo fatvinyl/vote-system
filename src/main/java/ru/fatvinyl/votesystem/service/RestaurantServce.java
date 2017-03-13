@@ -13,10 +13,13 @@ public interface RestaurantServce {
 
     List<Restaurant> getAllWIthVotesAndDishes(LocalDate date);
 
-    Restaurant get(int id, LocalDate mealDate);
+    List<Restaurant> getAll();
+
+    Restaurant getByDate(int id, LocalDate mealDate);
+
+    Restaurant update(Restaurant restaurant);
 
     Restaurant save(Restaurant restaurant);
 
-    boolean delete(int id);
-
+    void delete(int id);
 }

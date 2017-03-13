@@ -38,7 +38,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
 
     @Override
-    public Restaurant getByMealDate(int id, LocalDate date) {
+    public Restaurant getByDate(int id, LocalDate date) {
         List<Restaurant> restaurants = em.createNamedQuery(Restaurant.GET, Restaurant.class)
                 .setParameter("id", id)
                 .setParameter("date", date)
