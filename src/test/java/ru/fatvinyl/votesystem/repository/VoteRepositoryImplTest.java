@@ -17,14 +17,14 @@ public class VoteRepositoryImplTest extends AbstractRepositoryTest {
     public VoteRepository repository;
 
     @Test
-    public void create() throws Exception {
-        Vote actual = repository.create(RESTAURANT1_ID, 1);
+    public void testSave() throws Exception {
+        Vote actual = repository.save(RESTAURANT1_ID, 1);
         VOTE_MATCHER.assertEquals(VOTE_EXPECTED, actual);
         //add users matcher
     }
 
     @Test
-    public void increment() throws Exception {
+    public void testIncrement() throws Exception {
         repository.update(VOTE_ID_CREATED, 2);
         Vote expected = getIncremented();
         Vote actual = repository.get(VOTE_ID_CREATED);
@@ -33,7 +33,7 @@ public class VoteRepositoryImplTest extends AbstractRepositoryTest {
     }
 
     @Test
-    public void decrement() throws Exception {
+    public void testDecrement() throws Exception {
         repository.delete(VOTE_ID_CREATED, 2);
         Vote actual = repository.get(VOTE_ID_CREATED);
         VOTE_MATCHER.assertEquals(VOTE_EXPECTED, actual);
