@@ -10,8 +10,7 @@ import java.time.LocalDate;
 
 public interface VoteRepository {
 
-//    Vote create(int restaurantId);
-    Vote create(int restaurantId, int userId);
+    Vote save(int restaurantId, int userId);
 
     boolean update(int voteId, int userId);
 

@@ -24,7 +24,7 @@ public class VoteRepositoryImpl implements VoteRepository{
 
 
     @Override
-    public Vote create(int restaurantId, int userId) {
+    public Vote save(int restaurantId, int userId) {
         Vote created = new Vote(1, restaurantId);
         em.persist(created);
         User userRef = em.getReference(User.class, userId);

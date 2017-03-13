@@ -1,6 +1,7 @@
 package ru.fatvinyl.votesystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.fatvinyl.votesystem.model.User;
 import ru.fatvinyl.votesystem.repository.UserRepository;
@@ -15,6 +16,7 @@ import static ru.fatvinyl.votesystem.util.ValidationUtil.checkNotFoundWithId;
  * @author Anton Yolgin
  */
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
