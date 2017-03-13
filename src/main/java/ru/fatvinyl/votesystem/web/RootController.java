@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.fatvinyl.votesystem.service.RestaurantServce;
+import ru.fatvinyl.votesystem.service.RestaurantService;
 
 import java.time.LocalDate;
 
@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class RootController {
 
     @Autowired
-    private RestaurantServce service;
+    private RestaurantService service;
 
     @GetMapping("/")
     public String root() {

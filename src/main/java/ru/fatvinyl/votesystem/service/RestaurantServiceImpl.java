@@ -16,7 +16,7 @@ import static ru.fatvinyl.votesystem.util.ValidationUtil.checkNotFoundWithId;
  */
 
 @Service
-public class RestaurantServceImpl implements RestaurantServce {
+public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private RestaurantRepository repository;

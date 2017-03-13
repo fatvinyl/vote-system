@@ -9,7 +9,7 @@ import java.util.List;
  * @author Anton Yolgin
  */
 
-public interface RestaurantServce {
+public interface RestaurantService {
 
     List<Restaurant> getAllWIthVotesAndDishes(LocalDate date);
 
