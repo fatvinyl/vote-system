@@ -35,9 +35,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Restaurant getByDate(int id, LocalDate mealDate) {
-        Assert.notNull(mealDate, "mealDate must not be null");
-        return repository.getByDate(id, mealDate);
+    public Restaurant getByDate(int id, LocalDate date) {
+        Assert.notNull(date, "mealDate must not be null");
+        return repository.getByDate(id, date);
     }
 
     @Override

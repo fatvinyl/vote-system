@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.fatvinyl.votesystem.AuthorizedUser;
 import ru.fatvinyl.votesystem.service.RestaurantService;
 
 import java.time.LocalDate;
@@ -28,6 +29,7 @@ public class RootController {
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
     public String users(Model model) {
         model.addAttribute("restaurants", service.getAllWIthDishesAndVotes(LocalDate.now()));
+        model.addAttribute("voteId", 4);
         return "restaurants";
     }
 

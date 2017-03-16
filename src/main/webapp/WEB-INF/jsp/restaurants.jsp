@@ -11,13 +11,9 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h3>Vote System</h3>
-
+            <c:if test="${voteId != null}"><h3> Вы проголосовали за ресторан 4<h3></c:if>
+            
             <div class="view-box">
-                <a class="btn btn-sm btn-info">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </a>
-
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -33,15 +29,12 @@
                             <td>${restaurant.name}</td>
                             <td>
                                 <c:forEach items="${restaurant.menu}" var="dish">
-                                    ${dish.name}... ${dish.price}р<br />
+                                   ${dish.name}..............${dish.price}р <br />
                                 </c:forEach>
                             </td>
                             <td>${restaurant.amountVotes}</td>
-                            <td><a class="btn btn-xs btn-primary">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a></td>
-                            <td><a class="btn btn-xs btn-danger">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            <td><a class="container">
+                                <span class="btn btn-success" aria-hidden="true">Vote</span>
                             </a></td>
                         </tr>
                     </c:forEach>

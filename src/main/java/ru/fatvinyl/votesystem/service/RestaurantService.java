@@ -16,7 +16,7 @@ public interface RestaurantService {
 
     List<Restaurant> getAll();
 
-    Restaurant getByDate(int id, LocalDate mealDate);
+    Restaurant getByDate(int id, LocalDate date);
 
     Restaurant update(Restaurant restaurant);
 
