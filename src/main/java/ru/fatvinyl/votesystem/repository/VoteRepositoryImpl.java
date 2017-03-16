@@ -60,5 +60,12 @@ public class VoteRepositoryImpl implements VoteRepository{
         return em.find(Vote.class, id);
     }
 
+    @Override
+    public List<Vote> getAllByDate(LocalDate date) {
+        return em.createNamedQuery(Vote.ALL_BY_DATE, Vote.class)
+                .setParameter("date", date)
+                .getResultList();
+    }
+
 
 }

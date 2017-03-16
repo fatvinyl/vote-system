@@ -1,6 +1,8 @@
 package ru.fatvinyl.votesystem.repository;
 
 import ru.fatvinyl.votesystem.model.Restaurant;
+import ru.fatvinyl.votesystem.to.RestaurantWithVote;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,7 +13,9 @@ import java.util.List;
 
 public interface RestaurantRepository {
 
-    List<Restaurant> getAllWIthVotesAndDishes(LocalDate date);
+    List<Restaurant> getAllWIthDishes(LocalDate date);
+
+    List<RestaurantWithVote> getAllWIthDishesAndVotes(LocalDate date);
 
     List<Restaurant> getAll();
 

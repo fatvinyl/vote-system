@@ -3,14 +3,16 @@ package ru.fatvinyl.votesystem.repository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.fatvinyl.votesystem.model.Restaurant;
+import ru.fatvinyl.votesystem.to.RestaurantWithVote;
 
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import static ru.fatvinyl.votesystem.DishTestData.TEST_DATE;
 import static ru.fatvinyl.votesystem.RestaurantTestData.*;
+import static ru.fatvinyl.votesystem.VoteTestData.VOTES;
+import static ru.fatvinyl.votesystem.util.RestaurantUtil.getWithVote;
 
 /**
  * @author Anton Yolgin
@@ -38,9 +40,16 @@ public class RestaurantRepositoryImplTest extends AbstractRepositoryTest {
     }
 
     @Test
-    public void testGetAllWithVotesAndDishes() throws Exception {
-        Collection<Restaurant> actual = repository.getAllWIthVotesAndDishes(TEST_DATE);
+    public void testGetAllWithDishes() throws Exception {
+        List<Restaurant> actual = repository.getAllWIthDishes(TEST_DATE);
+//        Collection<Restaurant> actual = repository.getAllWIthDishes(LocalDate.now());
         RESTAURANT_MATCHER.assertCollectionEquals(RESTAURANTS, actual);
+    }
+    @Test
+    public void testGetAllWithDishesAndVotes() throws Exception {
+        List<RestaurantWithVote> actual = repository.getAllWIthDishesAndVotes(TEST_DATE);
+        List<RestaurantWithVote> expected = getWithVote(RESTAURANTS, VOTES);
+        RESTAURANT_WITH_VOTE_MATCHER.assertCollectionEquals(actual, expected);
     }
 
     @Test

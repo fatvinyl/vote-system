@@ -15,9 +15,16 @@ public class RestaurantWithVote {
 
     private String name;
 
-    private List<Dish> dishList;
+    private List<Dish> menu;
 
     private Integer amountVotes;
+
+    public RestaurantWithVote(Integer id, String name, List<Dish> menu, Integer amountVotes) {
+        this.id = id;
+        this.name = name;
+        this.menu = menu;
+        this.amountVotes = amountVotes;
+    }
 
     public Integer getId() {
         return id;
@@ -35,12 +42,12 @@ public class RestaurantWithVote {
         this.name = name;
     }
 
-    public List<Dish> getDishList() {
-        return dishList;
+    public List<Dish> getMenu() {
+        return menu;
     }
 
-    public void setDishList(List<Dish> dishList) {
-        this.dishList = dishList;
+    public void setMenu(List<Dish> menu) {
+        this.menu = menu;
     }
 
     public Integer getAmountVotes() {
@@ -49,5 +56,15 @@ public class RestaurantWithVote {
 
     public void setAmountVotes(Integer amountVotes) {
         this.amountVotes = amountVotes;
+    }
+
+    @Override
+    public String toString() {
+        return "RestaurantWithVote{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", menu=" + menu +
+                ", amountVotes=" + amountVotes +
+                '}';
     }
 }

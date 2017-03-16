@@ -4,11 +4,15 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.fatvinyl.votesystem.model.Restaurant;
+import ru.fatvinyl.votesystem.model.Vote;
+import ru.fatvinyl.votesystem.to.RestaurantWithVote;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
+
+import static ru.fatvinyl.votesystem.util.RestaurantUtil.getWithVote;
 
 
 /**
@@ -23,11 +27,20 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     private EntityManager em;
 
     @Override
-    public List<Restaurant> getAllWIthVotesAndDishes(LocalDate date) {
+    public List<Restaurant> getAllWIthDishes(LocalDate date) {
 
-        return em.createNamedQuery(Restaurant.ALL_WITH_VOTES_AND_DISHES, Restaurant.class)
+        List<Restaurant> list = em.createNamedQuery(Restaurant.ALL_WITH_VOTES_AND_DISHES, Restaurant.class)
                 .setParameter("date", date)
                 .getResultList();
+        return list;
+    }
+
+    @Override
+    public List<RestaurantWithVote> getAllWIthDishesAndVotes(LocalDate date) {
+        List<Vote> votes = em.createNamedQuery(Vote.ALL_BY_DATE, Vote.class)
+                .setParameter("date", date)
+                .getResultList();
+        return getWithVote(getAllWIthDishes(date), votes);
     }
 
     @Override

@@ -1,8 +1,6 @@
 package ru.fatvinyl.votesystem.model;
 
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.fatvinyl.votesystem.util.DateTimeUtil;
 
@@ -14,11 +12,13 @@ import java.time.LocalDate;
  * @author Anton Yolgin
  */
 
+@SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = Vote.INCREMENT, query = "UPDATE Vote v SET v.amount=v.amount+1 " +
                 "WHERE v.id=:voteId"),
         @NamedQuery(name = Vote.DECREMENT, query = "UPDATE Vote v SET v.amount=v.amount-1"+
                 "WHERE v.id=:voteId"),
+        @NamedQuery(name = Vote.ALL_BY_DATE, query = "SELECT v FROM Vote v WHERE v.date=:date ORDER BY v.restaurant.id")
 })
 
 
@@ -28,6 +28,7 @@ public class Vote extends BaseEntity {
 
     public static final String INCREMENT = "Vote.increment";
     public static final String DECREMENT = "Vote.decrement";
+    public static final String ALL_BY_DATE = "Vote.getAllByDate";
 
     @Column(name = "amount")
     @NotNull
@@ -38,9 +39,9 @@ public class Vote extends BaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate date;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "restaurant_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
     public Vote() {
@@ -50,10 +51,6 @@ public class Vote extends BaseEntity {
         this(null, amount, LocalDate.now(), restaurantId);
     }
 
-    //The constructor is used to create test objects
-    public Vote(Integer id, Integer amount, LocalDate date) {
-        this(id, amount, date, null);
-    }
 
     public Vote(Integer id, Integer amount, LocalDate date, Integer restaurantId) {
         this.id = id;
@@ -93,6 +90,7 @@ public class Vote extends BaseEntity {
                 "id=" + getId() +
                 ", amount=" + amount +
                 ", date=" + date +
+                ", restaurant_id=" + restaurant.getId() +
                 '}';
     }
 }

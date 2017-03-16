@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.fatvinyl.votesystem.model.Restaurant;
 import ru.fatvinyl.votesystem.repository.RestaurantRepository;
+import ru.fatvinyl.votesystem.to.RestaurantWithVote;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,9 +24,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
-    public List<Restaurant> getAllWIthVotesAndDishes(LocalDate date) {
+    public List<RestaurantWithVote> getAllWIthDishesAndVotes(LocalDate date) {
         Assert.notNull(date, "date must not be null");
-        return repository.getAllWIthVotesAndDishes(date);
+        return repository.getAllWIthDishesAndVotes(date);
     }
 
     @Override

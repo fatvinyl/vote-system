@@ -39,3 +39,8 @@ INSERT INTO votes (amount, date, restaurant_id) VALUES
   (3, '2017-01-11', 1),
   (4, '2017-01-11', 2),
   (5, '2017-01-11', 3);
+
+INSERT INTO votes (amount, restaurant_id) VALUES
+  (0, 1),
+  (0, 2),
+  (0, 3);

@@ -28,11 +28,11 @@
                     </tr>
                     </thead>
                     <c:forEach items="${restaurants}" var="restaurant">
-                        <jsp:useBean id="restaurant" scope="page" type="ru.fatvinyl.votesystem.model.Restaurant"/>
+                        <jsp:useBean id="restaurant" scope="page" type="ru.fatvinyl.votesystem.to.RestaurantWithVote"/>
                         <tr>
                             <td>${restaurant.name}</td>
                             <td>
-                                <c:forEach items="${restaurant.getmealList()}" var="dish">
+                                <c:forEach items="${restaurant.menu}" var="dish">
                                     ${dish.name}... ${dish.price}р<br />
                                 </c:forEach>
                             </td>
