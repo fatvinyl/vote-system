@@ -29,9 +29,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) {
+    public void update(User user) {
         Assert.notNull(user, "user must not be null");
-        return repository.save(user);
+        repository.save(user);
     }
 
     @Override
