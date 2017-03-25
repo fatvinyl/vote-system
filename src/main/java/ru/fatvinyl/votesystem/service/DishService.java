@@ -19,6 +19,8 @@ public interface DishService {
 
     Dish get(int id);
 
+    Dish get(int id, int restaurantId);
+
     List<Dish> getAllByDate(LocalDate date, int restaurantId);
 
 }

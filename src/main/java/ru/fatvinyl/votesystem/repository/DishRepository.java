@@ -12,12 +12,15 @@ import java.util.List;
  */
 public interface DishRepository {
 
+    Dish get(int id);
+
+    Dish get(int id, int restaurantId);
+
+    List<Dish> getAllByDate(LocalDate date, int restaurantId);
+
     Dish save(Dish dish, int restaurantId);
 
     boolean delete(int id);
 
-    Dish get(int id);
-
-    List<Dish> getAllByDate(LocalDate date, int restaurantId);
 
 }

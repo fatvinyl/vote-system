@@ -36,4 +36,8 @@ public class DishTestData {
         return new Dish(null, "Созданное блюдо", "100", TEST_DATE);
     }
 
+    public static Dish getUpdated() {
+        return new Dish(DISH1_ID, "Обновленное блюдо", "100,00", TEST_DATE);
+    }
+
 }

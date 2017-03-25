@@ -25,6 +25,7 @@ public class RestaurantTestData {
     public static final ModelMatcher<RestaurantWithVote> RESTAURANT_WITH_VOTE_MATCHER = ModelMatcher.of(RestaurantWithVote.class);
 
     public static final int RESTAURANT1_ID = 1;
+    public static final int RESTAURANT2_ID = 2;
     public static final int RESTAURANT_CREATED_ID = 4;
 
     public static final Restaurant RESTAURANT1 = new Restaurant(RESTAURANT1_ID, "Шашлыкофф",  DISH_1, DISH_2);

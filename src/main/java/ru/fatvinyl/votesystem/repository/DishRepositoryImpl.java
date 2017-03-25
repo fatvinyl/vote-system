@@ -14,17 +14,33 @@ import java.util.List;
  * @author Anton Yolgin
  */
 @Repository
-@Transactional(readOnly = true)
 public class DishRepositoryImpl implements DishRepository {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Override
+    public Dish get(int id) {
+        return em.find(Dish.class, id);
+    }
 
-    @Transactional
+    @Override
+    public Dish get(int id, int restaurantId) {
+        Dish dish = get(id);
+        return dish != null && dish.getRestaurant().getId() == restaurantId ? dish : null;
+    }
+
+    @Override
+    public List<Dish> getAllByDate(LocalDate date, int restaurantId) {
+        return em.createNamedQuery(Dish.GET_ALL_BY_DATE, Dish.class)
+                .setParameter("date", date)
+                .setParameter("restaurantId", restaurantId)
+                .getResultList();
+    }
+
     @Override
     public Dish save(Dish dish, int restaurantId) {
-        if (!dish.isNew() && get(dish.getId()) == null) {
+        if (!dish.isNew() && get(dish.getId(), restaurantId) == null) {
             return null;
         }
         dish.setRestaurant(em.getReference(Restaurant.class, restaurantId));
@@ -36,25 +52,11 @@ public class DishRepositoryImpl implements DishRepository {
         }
     }
 
-    @Transactional
     @Override
     public boolean delete(int id) {
         return em.createNamedQuery(Dish.DELETE)
                 .setParameter("id", id)
                 .executeUpdate() != 0;
-    }
-
-    @Override
-    public Dish get(int id) {
-        return em.find(Dish.class, id);
-    }
-
-    @Override
-    public List<Dish> getAllByDate(LocalDate date, int restaurantId) {
-        return em.createNamedQuery(Dish.GET_ALL_BY_DATE, Dish.class)
-                .setParameter("date", date)
-                .setParameter("restaurantId", restaurantId)
-                .getResultList();
     }
 
 }
