@@ -1,6 +1,5 @@
 package ru.fatvinyl.votesystem.repository;
 
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.fatvinyl.votesystem.model.User;
@@ -43,6 +42,22 @@ public class VoteRepositoryImpl implements VoteRepository{
                 .setParameter("voteId", voteId)
                 .executeUpdate()!=0;
     }
+      //new method
+      @Override
+    public Vote save(Vote vote, int userId) {
+        User userRef = em.getReference(User.class, userId);
+        if (vote.isNew()) {
+            vote.setAmount(1);
+            em.persist(vote);
+            userRef.setVote(vote);
+            em.merge(userRef);
+            return vote;
+        } else {
+            userRef.setVote(vote);
+            em.merge(userRef);
+            return em.merge(vote);
+        }
+    }
 
     @Override
     public boolean delete(int voteId, int userId) {
@@ -53,7 +68,6 @@ public class VoteRepositoryImpl implements VoteRepository{
                 .setParameter("voteId", voteId)
                 .executeUpdate()!=0;
     }
-
 
     @Override
     public Vote get(int id) {

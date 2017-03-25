@@ -1,8 +1,9 @@
-package ru.fatvinyl.votesystem.repository;
+package ru.fatvinyl.votesystem.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.fatvinyl.votesystem.model.Vote;
+import ru.fatvinyl.votesystem.repository.VoteRepository;
 
 
 import java.util.Arrays;
@@ -15,7 +16,7 @@ import static ru.fatvinyl.votesystem.VoteTestData.*;
 /**
  * @author Anton Yolgin
  */
-public class VoteRepositoryImplTest extends AbstractRepositoryTest {
+public class VoteServiceImplTest extends AbstractServiceTest {
 
     @Autowired
     public VoteRepository repository;

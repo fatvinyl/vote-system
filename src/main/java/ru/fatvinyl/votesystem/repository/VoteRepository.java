@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface VoteRepository {
 
+    Vote save(Vote vote, int userId);
+
     Vote save(int restaurantId, int userId);
 
     boolean update(int voteId, int userId);

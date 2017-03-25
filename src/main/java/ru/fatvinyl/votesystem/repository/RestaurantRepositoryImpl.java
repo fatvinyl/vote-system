@@ -2,17 +2,12 @@ package ru.fatvinyl.votesystem.repository;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.fatvinyl.votesystem.model.Restaurant;
-import ru.fatvinyl.votesystem.model.Vote;
-import ru.fatvinyl.votesystem.to.RestaurantWithVote;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
-
-import static ru.fatvinyl.votesystem.util.RestaurantUtil.getWithVote;
 
 
 /**
@@ -20,7 +15,6 @@ import static ru.fatvinyl.votesystem.util.RestaurantUtil.getWithVote;
  */
 
 @Repository
-@Transactional(readOnly = true)
 public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @PersistenceContext
@@ -36,19 +30,10 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public List<RestaurantWithVote> getAllWIthDishesAndVotes(LocalDate date) {
-        List<Vote> votes = em.createNamedQuery(Vote.ALL_BY_DATE, Vote.class)
-                .setParameter("date", date)
-                .getResultList();
-        return getWithVote(getAllWIthDishes(date), votes);
-    }
-
-    @Override
     public List<Restaurant> getAll() {
         return em.createNamedQuery(Restaurant.ALL, Restaurant.class)
                 .getResultList();
     }
-
 
     @Override
     public Restaurant getByDate(int id, LocalDate date) {
@@ -59,7 +44,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         return DataAccessUtils.singleResult(restaurants);
     }
 
-    @Transactional
+
     @Override
     public Restaurant save(Restaurant restaurant) {
         if (restaurant.isNew()) {
@@ -70,7 +55,6 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         }
     }
 
-    @Transactional
     @Override
     public boolean delete(int id) {
         return em.createNamedQuery(Restaurant.DELETE)

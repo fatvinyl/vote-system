@@ -1,19 +1,17 @@
-package ru.fatvinyl.votesystem.repository;
+package ru.fatvinyl.votesystem.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.fatvinyl.votesystem.model.Dish;
+import ru.fatvinyl.votesystem.repository.DishRepository;
 
-import java.util.Collection;
-
-import static org.junit.Assert.*;
 import static ru.fatvinyl.votesystem.DishTestData.*;
 import static ru.fatvinyl.votesystem.RestaurantTestData.RESTAURANT1_ID;
 
 /**
  * @author Anton Yolgin
  */
-public class DishRepositoryImplTest extends AbstractRepositoryTest {
+public class DishServiceImplTest extends AbstractServiceTest {
 
     @Autowired
     protected DishRepository repository;

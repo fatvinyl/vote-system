@@ -1,10 +1,11 @@
-package ru.fatvinyl.votesystem.repository;
+package ru.fatvinyl.votesystem.service;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import ru.fatvinyl.votesystem.model.Role;
 import ru.fatvinyl.votesystem.model.User;
+import ru.fatvinyl.votesystem.repository.UserRepository;
 
 import java.util.Arrays;
 
@@ -16,7 +17,7 @@ import static ru.fatvinyl.votesystem.UserTestData.*;
  */
 
 
-public class UserRepositoryImplTest extends AbstractRepositoryTest {
+public class UserServiceImplTest extends AbstractServiceTest {
 
     @Autowired
     protected UserRepository repository;

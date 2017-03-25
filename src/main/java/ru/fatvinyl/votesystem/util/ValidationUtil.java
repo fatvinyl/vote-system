@@ -2,9 +2,6 @@ package ru.fatvinyl.votesystem.util;
 
 import ru.fatvinyl.votesystem.model.BaseEntity;
 import ru.fatvinyl.votesystem.util.exception.NotFoundException;
-import ru.fatvinyl.votesystem.util.exception.VotingTimeOverException;
-
-import java.time.LocalTime;
 
 /**
  *
@@ -49,12 +46,14 @@ public class ValidationUtil {
         }
     }
 
-    public static void checkVotingTime() {
-        LocalTime current = LocalTime.now();
-        LocalTime deadLine = LocalTime.parse("11:00");
-        if (current.isAfter(deadLine)) {
-            throw new VotingTimeOverException("The voting time was over");
-        }
-    }
+    //    http://stackoverflow.com/a/28565320/548473
+    public static Throwable getRootCause(Throwable t) {
+        Throwable result = t;
+        Throwable cause;
 
+        while (null != (cause = result.getCause()) && (result != cause)) {
+            result = cause;
+        }
+        return result;
+    }
 }

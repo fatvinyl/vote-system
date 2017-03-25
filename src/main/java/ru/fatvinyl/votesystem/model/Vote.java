@@ -21,7 +21,6 @@ import java.time.LocalDate;
         @NamedQuery(name = Vote.ALL_BY_DATE, query = "SELECT v FROM Vote v WHERE v.date=:date ORDER BY v.restaurant.id")
 })
 
-
 @Entity
 @Table(name = "votes")
 public class Vote extends BaseEntity {

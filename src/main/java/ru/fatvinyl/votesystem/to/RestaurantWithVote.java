@@ -2,6 +2,7 @@ package ru.fatvinyl.votesystem.to;
 
 
 import ru.fatvinyl.votesystem.model.Dish;
+import ru.fatvinyl.votesystem.model.Vote;
 
 import java.util.List;
 
@@ -17,13 +18,13 @@ public class RestaurantWithVote {
 
     private List<Dish> menu;
 
-    private Integer amountVotes;
+    private Vote vote;
 
-    public RestaurantWithVote(Integer id, String name, List<Dish> menu, Integer amountVotes) {
+    public RestaurantWithVote(Integer id, String name, List<Dish> menu, Vote vote) {
         this.id = id;
         this.name = name;
         this.menu = menu;
-        this.amountVotes = amountVotes;
+        this.vote = vote;
     }
 
     public Integer getId() {
@@ -50,21 +51,21 @@ public class RestaurantWithVote {
         this.menu = menu;
     }
 
-    public Integer getAmountVotes() {
-        return amountVotes;
+    public Vote getVote() {
+        return vote;
     }
 
-    public void setAmountVotes(Integer amountVotes) {
-        this.amountVotes = amountVotes;
+    public void setVote(Integer amountVotes) {
+        this.vote = vote;
     }
 
     @Override
     public String toString() {
         return "RestaurantWithVote{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name=" + name +
                 ", menu=" + menu +
-                ", amountVotes=" + amountVotes +
+                ", vote=" + vote +
                 '}';
     }
 }

@@ -32,7 +32,7 @@
                                    ${dish.name}..............${dish.price}р <br />
                                 </c:forEach>
                             </td>
-                            <td>${restaurant.amountVotes}</td>
+                            <td>${restaurant.vote.amount}</td>
                             <td><a class="container">
                                 <span class="btn btn-success" aria-hidden="true">Vote</span>
                             </a></td>
