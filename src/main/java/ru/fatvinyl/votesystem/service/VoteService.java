@@ -12,10 +12,6 @@ public interface VoteService {
 
     Vote update(Vote vote, int userId);
 
-    Vote save(int restaurantId, int userId);
-
-    void update(int voteId, int userId);
-
     void delete(int voteId, int userId);
 
     Vote get(int id);

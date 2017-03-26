@@ -2,6 +2,7 @@ package ru.fatvinyl.votesystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.fatvinyl.votesystem.model.Vote;
 import ru.fatvinyl.votesystem.repository.VoteRepository;
@@ -15,13 +16,13 @@ import static ru.fatvinyl.votesystem.util.VoteUtil.checkVotingTime;
  */
 
 @Service
+@Transactional(readOnly = true)
 public class VoteServiceImpl implements VoteService {
 
     @Autowired
     private VoteRepository repository;
 
-
-    //new method
+    @Transactional
     @Override
     public Vote save(Vote vote, int userId) {
         Assert.notNull(vote, "vote must not be null");
@@ -29,7 +30,7 @@ public class VoteServiceImpl implements VoteService {
         return repository.save(vote, userId);
     }
 
-    //new method
+    @Transactional
     @Override
     public Vote update(Vote vote, int userId) {
         Assert.notNull(vote, "vote must not be null");
@@ -39,19 +40,7 @@ public class VoteServiceImpl implements VoteService {
         return checkNotFoundWithId(repository.save(vote, userId), vote.getId());
     }
 
-
-    @Override
-    public Vote save(int restaurantId, int userId) {
-        checkVotingTime();
-        return repository.save(restaurantId, userId);
-    }
-
-    @Override
-    public void update(int voteId, int userId) {
-        checkVotingTime();
-        checkNotFoundWithId(repository.update(voteId, userId), voteId);
-    }
-
+    @Transactional
     @Override
     public void delete(int voteId, int userId) {
         checkVotingTime();

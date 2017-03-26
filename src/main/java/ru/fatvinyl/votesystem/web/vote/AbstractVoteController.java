@@ -7,6 +7,8 @@ import ru.fatvinyl.votesystem.AuthorizedUser;
 import ru.fatvinyl.votesystem.model.Vote;
 import ru.fatvinyl.votesystem.service.VoteService;
 
+import static ru.fatvinyl.votesystem.util.ValidationUtil.checkIdConsistent;
+
 /**
  * @author Anton Yolgin
  */
@@ -21,18 +23,25 @@ public abstract class AbstractVoteController {
     Vote create(int restaurantId) {
         int userId = AuthorizedUser.id();
         LOG.info("create vote for Restaurant {} for User {}", restaurantId, userId);
-        return service.save(restaurantId, userId);
+        Vote vote = new Vote(1, restaurantId);
+        return service.save(vote, userId);
     }
 
-    void update(int voteId, int userId) {
-
+    Vote update(Vote vote, int id) {
+        checkIdConsistent(vote, id);
+        int userId = AuthorizedUser.id();
+        LOG.info("update vote {} for User {}", vote, userId);
+        return service.update(vote, userId);
     }
 
-    void delete(int voteId, int userId) {
-
+    void delete(int voteId) {
+        int userId = AuthorizedUser.id();
+        LOG.info("delete Vote {} for User {}", voteId, userId);
+        service.delete(voteId, userId);
     }
 
     Vote get(int id) {
-        return null;
+        LOG.info("get Vote {}", id);
+        return service.get(id);
     }
 }
