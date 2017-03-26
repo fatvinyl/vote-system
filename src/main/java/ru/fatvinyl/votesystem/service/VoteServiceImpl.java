@@ -37,7 +37,7 @@ public class VoteServiceImpl implements VoteService {
         checkVotingTime();
         int voteIncremented = vote.getAmount() + 1;
         vote.setAmount(voteIncremented);
-        return checkNotFoundWithId(repository.save(vote, userId), vote.getId());
+        return repository.save(vote, userId);
     }
 
     @Transactional
