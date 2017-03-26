@@ -19,7 +19,6 @@ import java.util.List;
 public class AdminRestController extends AbstractUserController {
     static final String REST_URL = "/rest/admin/users";
 
-
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
         User created = super.create(user);
@@ -29,8 +28,9 @@ public class AdminRestController extends AbstractUserController {
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
+    }
 
-    }@Override
+    @Override
     void update(User user, int id) {
         super.update(user, id);
     }

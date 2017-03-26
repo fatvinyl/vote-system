@@ -15,6 +15,7 @@ import static ru.fatvinyl.votesystem.RestaurantTestData.RESTAURANT2_ID;
  * @author Anton Yolgin
  */
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DishServiceImplTest extends AbstractServiceTest {
 
     @Autowired
@@ -22,13 +23,13 @@ public class DishServiceImplTest extends AbstractServiceTest {
 
 
     @Test
-    public void testGet() throws Exception {
+    public void test1Get() throws Exception {
         Dish actual = service.get(DISH1_ID, RESTAURANT1_ID);
         DISHES_MATCHER.assertEquals(DISH_1, actual);
     }
 
     @Test
-    public void testSave() throws Exception {
+    public void test2Save() throws Exception {
         Thread.sleep(1000);
         Dish created = getCreated();
         service.save(created, RESTAURANT1_ID);
@@ -36,29 +37,36 @@ public class DishServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testDelete() throws Exception {
+    public void test3Delete() throws Exception {
         service.delete(CREATED_ID);
         DISHES_MATCHER.assertCollectionEquals(EXCEPTED_DISHES, service.getAllByDate(TEST_DATE, RESTAURANT1_ID));
 
     }
 
     @Test
-    public void testDeleteNotFound() throws Exception {
+    public void test4DeleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         service.delete(100);
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void test5Update() throws Exception {
         Dish expected = getUpdated();
         Dish actual = service.update(expected, RESTAURANT1_ID);
         DISHES_MATCHER.assertEquals(expected, actual);
     }
 
     @Test
-    public void testUpdateNotFound() throws Exception {
+    public void test6UpdateNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage("Not found entity with id=" + DISH1_ID);
         service.update(DISH_1, RESTAURANT2_ID);
+    }
+
+    @Test
+    public void test7GetNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage("Not found entity with id=" + 100);
+        service.get(100);
     }
 }

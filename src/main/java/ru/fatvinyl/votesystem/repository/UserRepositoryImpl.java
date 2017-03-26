@@ -15,13 +15,11 @@ import java.util.List;
 
 
 @Repository
-@Transactional(readOnly = true)
 public class UserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
     public EntityManager em;
 
-    @Transactional
     @Override
     public User save(User user) {
         if (user.isNew()) {
@@ -32,7 +30,6 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-    @Transactional
     @Override
     public boolean delete(int id) {
         return em.createNamedQuery(User.DELETE)

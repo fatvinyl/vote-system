@@ -2,6 +2,7 @@ package ru.fatvinyl.votesystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.fatvinyl.votesystem.model.User;
 import ru.fatvinyl.votesystem.repository.UserRepository;
@@ -17,23 +18,27 @@ import static ru.fatvinyl.votesystem.util.ValidationUtil.checkNotFoundWithId;
  */
 
 @Service
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository repository;
 
+    @Transactional
     @Override
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
         return repository.save(user);
     }
 
+    @Transactional
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         repository.save(user);
     }
 
+    @Transactional
     @Override
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id), id);
