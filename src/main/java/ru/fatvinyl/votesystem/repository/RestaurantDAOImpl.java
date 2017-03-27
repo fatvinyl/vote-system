@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Repository
-public class RestaurantRepositoryImpl implements RestaurantRepository {
+public class RestaurantDAOImpl implements RestaurantDAO {
 
     @PersistenceContext
     private EntityManager em;

@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.fatvinyl.votesystem.model.Restaurant;
-import ru.fatvinyl.votesystem.repository.RestaurantRepository;
-import ru.fatvinyl.votesystem.repository.VoteRepository;
+import ru.fatvinyl.votesystem.repository.RestaurantDAO;
+import ru.fatvinyl.votesystem.repository.VoteDAO;
 import ru.fatvinyl.votesystem.to.RestaurantWithVote;
 
 import java.time.LocalDate;
@@ -24,45 +24,45 @@ import static ru.fatvinyl.votesystem.util.ValidationUtil.checkNotFoundWithId;
 public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
-    private RestaurantRepository repository;
+    private RestaurantDAO dao;
 
     @Autowired
-    private VoteRepository voteRepository;
+    private VoteDAO voteDao;
 
     @Override
     public List<RestaurantWithVote> getAllWIthDishesAndVotes(LocalDate date) {
         Assert.notNull(date, "date must not be null");
-        return  getWithVote(repository.getAllWIthDishes(date), voteRepository.getAllByDate(date));
+        return  getWithVote(dao.getAllWIthDishes(date), voteDao.getAllByDate(date));
     }
 
     @Override
     public List<Restaurant> getAll() {
-        return repository.getAll();
+        return dao.getAll();
     }
 
     @Override
     public Restaurant getByDate(int id, LocalDate date) {
         Assert.notNull(date, "mealDate must not be null");
-        return repository.getByDate(id, date);
+        return dao.getByDate(id, date);
     }
 
     @Transactional
     @Override
     public Restaurant update(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        return repository.save(restaurant);
+        return dao.save(restaurant);
     }
 
     @Transactional
     @Override
     public Restaurant save(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        return repository.save(restaurant);
+        return dao.save(restaurant);
     }
 
     @Transactional
     @Override
     public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+        checkNotFoundWithId(dao.delete(id), id);
     }
 }

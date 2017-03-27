@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Anton Yolgin
  */
-public interface DishRepository {
+public interface DishDAO {
 
     Dish get(int id);
 

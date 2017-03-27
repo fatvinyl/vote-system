@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Repository
-public class VoteRepositoryImpl implements VoteRepository{
+public class VoteDAOImpl implements VoteDAO {
 
    @PersistenceContext
     public EntityManager em;

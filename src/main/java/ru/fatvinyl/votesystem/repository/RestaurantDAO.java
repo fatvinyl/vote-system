@@ -10,7 +10,7 @@ import java.util.List;
  * @author Anton Yolgin
  */
 
-public interface RestaurantRepository {
+public interface RestaurantDAO {
 
     List<Restaurant> getAllWIthDishes(LocalDate date);
 

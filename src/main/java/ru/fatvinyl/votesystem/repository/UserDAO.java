@@ -8,7 +8,7 @@ import java.util.List;
  * @author Anton Yolgin
  */
 
-public interface UserRepository {
+public interface UserDAO {
 
     User save(User user);
 

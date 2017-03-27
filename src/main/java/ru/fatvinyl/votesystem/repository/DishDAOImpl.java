@@ -1,7 +1,6 @@
 package ru.fatvinyl.votesystem.repository;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.fatvinyl.votesystem.model.Dish;
 import ru.fatvinyl.votesystem.model.Restaurant;
 
@@ -14,7 +13,7 @@ import java.util.List;
  * @author Anton Yolgin
  */
 @Repository
-public class DishRepositoryImpl implements DishRepository {
+public class DishDAOImpl implements DishDAO {
 
     @PersistenceContext
     private EntityManager em;

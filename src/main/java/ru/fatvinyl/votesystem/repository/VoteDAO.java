@@ -9,7 +9,7 @@ import java.util.List;
  * @author Anton Yolgin
  */
 
-public interface VoteRepository {
+public interface VoteDAO {
 
     Vote save(Vote vote, int userId);
 

@@ -2,7 +2,6 @@ package ru.fatvinyl.votesystem.repository;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.fatvinyl.votesystem.model.User;
 
 import javax.persistence.EntityManager;
@@ -15,7 +14,7 @@ import java.util.List;
 
 
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+public class UserDAOImpl implements UserDAO {
 
     @PersistenceContext
     public EntityManager em;
