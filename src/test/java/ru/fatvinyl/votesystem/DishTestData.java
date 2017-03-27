@@ -21,6 +21,7 @@ public class DishTestData {
 
 
     public static final int DISH1_ID = 10;
+    public static final int DISH6_ID = 15;
     public static final int CREATED_ID = 16;
 
     public static final Dish DISH_1 = new Dish(10, "Тестовая еда 1", "100,00", TEST_DATE);
@@ -33,7 +34,7 @@ public class DishTestData {
     public static final List<Dish> EXCEPTED_DISHES = Arrays.asList(DISH_1, DISH_2);
 
     public static Dish getCreated() {
-        return new Dish(null, "Созданное блюдо", "100", TEST_DATE);
+        return new Dish(null, "Созданное блюдо", "100,00", TEST_DATE);
     }
 
     public static Dish getUpdated() {

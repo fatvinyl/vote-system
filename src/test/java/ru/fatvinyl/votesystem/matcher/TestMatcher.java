@@ -1,6 +1,8 @@
 package ru.fatvinyl.votesystem.matcher;
 
 import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import ru.fatvinyl.votesystem.web.json.JsonUtil;
 
 
 /**
@@ -21,8 +23,8 @@ abstract public class TestMatcher<T> extends BaseMatcher<String> {
 
     abstract protected boolean compare(T expected, String actual);
 
-//    @Override
-//    public void describeTo(Description description) {
-//        description.appendText(JsonUtil.writeValue(expected));
-//    }
+    @Override
+    public void describeTo(Description description) {
+        description.appendText(JsonUtil.writeValue(expected));
+    }
 }

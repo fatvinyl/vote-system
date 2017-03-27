@@ -1,13 +1,18 @@
 package ru.fatvinyl.votesystem.matcher;
 
 import org.junit.Assert;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
+import ru.fatvinyl.votesystem.TestUtil;
+import ru.fatvinyl.votesystem.web.json.JsonUtil;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 /**
  *
@@ -60,17 +65,17 @@ public class ModelMatcher<T> {
         }
     }
 
-//    private T fromJsonValue(String json) {
-//        return JsonUtil.readValue(json, entityClass);
-//    }
-//
-//    private Collection<T> fromJsonValues(String json) {
-//        return JsonUtil.readValues(json, entityClass);
-//    }
-//
-//    public T fromJsonAction(ResultActions action) throws UnsupportedEncodingException {
-//        return fromJsonValue(TestUtil.getContent(action));
-//    }
+    private T fromJsonValue(String json) {
+        return JsonUtil.readValue(json, entityClass);
+    }
+
+    private Collection<T> fromJsonValues(String json) {
+        return JsonUtil.readValues(json, entityClass);
+    }
+
+    public T fromJsonAction(ResultActions action) throws UnsupportedEncodingException {
+        return fromJsonValue(TestUtil.getContent(action));
+    }
 
     public void assertEquals(T expected, T actual) {
         Assert.assertEquals(wrap(expected), wrap(actual));
@@ -88,32 +93,32 @@ public class ModelMatcher<T> {
         return collection.stream().map(this::wrap).collect(Collectors.toList());
     }
 
-//    public ResultMatcher contentMatcher(T expect) {
-//        return content().string(
-//                new TestMatcher<T>(expect) {
-//                    @Override
-//                    protected boolean compare(T expected, String body) {
-//                        Wrapper expectedForCompare = wrap(expected);
-//                        Wrapper actualForCompare = wrap(fromJsonValue(body));
-//                        return expectedForCompare.equals(actualForCompare);
-//                    }
-//                });
-//    }
+    public ResultMatcher contentMatcher(T expect) {
+        return content().string(
+                new TestMatcher<T>(expect) {
+                    @Override
+                    protected boolean compare(T expected, String body) {
+                        Wrapper expectedForCompare = wrap(expected);
+                        Wrapper actualForCompare = wrap(fromJsonValue(body));
+                        return expectedForCompare.equals(actualForCompare);
+                    }
+                });
+    }
 
-//    public final ResultMatcher contentListMatcher(T... expected) {
-//        return contentListMatcher(Arrays.asList(expected));
-//    }
-//
-//    public final ResultMatcher contentListMatcher(List<T> expected) {
-//        return content().string(
-//                new TestMatcher<List<T>>(expected) {
-//                    @Override
-//                    protected boolean compare(List<T> expected, String actual) {
-//                        List<Wrapper> expectedList = wrap(expected);
-//                        List<Wrapper> actualList = wrap(fromJsonValues(actual));
-//                        return expectedList.equals(actualList);
-//                    }
-//                });
-//    }
+    public final ResultMatcher contentListMatcher(T... expected) {
+        return contentListMatcher(Arrays.asList(expected));
+    }
+
+    public final ResultMatcher contentListMatcher(List<T> expected) {
+        return content().string(
+                new TestMatcher<List<T>>(expected) {
+                    @Override
+                    protected boolean compare(List<T> expected, String actual) {
+                        List<Wrapper> expectedList = wrap(expected);
+                        List<Wrapper> actualList = wrap(fromJsonValues(actual));
+                        return expectedList.equals(actualList);
+                    }
+                });
+    }
 
 }
