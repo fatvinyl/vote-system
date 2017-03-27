@@ -51,7 +51,7 @@ public class DishRestController extends AbstractDishController {
 
     @Override
     @GetMapping("/by")
-    List<Dish> getAllByDate(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate date,
+    List<Dish> getAllByDate(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                             @RequestParam(value = "restaurantId") int restaurantId) {
         return super.getAllByDate(date, restaurantId);
     }

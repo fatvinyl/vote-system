@@ -30,6 +30,14 @@ public class DishRestControllerTest extends AbstractControllerTest {
     DishService service;
 
     @Test
+    public void testGetAllByDate() throws Exception {
+        mockMvc.perform(get(REST_URL + "by?date=2017-01-11&restaurantId=1"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(DISHES_MATCHER.contentListMatcher(DISH_1, DISH_2));
+    }
+
+    @Test
     public void testCreate() throws Exception {
         Dish created = getCreated();
 
@@ -71,14 +79,6 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(DISHES_MATCHER.contentMatcher(DISH_1));
-    }
-
-    @Test
-    public void testGetAllByDate() throws Exception {
-        mockMvc.perform(get(REST_URL + "by?date=2017-01-11&restaurantId=1"))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(DISHES_MATCHER.contentListMatcher(DISH_1, DISH_2));
     }
 
 }
