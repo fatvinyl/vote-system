@@ -1,5 +1,8 @@
 package ru.fatvinyl.votesystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Restaurant extends NamedEntity {
     public static final String ALL_WITH_VOTES_AND_DISHES = "Restaurant.getAllWIthDishes";
     public static final String ALL = "Restaurant.getAll";
