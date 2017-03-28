@@ -33,4 +33,10 @@ public class RestaurantUtil {
         }
         throw new NotEqualException("restaurant_id=" + restaurant.getId() + " and vote.getRestaurantId=" + vote.getRestaurant().getId() + " are not equal");
     }
+//    public static RestaurantWithVote createWithVote(Restaurant restaurant, Vote vote) throws NotEqualException {
+//        if (restaurant.getId().equals(vote.getRestaurant().getId())) {
+//            return new RestaurantWithVote(restaurant.getId(), restaurant.getName(), restaurant.getDishList(), vote.getId(), vote.getAmount());
+//        }
+//        throw new NotEqualException("restaurant_id=" + restaurant.getId() + " and vote.getRestaurantId=" + vote.getRestaurant().getId() + " are not equal");
+//    }
 }

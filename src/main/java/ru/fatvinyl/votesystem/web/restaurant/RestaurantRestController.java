@@ -1,5 +1,6 @@
 package ru.fatvinyl.votesystem.web.restaurant;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class RestaurantRestController extends AbstractRestaurantController{
 
     @Override
     @GetMapping(value = "/{date}")
-    List<RestaurantWithVote> getAllWIthDishesAndVotes(LocalDate date) {
+    List<RestaurantWithVote> getAllWIthDishesAndVotes(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return super.getAllWIthDishesAndVotes(date);
     }
 
