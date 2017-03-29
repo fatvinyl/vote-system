@@ -24,7 +24,7 @@ public class AbstractUserController {
     User create(User user) {
         checkNew(user);
         LOG.info("create {}", user);
-        return null;
+        return service.save(user);
     }
 
     void update(User user, int id) {

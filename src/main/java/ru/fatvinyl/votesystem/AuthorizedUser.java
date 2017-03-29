@@ -10,6 +10,6 @@ public class AuthorizedUser {
     private static final int USER_ID = 2;
 
     public static int id() {
-        return ADMIN_ID;
+        return USER_ID;
     }
 }
