@@ -8,7 +8,9 @@ import org.springframework.dao.DataAccessException;
 import ru.fatvinyl.votesystem.model.Role;
 import ru.fatvinyl.votesystem.model.User;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static ru.fatvinyl.votesystem.UserTestData.*;
 
@@ -59,5 +61,10 @@ public class UserServiceImplTest extends AbstractServiceTest {
         USER_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER1, USER2), service.getAll());
     }
 
-
+    @Test
+    public void test7Validation() throws Exception {
+        validateRootCause(() -> service.save(new User(null, "  ", "invalid@yandex.ru", "password", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.save(new User(null, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
+        validateRootCause(() -> service.save(new User(null, "User", "invalid@yandex.ru", "  ", Role.ROLE_USER)), ConstraintViolationException.class);
+    }
 }

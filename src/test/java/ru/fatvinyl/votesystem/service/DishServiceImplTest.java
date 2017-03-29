@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.fatvinyl.votesystem.model.Dish;
 import ru.fatvinyl.votesystem.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
+
+import java.time.LocalDate;
+
 import static ru.fatvinyl.votesystem.DishTestData.*;
 import static ru.fatvinyl.votesystem.RestaurantTestData.RESTAURANT1_ID;
 import static ru.fatvinyl.votesystem.RestaurantTestData.RESTAURANT2_ID;
@@ -68,5 +72,12 @@ public class DishServiceImplTest extends AbstractServiceTest {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage("Not found entity with id=" + 100);
         service.get(100);
+    }
+
+    @Test
+    public void test8Validation() throws Exception {
+        validateRootCause(() -> service.save(new Dish(null, "  ", "100,00", LocalDate.now()), 1), ConstraintViolationException.class);
+        validateRootCause(() -> service.save(new Dish(null, "name", "  ", LocalDate.now()), 1), ConstraintViolationException.class);
+        validateRootCause(() -> service.save(new Dish(null, "name", "100,00", null), 1), ConstraintViolationException.class);
     }
 }

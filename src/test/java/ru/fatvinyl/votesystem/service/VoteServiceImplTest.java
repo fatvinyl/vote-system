@@ -8,6 +8,7 @@ import ru.fatvinyl.votesystem.model.Vote;
 import ru.fatvinyl.votesystem.util.exception.NotFoundException;
 
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 
 import static ru.fatvinyl.votesystem.RestaurantTestData.RESTAURANT1_ID;
@@ -57,4 +58,8 @@ public class VoteServiceImplTest extends AbstractServiceTest {
         service.get(100);
     }
 
+    @Test
+    public void test8Validation() throws Exception {
+        validateRootCause(() -> service.save(new Vote(null, 1, null, 2), 2), ConstraintViolationException.class);
+    }
 }

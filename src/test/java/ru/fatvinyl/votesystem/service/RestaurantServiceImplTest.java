@@ -9,9 +9,11 @@ import ru.fatvinyl.votesystem.to.RestaurantWithVote;
 import ru.fatvinyl.votesystem.util.exception.NotFoundException;
 
 
+import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
 
+import static ru.fatvinyl.votesystem.DishTestData.DISH_1;
 import static ru.fatvinyl.votesystem.DishTestData.TEST_DATE;
 import static ru.fatvinyl.votesystem.RestaurantTestData.*;
 import static ru.fatvinyl.votesystem.VoteTestData.VOTES;
@@ -73,5 +75,8 @@ public class RestaurantServiceImplTest extends AbstractServiceTest {
         RESTAURANT_MATCHER.assertCollectionEquals(Arrays.asList(RESTAURANT3, RESTAURANT2, updated), service.getAll());
     }
 
-
+    @Test
+    public void test8Validation() throws Exception {
+        validateRootCause(() -> service.save(new Restaurant(null, " ", DISH_1)), ConstraintViolationException.class);
+    }
 }

@@ -91,7 +91,6 @@ public class Vote extends BaseEntity {
                 "id=" + getId() +
                 ", amount=" + amount +
                 ", date=" + date +
-//                ", restaurant_id=" + restaurant.getId() +
                 '}';
     }
 }

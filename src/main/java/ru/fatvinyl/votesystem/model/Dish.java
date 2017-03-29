@@ -35,7 +35,6 @@ public class Dish extends NamedEntity {
 
     @Column(name = "price", nullable = false)
     @NotBlank
-//    @SafeHtml
     private String price;
 
     @Column(name = "date", nullable = false)
