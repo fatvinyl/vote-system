@@ -12,7 +12,7 @@ public interface VoteService {
 
     Vote update(Vote vote, int userId);
 
-    void delete(int voteId, int userId);
+//    void delete(int voteId, int userId);
 
     Vote get(int id);
 

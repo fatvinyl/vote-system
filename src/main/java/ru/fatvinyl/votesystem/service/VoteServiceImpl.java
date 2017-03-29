@@ -26,7 +26,6 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote save(Vote vote, int userId) {
         Assert.notNull(vote, "vote must not be null");
-        checkVotingTime();
         return dao.save(vote, userId);
     }
 
@@ -34,18 +33,15 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote update(Vote vote, int userId) {
         Assert.notNull(vote, "vote must not be null");
-        checkVotingTime();
-        int voteIncremented = vote.getAmount() + 1;
-        vote.setAmount(voteIncremented);
         return dao.save(vote, userId);
     }
 
-    @Transactional
-    @Override
-    public void delete(int voteId, int userId) {
-        checkVotingTime();
-        checkNotFoundWithId(dao.delete(voteId, userId), voteId);
-    }
+//    @Transactional
+//    @Override
+//    public void delete(int voteId, int userId) {
+//        checkVotingTime();
+//        checkNotFoundWithId(dao.delete(voteId, userId), voteId);
+//    }
 
     @Override
     public Vote get(int id) {

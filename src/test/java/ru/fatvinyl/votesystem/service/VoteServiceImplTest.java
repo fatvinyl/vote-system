@@ -42,13 +42,13 @@ public class VoteServiceImplTest extends AbstractServiceTest {
         //add users matcher
     }
 
-    @Test
-    public void test4Delete() throws Exception {
-        service.delete(VOTE_ID_CREATED, 1);
-        Vote actual = service.get(VOTE_ID_CREATED);
-        VOTE_MATCHER.assertEquals(VOTE_EXPECTED, actual);
-        //add users matcher
-    }
+//    @Test
+//    public void test4Delete() throws Exception {
+//        service.delete(VOTE_ID_CREATED, 1);
+//        Vote actual = service.get(VOTE_ID_CREATED);
+//        VOTE_MATCHER.assertEquals(VOTE_EXPECTED, actual);
+//        //add users matcher
+//    }
 
     @Test
     public void test5GetNotFound() throws Exception {
