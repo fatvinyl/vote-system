@@ -1,6 +1,7 @@
 package ru.fatvinyl.votesystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = Restaurant.ALL, query = "SELECT r FROM Restaurant r ORDER BY r.name"),
-        @NamedQuery(name = Restaurant.ALL_WITH_VOTES_AND_DISHES, query = "SELECT DISTINCT r FROM Restaurant r " +
+        @NamedQuery(name = Restaurant.ALL_WITH_DISHES, query = "SELECT DISTINCT r FROM Restaurant r " +
                 "JOIN FETCH r.dishList d WHERE d.date=:date ORDER BY r.id"),
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id"),
         @NamedQuery(name = Restaurant.GET, query = "SELECT DISTINCT r FROM Restaurant r JOIN FETCH r.dishList m WHERE r.id=:id AND m.date=:date")
@@ -23,7 +24,7 @@ import java.util.List;
 @Table(name = "restaurants")
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Restaurant extends NamedEntity {
-    public static final String ALL_WITH_VOTES_AND_DISHES = "Restaurant.getAllWIthDishes";
+    public static final String ALL_WITH_DISHES = "Restaurant.getAllWIthDishes";
     public static final String ALL = "Restaurant.getAll";
     public static final String DELETE = "Restaurant.delete";
     public static final String GET = "Restaurant.getByDate";
@@ -31,6 +32,7 @@ public class Restaurant extends NamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("name")
+    @JsonIgnoreProperties("restaurant")
     private List<Dish> dishList;
 
     public Restaurant() {

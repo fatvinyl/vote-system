@@ -1,7 +1,7 @@
 package ru.fatvinyl.votesystem.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.fatvinyl.votesystem.util.DateTimeUtil;
 
@@ -42,7 +42,7 @@ public class Vote extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "restaurant_id")
 //    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JsonIgnoreProperties("dishList")
     private Restaurant restaurant;
 
     public Vote() {
