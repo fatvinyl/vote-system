@@ -22,11 +22,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
     @Override
     public List<Restaurant> getAllWIthDishes(LocalDate date) {
-
-        List<Restaurant> list = em.createNamedQuery(Restaurant.ALL_WITH_VOTES_AND_DISHES, Restaurant.class)
+        return em.createNamedQuery(Restaurant.ALL_WITH_DISHES, Restaurant.class)
                 .setParameter("date", date)
                 .getResultList();
-        return list;
     }
 
     @Override
