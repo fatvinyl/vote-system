@@ -3,9 +3,10 @@ package ru.fatvinyl.votesystem.to;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.fatvinyl.votesystem.model.Dish;
+import ru.fatvinyl.votesystem.model.Restaurant;
 import ru.fatvinyl.votesystem.model.Vote;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @author Anton Yolgin
@@ -17,17 +18,13 @@ public class RestaurantWithVote {
 
     private String name;
 
-    private List<Dish> menu;
+    private Collection<Dish> menu;
 
     private Vote vote;
 
-//    private Integer voteId;
-//
-//    private Integer amountVotes;
-
     public RestaurantWithVote(@JsonProperty("id") Integer id,
                               @JsonProperty("name") String name,
-                              @JsonProperty("menu")  List<Dish> menu,
+                              @JsonProperty("menu") Collection<Dish> menu,
                               @JsonProperty("vote") Vote vote) {
         this.id = id;
         this.name = name;
@@ -35,17 +32,12 @@ public class RestaurantWithVote {
         this.vote = vote;
     }
 
-//    public RestaurantWithVote(@JsonProperty("id") Integer id,
-//                              @JsonProperty("name") String name,
-//                              @JsonProperty("menu") List<Dish> menu,
-//                              @JsonProperty("voteId") Integer voteId,
-//                              @JsonProperty("amountVotes") Integer amountVotes) {
-//        this.id = id;
-//        this.name = name;
-//        this.menu = menu;
-//        this.voteId = voteId;
-//        this.amountVotes = amountVotes;
-//    }
+    public RestaurantWithVote(Restaurant restaurant, Vote vote) {
+        this.id = restaurant.getId();
+        this.name = restaurant.getName();
+        this.menu = restaurant.getDishList();
+        this.vote = vote;
+    }
 
     public Integer getId() {
         return id;
@@ -63,11 +55,11 @@ public class RestaurantWithVote {
         this.name = name;
     }
 
-    public List<Dish> getMenu() {
+    public Collection<Dish> getMenu() {
         return menu;
     }
 
-    public void setMenu(List<Dish> menu) {
+    public void setMenu(Collection<Dish> menu) {
         this.menu = menu;
     }
 
@@ -79,22 +71,6 @@ public class RestaurantWithVote {
         this.vote = vote;
     }
 
-//    public Integer getVoteId() {
-//        return voteId;
-//    }
-//
-//    public void setVoteId(Integer voteId) {
-//        this.voteId = voteId;
-//    }
-//
-//    public Integer getAmountVotes() {
-//        return amountVotes;
-//    }
-//
-//    public void setAmountVotes(Integer amountVotes) {
-//        this.amountVotes = amountVotes;
-//    }
-
     @Override
     public String toString() {
         return "RestaurantWithVote{" +
@@ -105,14 +81,4 @@ public class RestaurantWithVote {
                 '}';
     }
 
-//    @Override
-//    public String toString() {
-//        return "RestaurantWithVote{" +
-//                "id=" + id +
-//                ", name='" + name +
-//                ", menu=" + menu +
-//                ", voteId=" + voteId +
-//                ", amountVotes=" + amountVotes +
-//                '}';
-//    }
 }
