@@ -16,6 +16,7 @@ public class RestaurantWithVote {
 
     private Integer id;
 
+    @JsonProperty("restaurantName")
     private String name;
 
     private Collection<Dish> menu;

@@ -2,6 +2,7 @@ package ru.fatvinyl.votesystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -32,6 +33,12 @@ public class Dish extends NamedEntity {
 
     public static final String DELETE = "Dish.delete";
     public static final String GET_ALL_BY_DATE = "Dish.getAllByDate";
+
+    @NotBlank
+    @Column(name = "name", nullable = false)
+//    @SafeHtml
+    @JsonProperty("dishName")
+    protected String name;
 
     @Column(name = "price", nullable = false)
     @NotBlank
