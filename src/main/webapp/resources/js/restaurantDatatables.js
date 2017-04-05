@@ -1,4 +1,5 @@
-var ajaxUrl = "ajax/profile/restaurants/";
+var ajaxRestaurantUrl = "ajax/profile/restaurants/";
+var ajaxVoteUrl = "/ajax/profile/votes/";
 var datatableApi;
 var editTitleKey = "meals.edit";
 
@@ -7,15 +8,14 @@ var editTitleKey = "meals.edit";
 //     $("#filter")[0].reset();
 //     $.get(ajaxUrl, updateTableByData);
 // }
-//
-// function updateTable() {
-//     $.ajax({
-//         type: "POST",
-//         url: ajaxUrl + "filter",
-//         data: $("#filter").serialize(),
-//         success: updateTableByData
-//     });
-// }
+
+function updateTable() {
+    $.ajax({
+        type: "POST",
+        url: ajaxRestaurantUrl,
+        success: updateTableByData
+    });
+}
 
 $(function () {
     datatableApi = $('#datatable').DataTable(extendsOpts({
@@ -25,8 +25,8 @@ $(function () {
             },
             {
                 "data": "menu",
-                "render": function ( data, type, row ) {
-                    var result="";
+                "render": function (data, type, row) {
+                    var result = "";
                     for (x in data) {
                         result += data[x].dishName + "<br>";
                     }
@@ -36,8 +36,8 @@ $(function () {
             },
             {
                 "data": "menu",
-                "render": function ( data, type, row ) {
-                    var result="";
+                "render": function (data, type, row) {
+                    var result = "";
                     for (x in data) {
                         result += data[x].price + "<br>";
                     }
@@ -47,9 +47,9 @@ $(function () {
             },
             {
                 "data": "vote.amount",
-                "render": function ( data, type, row ) {
+                "render": function (data, type, row) {
                     if (data == null) {
-                        return 0
+                        return '';
                     } else {
                         return data;
                     }
@@ -71,3 +71,55 @@ $(function () {
         ],
     }));
 });
+
+function renderVoteBtn(data, type, row) {
+    // if (type == 'display') {
+    return '<a class="btn btn" onclick="vote(' + row.id + ', ' + ((row.vote == undefined) ? null : '{id:' + row.vote.id + ', amount:' + row.vote.amount + '}' ) + ');">' +
+        '<span class="btn btn-success" aria-hidden="true">Vote</span></a>';
+    // }
+}
+
+function vote(restaurntId, vote) {
+    if (vote == null) {
+        saveVote(restaurntId)
+    } else {
+        var date = new Date().toLocaleDateString().split('.');
+        vote.date = date[2] + '-' + date[1] + '-' + date[0];
+        incrementVote(vote, vote.id, restaurntId);
+    }
+}
+
+function saveVote(restaurntId) {
+    $.ajax({
+        type: "POST",
+        url: ajaxVoteUrl + restaurntId,
+        success: function () {
+            $.get(ajaxRestaurantUrl, updateTableByData);
+            // successNoty('common.saved');
+        }
+    });
+}
+
+function incrementVote(vote, voteId, restaurntId) {
+    $.ajax({
+        type: "POST",
+        url: ajaxVoteUrl + "increment/" + voteId + "&" + restaurntId,
+        data: vote,
+        success: function () {
+            $.get(ajaxRestaurantUrl, updateTableByData);
+            // successNoty('common.saved');
+        }
+    });
+}
+
+function decrementVote(vote, voteId, restaurntId) {
+    $.ajax({
+        type: "POST",
+        url: ajaxVoteUrl + "decrement/" + voteId + "&" + restaurntId,
+        data: vote,
+        success: function () {
+            $.get(ajaxRestaurantUrl, updateTableByData);
+            // successNoty('common.saved');
+        }
+    });
+}

@@ -40,7 +40,6 @@ public abstract class AbstractVoteController {
      */
     Vote update(Vote vote, int id, LocalTime currentTime) {
         checkVotingTime(currentTime);
-        checkIdConsistent(vote, id);
         int userId = AuthorizedUser.id();
         LOG.info("update vote {} for User {}", vote, userId);
         return service.update(vote, userId);

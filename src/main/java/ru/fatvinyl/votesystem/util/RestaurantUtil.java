@@ -67,8 +67,8 @@ public class RestaurantUtil {
         List<RestaurantWithVote> restaurantWithVotes = new ArrayList<>();
         int matches = 0;
         for (int i = 0; i < restaurants.size(); i++) {
-            if ( matches < votes.size() && votes.get(i).getRestaurant().getId().equals(restaurants.get(i).getId())) {
-                restaurantWithVotes.add(i, new RestaurantWithVote(restaurants.get(i), votes.get(i)));
+            if ( matches < votes.size() && votes.get(matches).getRestaurant().getId().equals(restaurants.get(i).getId())) {
+                restaurantWithVotes.add(i, new RestaurantWithVote(restaurants.get(i), votes.get(matches)));
                 matches++;
             } else {
                 restaurantWithVotes.add(i, new RestaurantWithVote(restaurants.get(i), null));

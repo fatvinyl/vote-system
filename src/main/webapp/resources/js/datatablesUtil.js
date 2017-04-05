@@ -18,7 +18,7 @@ function extendsOpts(opts) {
     $.extend(true, opts,
         {
             "ajax": {
-                "url": ajaxUrl,
+                "url": ajaxRestaurantUrl,
                 "dataSrc": ""
             }
             // "paging": false,
@@ -130,9 +130,4 @@ function renderDeleteBtn(data, type, row) {
     }
 }
 
-function renderVoteBtn(data, type, row) {
-    // if (type == 'display') {
-        return '<a class="btn btn" onclick="updateRow(' + row.id + ');">' +
-            '<span class="btn btn-success" aria-hidden="true">Vote</span></a>';
-    // }
-}
+
