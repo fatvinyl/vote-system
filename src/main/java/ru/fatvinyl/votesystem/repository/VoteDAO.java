@@ -13,6 +13,8 @@ public interface VoteDAO {
 
     Vote save(Vote vote, int userId);
 
+    Vote decrement(Vote vote, int userId);
+
     boolean delete(int voteId, int userId);
 
     Vote get(int id);

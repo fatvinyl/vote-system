@@ -20,9 +20,9 @@ function extendsOpts(opts) {
             "ajax": {
                 "url": ajaxRestaurantUrl,
                 "dataSrc": ""
-            }
+            },
             // "paging": false,
-            // "info": true,
+            "info": true
             // "language": {
             //     "search": i18n["common.search"]
             // },

@@ -10,7 +10,9 @@ public interface VoteService {
 
     Vote save(Vote vote, int userId);
 
-    Vote update(Vote vote, int userId);
+    Vote increment(Vote vote, int userId);
+
+    Vote decrement(Vote vote, int userId);
 
 //    void delete(int voteId, int userId);
 

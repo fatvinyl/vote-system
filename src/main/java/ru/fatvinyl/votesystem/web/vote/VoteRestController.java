@@ -46,13 +46,13 @@ public class VoteRestController extends AbstractVoteController {
     @PutMapping(value = "/increment/{id}&{currentTime}", consumes = MediaType.APPLICATION_JSON_VALUE)
     Vote increment(@RequestBody Vote vote, @PathVariable("id") int id,
                    @PathVariable("currentTime")  @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime currentTime) {
-        return super.update(incrementVote(vote), id, currentTime);
+        return super.increment(incrementVote(vote), id, currentTime);
     }
 
     @PutMapping(value = "/decrement/{id}&{currentTime}", consumes = MediaType.APPLICATION_JSON_VALUE)
     Vote decrement(@RequestBody Vote vote, @PathVariable("id") int id,
                    @PathVariable("currentTime")  @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime currentTime) {
-        return super.update(decrementVote(vote), id, currentTime);
+        return super.decrement(decrementVote(vote), id, currentTime);
     }
 
 //    @Override

@@ -38,11 +38,18 @@ public abstract class AbstractVoteController {
      * @param vote The vote parameter that will be updated in the service layer.
      *
      */
-    Vote update(Vote vote, int id, LocalTime currentTime) {
+    Vote increment(Vote vote, int id, LocalTime currentTime) {
         checkVotingTime(currentTime);
         int userId = AuthorizedUser.id();
         LOG.info("update vote {} for User {}", vote, userId);
-        return service.update(vote, userId);
+        return service.increment(vote, userId);
+    }
+
+    Vote decrement(Vote vote, int id, LocalTime currentTime) {
+        checkVotingTime(currentTime);
+        int userId = AuthorizedUser.id();
+        LOG.info("decrement vote {} for User {}", vote, userId);
+        return service.decrement(vote, userId);
     }
 
 //    void delete(int voteId) {

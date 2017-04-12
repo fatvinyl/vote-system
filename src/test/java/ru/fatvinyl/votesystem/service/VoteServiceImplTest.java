@@ -37,8 +37,8 @@ public class VoteServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    public void test3Update() throws Exception {
-        Vote actual = service.update(new Vote(VOTE_ID_CREATED, 1, LocalDate.now(), RESTAURANT1_ID), 1);
+    public void test3Increment() throws Exception {
+        Vote actual = service.increment(new Vote(VOTE_ID_CREATED, 1, LocalDate.now(), RESTAURANT1_ID), 1);
         VOTE_MATCHER.assertEquals(getIncremented(), actual);
         //add users matcher
     }

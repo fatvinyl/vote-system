@@ -12,55 +12,35 @@
 
 <div class="jumbotron">
     <div class="container">
-        <div class="shadow">
-            <br>
-            <%--<c:if test="${voteId != null}"><h3> Вы проголосовали за ресторан 4<h3></c:if>--%>
+        <br>
+        <%--<div>--%>
 
-                <%--<h3><spring:message code="restaurant.title"/><h3>--%>
+            <%--&lt;%&ndash;<jsp:useBean id="authorizedUser" scope="page" type="ru.fatvinyl.votesystem.AuthorizedUser"/>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<jsp:useBean id="user" scope="page" type="ru.fatvinyl.votesystem.model.User"/>&ndash;%&gt;--%>
+            <%--<c:if test="${user.getVote().getId() != null}">--%>
+            <%--<h4>--%>
+                <%--Вы проголосовали за ресторан 4 &nbsp &nbsp--%>
+
+                <%--<a class="btn btn-danger" role="button" onclick="add('<spring:message code="users.add"/>')"> <spring:message code="restaurant.deleteVote"/></a>--%>
+                <%--<h4>--%>
+                    <%--</c:if>--%>
+        <%--</div>--%>
+        <p id="deleteVote"></p>
+        <br>
+        <div class="shadow">
 
             <div class="view-box">
-                <%--<table class="table table-striped">--%>
-                    <%--<thead>--%>
-                    <%--<tr>--%>
-                        <%--<th>Restaurant</th>--%>
-                        <%--<th>Menu</th>--%>
-                        <%--<th>Price</th>--%>
-                        <%--<th>Rating</th>--%>
-                        <%--<th></th>--%>
-                    <%--</tr>--%>
-                    <%--</thead>--%>
-                    <%--<c:forEach items="${restaurants}" var="restaurant">--%>
-                        <%--<jsp:useBean id="restaurant" scope="page" type="ru.fatvinyl.votesystem.to.RestaurantWithVote"/>--%>
-                        <%--<tr>--%>
-                            <%--<td>${restaurant.name}</td>--%>
-                            <%--<td>--%>
-                                <%--<c:forEach items="${restaurant.menu}" var="dish">--%>
-                            <%--${dish.name} <br/>--%>
-                                <%--</c:forEach>--%>
-                            <%--</td>--%>
-                            <%--<td>--%>
-                                <%--<c:forEach items="${restaurant.menu}" var="dish">--%>
-                                    <%--${dish.price} <br/>--%>
-                                <%--</c:forEach>--%>
-                            <%--</td>--%>
-                            <%--<td>${restaurant.vote.amount}</td>--%>
-                            <%--<td><a class="container">--%>
-                                <%--<span class="btn btn-success" aria-hidden="true">Vote</span>--%>
-                            <%--</a></td>--%>
-                        <%--</tr>--%>
-                    <%--</c:forEach>--%>
-                <%--</table>--%>
-                    <table class="table table-striped display" id="datatable">
-                        <thead>
-                        <tr>
-                            <th><spring:message code="restaurant.name"/></th>
-                            <th><spring:message code="restaurant.menu"/></th>
-                            <th><spring:message code="restaurant.price"/></th>
-                            <th><spring:message code="restaurant.rating"/></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                    </table>
+                <table class="table table-striped display" id="datatable">
+                    <thead>
+                    <tr>
+                        <th><spring:message code="restaurant.name"/></th>
+                        <th><spring:message code="restaurant.menu"/></th>
+                        <th><spring:message code="restaurant.price"/></th>
+                        <th><spring:message code="restaurant.rating"/></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
