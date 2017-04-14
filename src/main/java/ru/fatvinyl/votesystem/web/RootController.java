@@ -1,6 +1,7 @@
 package ru.fatvinyl.votesystem.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,16 +26,19 @@ public class RootController {
     @Autowired
     private UserService userService;
 
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/users")
+    public String users() {
+        return "users";
+    }
+
     @GetMapping("/")
     public String root() {
         return "redirect:restaurants";
     }
 
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
-    public String users(Model model) {
-        model.addAttribute("user", userService.get(AuthorizedUser.id()));
-//        model.addAttribute("restaurants", restaurantService.getAllWIthDishesAndVotes(LocalDate.now()));
-//        model.addAttribute("voteId", 4);
+    public String restaurants() {
         return "restaurants";
     }
 

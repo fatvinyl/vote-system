@@ -32,8 +32,8 @@
     border: 1px solid #9feba6;
 }
 
-.table_restaurants {
-    font-size: 15px;
+.table_bold_txt {
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -41,7 +41,6 @@
     font-size: 12px;
 }
 
-.table_votes {
-    font-size: 15px;
-    font-weight: 600;
+.table_txt {
+    font-size: 14px;
 }

@@ -1,4 +1,4 @@
-var ajaxRestaurantUrl = "ajax/profile/restaurants/";
+var ajaxUrl = "ajax/profile/restaurants/";
 var ajaxVoteUrl = "/ajax/profile/votes/";
 var datatableApi;
 var userVote;
@@ -49,7 +49,7 @@ function getDatatableApi() {
             {
                 "data": "restaurantName",
                 "render": function (data, type, row) {
-                    return '<span class="table_restaurants">' + data + '</span>';
+                    return '<span class="table_bold_txt">' + data + '</span>';
                 }
             },
             {
@@ -78,10 +78,10 @@ function getDatatableApi() {
                 "data": "vote.amount",
                 "render": function (data, type, row) {
                     if (data == null) {
-                        return '<span class="table_votes">' + 0 + '</span>';
+                        return '<span class="table_bold_txt">' + 0 + '</span>';
                         ;
                     } else {
-                        return '<span class="table_votes">' + data + '</span>';
+                        return '<span class="table_bold_txt">' + data + '</span>';
                     }
 
                 }
