@@ -21,11 +21,19 @@ function extendsOpts(opts) {
                 "url": ajaxRestaurantUrl,
                 "dataSrc": ""
             },
-            // "paging": false,
-            "info": true
-            // "language": {
-            //     "search": i18n["common.search"]
-            // },
+            "info": true,
+            "language": {
+                "search": i18n["common.search"],
+                "lengthMenu": i18n["common.show"],
+                "info": i18n["common.info"],
+                "loadingRecords": i18n["common.loading"],
+                "paginate": {
+                    "first": i18n["common.first"],
+                    "last": i18n["common.last"],
+                    "next": i18n["common.next"],
+                    "previous": i18n["common.previous"]
+                }
+            },
             // "initComplete": makeEditable
         }
     );

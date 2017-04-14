@@ -31,3 +31,17 @@
     background-color: #c6fbc2;
     border: 1px solid #9feba6;
 }
+
+.table_restaurants {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.table_dishes {
+    font-size: 12px;
+}
+
+.table_votes {
+    font-size: 15px;
+    font-weight: 600;
+}

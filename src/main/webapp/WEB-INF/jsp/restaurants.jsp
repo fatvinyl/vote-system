@@ -32,7 +32,7 @@
             <div class="view-box">
                 <table class="table table-striped display" id="datatable">
                     <thead>
-                    <tr>
+                    <tr >
                         <th><spring:message code="restaurant.name"/></th>
                         <th><spring:message code="restaurant.menu"/></th>
                         <th><spring:message code="restaurant.price"/></th>
@@ -45,6 +45,31 @@
         </div>
     </div>
 </div>
-<%--<jsp:include page="fragments/footer.jsp"/>--%>
+<jsp:include page="fragments/footer.jsp"/>
+
+<%--<script type="text/javascript">--%>
+    <%--$(document).ready(function(){--%>
+        <%--$("#myModal").modal('show');--%>
+    <%--});--%>
+<%--</script>--%>
+<%--</head>--%>
+
+<%--<div id="modalVote" class="modal fade">--%>
+    <%--<div class="modal-dialog">--%>
+        <%--<div class="modal-content">--%>
+            <%--<div class="modal-header">--%>
+                <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--%>
+                <%--<h4 class="modal-title"><spring:message code="common.confirmation"/></h4>--%>
+            <%--</div>--%>
+            <%--<div class="modal-body">--%>
+                <%--<p>Вы действительно хотите проголосовать за данный ресторан?</p>--%>
+            <%--</div>--%>
+            <%--<div class="modal-footer">--%>
+                <%--<button type="button" class="btn btn-danger" data-dismiss="modal"><spring:message code="common.no"/></button>--%>
+                <%--<button type="button" class="btn btn-success" onclick="confirmVote()" data-dismiss="modal"><spring:message code="common.yes"/></button>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+<%--</div>--%>
 </body>
 </html>
