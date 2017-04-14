@@ -1,6 +1,7 @@
 package ru.fatvinyl.votesystem.model;
 
 import org.hibernate.Hibernate;
+import ru.fatvinyl.votesystem.HasId;
 
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public class BaseEntity {
+public class BaseEntity implements HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,17 +23,16 @@ public class BaseEntity {
     public BaseEntity() {
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public boolean isNew() {
-        return this.id == null;
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {
