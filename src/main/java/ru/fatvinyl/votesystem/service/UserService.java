@@ -1,6 +1,7 @@
 package ru.fatvinyl.votesystem.service;
 
 import ru.fatvinyl.votesystem.model.User;
+import ru.fatvinyl.votesystem.to.UserTo;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface UserService {
     User save(User user);
 
     void update(User user);
+
+    void update(UserTo user);
 
     void delete(int id);
 
