@@ -6,10 +6,8 @@ import java.io.Serializable;
  * @author Anton Yolgin
  */
 
-public class UserVote implements Serializable {
+public class UserVote extends BaseTo implements Serializable {
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
 
     private Integer voteId;
 
@@ -26,14 +24,6 @@ public class UserVote implements Serializable {
         } else {
             this.isVote = true;
         }
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getVoteId() {

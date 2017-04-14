@@ -12,9 +12,7 @@ import java.util.Collection;
  * @author Anton Yolgin
  */
 
-public class RestaurantWithVote {
-
-    private Integer id;
+public class RestaurantWithVote extends BaseTo{
 
     @JsonProperty("restaurantName")
     private String name;
@@ -38,14 +36,6 @@ public class RestaurantWithVote {
         this.name = restaurant.getName();
         this.menu = restaurant.getDishList();
         this.vote = vote;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
