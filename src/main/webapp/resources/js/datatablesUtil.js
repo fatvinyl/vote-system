@@ -77,6 +77,7 @@ function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();
 }
 
+
 var failedNote;
 
 function closeNoty() {

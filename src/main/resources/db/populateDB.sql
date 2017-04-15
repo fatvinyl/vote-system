@@ -6,9 +6,9 @@ INSERT INTO restaurants (name) VALUES
   ('Лаундж');
 
 INSERT INTO users (name, email, password) VALUES
- ('Admin', 'admin@mail.com' , 'admin'),
- ('User_1', 'user1@mail.com', 'password_1'),
- ('User_2', 'user2@mail.com', 'password_2');
+ ('Admin', 'admin@mail.com' , '$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju'),
+ ('User_1', 'user1@mail.com', '$2a$10$seI9HiMpF0rR7povEjG.MOi62z9zGIHyY8XsBB6HZTKMxwtbgtH6.'),
+ ('User_2', 'user2@mail.com', '$2a$10$A1Nev/cAM3mXyEQe5DOyS.NKZmCba.z6Ko3X6n1lEMRvnXfIJbOse');
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_ADMIN', 1),

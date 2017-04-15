@@ -20,21 +20,21 @@ import java.time.LocalDate;
 @Controller
 public class RootController {
 
-    @Autowired
-    private RestaurantService restaurantService;
+    @GetMapping("/")
+    public String root() {
+        return "redirect:restaurants";
+    }
 
-    @Autowired
-    private UserService userService;
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/users")
     public String users() {
         return "users";
     }
 
-    @GetMapping("/")
-    public String root() {
-        return "redirect:restaurants";
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
     }
 
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)

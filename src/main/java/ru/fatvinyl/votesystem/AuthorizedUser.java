@@ -1,6 +1,10 @@
 package ru.fatvinyl.votesystem;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import ru.fatvinyl.votesystem.model.User;
+import ru.fatvinyl.votesystem.to.UserTo;
+import ru.fatvinyl.votesystem.util.UserUtil;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,36 +12,46 @@ import static java.util.Objects.requireNonNull;
  * @author Anton Yolgin
  */
 
-public class AuthorizedUser {
+public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
+    private static final long serialVersionUID = 1L;
 
-    private static final int ADMIN_ID = 1;
-    private static final int USER_ID = 2;
-
-    private User user;
+    private UserTo userTo;
 
     public AuthorizedUser(User user) {
-        this.user = user;
+        super(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, user.getRoles());
+        this.userTo = UserUtil.asTo(user);
     }
 
-//    public static AuthorizedUser get() {
-//        AuthorizedUser user = safeGet();
-//        requireNonNull(user, "No authorized user found");
-//        return user;
-//    }
+    public static AuthorizedUser safeGet() {
 
-//    public User getUser() {
-//        return user;
-//    }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return null;
+        }
+        Object principal = auth.getPrincipal();
+        return (principal instanceof AuthorizedUser) ? (AuthorizedUser) principal : null;
+    }
 
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public static AuthorizedUser get() {
+        AuthorizedUser user = safeGet();
+        requireNonNull(user, "No authorized user found");
+        return user;
+    }
 
     public static int id() {
-        return USER_ID;
+        return get().userTo.getId();
     }
 
+    public void update(UserTo newTo) {
+        userTo = newTo;
+    }
 
+    public UserTo getUserTo() {
+        return userTo;
+    }
 
-
+    @Override
+    public String toString() {
+        return userTo.toString();
+    }
 }
