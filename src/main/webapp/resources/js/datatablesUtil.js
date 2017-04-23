@@ -1,16 +1,20 @@
 var form;
 
+function updateTable() {
+    $.get(ajaxUrl, updateTableByData);
+}
+
 function makeEditable() {
     form = $('#detailsForm');
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(event, jqXHR, options, jsExc);
     });
 
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function(e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
+    // var token = $("meta[name='_csrf']").attr("content");
+    // var header = $("meta[name='_csrf_header']").attr("content");
+    // $(document).ajaxSend(function(e, xhr, options) {
+    //     xhr.setRequestHeader(header, token);
+    // });
 }
 
 // https://api.jquery.com/jquery.extend/#jQuery-extend-deep-target-object1-objectN
@@ -18,7 +22,6 @@ function extendsOpts(opts) {
     $.extend(true, opts,
         {
             "ajax": {
-                "url": ajaxUrl,
                 "dataSrc": ""
             },
             "info": true,
@@ -66,6 +69,7 @@ function deleteRow(id) {
     $.ajax({
         url: ajaxUrl + id,
         type: 'DELETE',
+        global: false,
         success: function () {
             updateTable();
             successNoty('common.deleted');
@@ -73,8 +77,39 @@ function deleteRow(id) {
     });
 }
 
+
+
 function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();
+}
+
+function renderEditBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-success btn-circle" onclick="updateRow(' + row.id + ');">' +
+            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
+    }
+}
+
+
+function renderDeleteBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-danger btn-circle" onclick="deleteRow(' + row.id + ');">'+
+            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
+    }
+}
+
+function save() {
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: form.serialize(),
+        global: false,
+        success: function () {
+            $('#editRow').modal('hide');
+            updateTable();
+            successNoty('common.saved');
+        }
+    });
 }
 
 

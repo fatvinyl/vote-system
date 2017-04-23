@@ -15,7 +15,7 @@
 
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
 
-    <mvc:annotation-driven>
+    <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper" ref="objectMapper"/>
@@ -30,6 +30,15 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
+        <property name="formatters">
+            <set>
+                <bean class="ru.fatvinyl.votesystem.util.DateTimeFormatters.LocalDateFormatter"/>
+                <bean class="ru.fatvinyl.votesystem.util.DateTimeFormatters.LocalTimeFormatter"/>
+            </set>
+        </property>
+    </bean>
 
     <context:component-scan base-package="ru.fatvinyl.**.web"/>
 

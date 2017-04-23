@@ -1,12 +1,10 @@
 package ru.fatvinyl.votesystem.web.restaurant;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.fatvinyl.votesystem.model.Restaurant;
 import ru.fatvinyl.votesystem.to.RestaurantWithVote;
-import ru.fatvinyl.votesystem.util.DateTimeUtil;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,6 +23,18 @@ public class RestaurantAjaxController extends AbstractRestaurantController {
 //        return super.getAllWIthDishesAndVotes(LocalDate.parse("2017-01-11", DateTimeUtil.DATE_FORMATTER));
         return super.getAllWIthDishesAndVotes(LocalDate.now());
     }
+
+    @PostMapping(value = "/byDate", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RestaurantWithVote> getAllFiltered(
+            @RequestParam("menuDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate menuDate) {
+        return super.getAllWIthDishesAndVotes(menuDate);
+    }
+
+//    @PostMapping(value = "/date", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public List<RestaurantWithVote> getAllFiltered(
+//            @RequestParam(value = "menuDate", required = false) LocalDate date) {
+//        return super.getAllWIthDishesAndVotes(date);
+//    }
 
     @Override
     List<Restaurant> getAll() {

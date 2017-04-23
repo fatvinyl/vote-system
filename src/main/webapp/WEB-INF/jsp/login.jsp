@@ -6,28 +6,34 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+<nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header navbar-brand"><spring:message code="app.title"/></div>
-        <div class="navbar-collapse collapse">
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-2">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <form:form class="navbar-form" role="form" action="spring_security_check" method="post">
-                        <div class="form-group">
-                            <input type="text" placeholder="Email" class="form-control" name="username">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control" name="password">
-                        </div>
-                        <button type="submit" class="btn btn-success">
-                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                        </button>
-                    </form:form>
+                    <a class="btn btn-default btn-outline btn-circle"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2"><spring:message code="app.enter"/></a>
+                </li>
+                <li>
+                    <a class="btn btn-default btn-outline btn-circle"  href="register"><spring:message code="app.register"/></a>
                 </li>
             </ul>
-        </div>
-    </div>
-</div>
+            <div class="collapse nav navbar-nav nav-collapse" id="nav-collapse2">
+                <form:form class="navbar-form navbar-right form-inline" role="form" action="spring_security_check" method="post">
+                    <div class="form-group">
+                        <input type="text" placeholder="<spring:message code="users.password"/>" class="form-control" name="username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="<spring:message code="users.email"/>" class="form-control" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-success btn-circle glyphicon glyphicon-log-in"></button>
+                </form:form>
+            </div>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+</nav><!-- /.navbar -->
 
 <div class="jumbotron">
     <div class="container">
@@ -42,12 +48,12 @@
             </div>
         </c:if>
         <br/>
-        <p>
-            <a class="btn btn-lg btn-success" href="register"><spring:message code="app.register"/> &raquo;</a>
-            <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('user2@mail.com', 'password_2')">
+        <p >
+            <span class="font_15"> Тестовые данные для автоматического заполнения формы авторизации:<br/></span>
+            <button type="submit" class="btn btn-success btn-circle " onclick="setCredentials('user2@mail.com', 'password_2')">
                 <spring:message code="app.enter"/> User
             </button>
-            <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('admin@mail.com', 'admin')">
+            <button type="submit" class="btn btn-success btn-circle " onclick="setCredentials('admin@mail.com', 'admin')">
                 <spring:message code="app.enter"/> Admin
             </button>
         </p>

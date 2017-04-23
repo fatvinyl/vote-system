@@ -2,9 +2,7 @@ var ajaxUrl = 'ajax/admin/users/';
 var datatableApi;
 var editTitleKey ="users.edit";
 
-function updateTable() {
-    $.get(ajaxUrl, updateTableByData);
-}
+
 
 function enable(chkbox, id) {
     var enabled = chkbox.is(":checked");
@@ -22,6 +20,9 @@ function enable(chkbox, id) {
 // $(document).ready(function () {
 $(function () {
     datatableApi = $('#datatable').DataTable(extendsOpts({
+        "ajax": {
+            "url": ajaxUrl
+        },
         "columns": [
             {
                 "data": "name",
@@ -86,31 +87,3 @@ $(function () {
         }
     }));
 });
-
-function renderEditBtn(data, type, row) {
-    if (type == 'display') {
-        return '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' +
-            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
-    }
-}
-
-
-function renderDeleteBtn(data, type, row) {
-    if (type == 'display') {
-        return '<a class="btn btn-danger" onclick="deleteRow(' + row.id + ');">'+
-            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
-    }
-}
-
-function save() {
-    $.ajax({
-        type: "POST",
-        url: ajaxUrl,
-        data: form.serialize(),
-        success: function () {
-            $('#editRow').modal('hide');
-            updateTable();
-            successNoty('common.saved');
-        }
-    });
-}
