@@ -13,7 +13,7 @@ IF EXISTS restaurants;
 CREATE TABLE restaurants
 (
   id  SERIAL PRIMARY KEY UNIQUE,
-  name VARCHAR(30) NOT NULL
+  name VARCHAR(30) NOT NULL UNIQUE
 );
 
 CREATE TABLE votes

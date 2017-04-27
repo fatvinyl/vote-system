@@ -1,6 +1,73 @@
 var ajaxUrl = "/ajax/profile/restaurants/";
 var datatableApi;
-var editTitleKey ="users.edit";
+var editTitleKey ="menu.edit";
+var restaurant;
+
+function openModal(title) {
+    $('#modalTitle').html(title);
+    getAllRestaurants();
+    $('#editRow').modal();
+    // document.getElementById("filt").oninput = function(){
+    //     var inp = this.value;
+    //     var opt=document.querySelector("#dl_continents option[value='"+inp+"']");
+    // }
+// }
+    // form.find(":input").val("");
+    // $('#editRow').modal();
+}
+
+function getAllRestaurants() {
+    $.get("/ajax/profile/restaurants/all", function (data) {
+        $("option").remove();
+        $.each(data, function (key, value) {
+            $("#dl_continents").append("<option data-value='" + value.id + "' value='" + value.name + "'/>");
+        });
+    });
+}
+
+function getRestaurant() {
+    var elem = document.getElementById("filt");
+    var opt=document.querySelector("#dl_continents option[value='"+elem.value+"']");
+    restaurant= {"id" : (opt==undefined) ? null : opt.dataset.value, "name" : elem.value};
+    if (restaurant.id==null) {
+        $.post("/ajax/profile/restaurants/", restaurant, function (json) {
+
+        })
+    }
+    getAllDishes();
+}
+
+function getAllDishes() {
+    document.getElementById('dishes').innerHTML = '';
+    var div = $('#dishes');
+    $.get("/ajax/profile/dishes/" + menuDate.serialize().substring(9) + "&" + restaurant.id, function (data) {
+        for (i = 0; i < data.length; i++) {
+            var dish = data[i];
+            div.append( "<input type='hidden' id='id' name='id' value='" + dish.id + "' >" +
+                        "<div class='form-group'>" +
+                        "<div class='col-xs-7'>" +
+                        "<input type='text' class='form-control' name='dishName' value='" + dish.dishName + "' placeholder='Блюдо'>" +
+                    "</div>" +
+                    "<div class='col-xs-3'>" +
+                    "<input type='text' class='form-control' name='price' value='" + dish.price + "' placeholder='Цена'>" +
+                    "</div>" +
+                "<a class='btn btn-success btn-circle glyphicon glyphicon-pencil' type='button' onclick='saveDish()'></a>" +
+                "<a class='btn btn-danger btn-circle glyphicon glyphicon-remove' type='button' onclick='deleteDish()'></a>" +
+                    "</div>");
+        }
+    })
+    div.append( "<input type='hidden' id='id' name='id' value='' >" +
+        "<div class='form-group'>" +
+        "<div class='col-xs-7'>" +
+        "<input type='text' class='form-control' name='dishName' placeholder='Добавьте Блюдо'>" +
+        "</div>" +
+        "<div class='col-xs-3'>" +
+        "<input type='text' class='form-control' name='price' placeholder='Цена'>" +
+        "</div>" +
+        "<a class='btn btn-success btn-circle glyphicon glyphicon-ok' type='button' onclick='saveDish()'></a>" +
+        "</div>");
+}
+
 
 function filterTable() {
     $.ajax({
@@ -57,7 +124,7 @@ $(function () {
                 "render": function (data, type, row) {
                     var result = "";
                     for (x in data) {
-                        result += data[x].price.replace(",", "-") + " ₽" + "<br>";
+                        result += data[x].price + " ₽" + "<br>";
                     }
                     return '<span class="table_dishes">' + result + '</span>';
                 }

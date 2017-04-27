@@ -52,7 +52,7 @@ function getDatatableApi() {
                 "render": function (data, type, row) {
                     var result = "";
                     for (x in data) {
-                        result += data[x].price.replace(",", "-") + " ₽" + "<br>";
+                        result += data[x].price + " ₽" + "<br>";
                     }
                     return '<span class="table_dishes">' + result + '</span>';
                 }
@@ -62,10 +62,10 @@ function getDatatableApi() {
                 "data": "vote.amount",
                 "render": function (data, type, row) {
                     if (data == null) {
-                        return '<span class="table_bold_txt">' + 0 + '</span>';
+                        return '<span class="badge">' + 0 + '</span>';
                         ;
                     } else {
-                        return '<span class="table_bold_txt">' + data + '</span>';
+                        return '<span class="badge">' + data + '</span>';
                     }
 
                 }

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.fatvinyl.votesystem.model.Restaurant;
 import ru.fatvinyl.votesystem.to.RestaurantWithVote;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class RestaurantAjaxController extends AbstractRestaurantController {
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    List<RestaurantWithVote> getAllWIthDishesAndVotes() {
+    public List<RestaurantWithVote> getAllWIthDishesAndVotes() {
 //        return super.getAllWIthDishesAndVotes(LocalDate.parse("2017-01-11", DateTimeUtil.DATE_FORMATTER));
         return super.getAllWIthDishesAndVotes(LocalDate.now());
     }
@@ -30,25 +31,20 @@ public class RestaurantAjaxController extends AbstractRestaurantController {
         return super.getAllWIthDishesAndVotes(menuDate);
     }
 
-//    @PostMapping(value = "/date", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public List<RestaurantWithVote> getAllFiltered(
-//            @RequestParam(value = "menuDate", required = false) LocalDate date) {
-//        return super.getAllWIthDishesAndVotes(date);
-//    }
-
     @Override
-    List<Restaurant> getAll() {
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Restaurant> getAll() {
         return super.getAll();
     }
 
-    @Override
-    Restaurant update(Restaurant restaurant, int id) {
-        return super.update(restaurant, id);
-    }
-
-    @Override
-    Restaurant create(Restaurant restaurant) {
-        return super.create(restaurant);
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Restaurant createOrUpdate(@Valid Restaurant restaurant) {
+        if (restaurant.isNew()) {
+            super.create(restaurant);
+        } else {
+            super.update(restaurant, restaurant.getId());
+        }
+        return null;
     }
 
     @Override

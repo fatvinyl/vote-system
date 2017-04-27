@@ -76,8 +76,8 @@ public class DishServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void test8Validation() throws Exception {
-        validateRootCause(() -> service.save(new Dish(null, "  ", "100,00", LocalDate.now()), 1), ConstraintViolationException.class);
+        validateRootCause(() -> service.save(new Dish(null, "  ", "100-00", LocalDate.now()), 1), ConstraintViolationException.class);
         validateRootCause(() -> service.save(new Dish(null, "name", "  ", LocalDate.now()), 1), ConstraintViolationException.class);
-        validateRootCause(() -> service.save(new Dish(null, "name", "100,00", null), 1), ConstraintViolationException.class);
+        validateRootCause(() -> service.save(new Dish(null, "name", "100-00", null), 1), ConstraintViolationException.class);
     }
 }
