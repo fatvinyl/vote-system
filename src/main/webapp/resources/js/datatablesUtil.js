@@ -24,6 +24,7 @@ function extendsOpts(opts) {
             "ajax": {
                 "dataSrc": ""
             },
+            "paging": false,
             "info": true,
             "language": {
                 "search": i18n["common.search"],
@@ -60,10 +61,10 @@ function updateRow(id) {
         $('#editRow').modal();
     });
 }
-
-function formatDate(date) {
-    return date.replace('T', ' ').substr(0, 16);
-}
+//
+// function formatDate(date) {
+//     return date.replace('T', ' ').substr(0, 16);
+// }
 
 function deleteRow(id) {
     $.ajax({
@@ -76,7 +77,6 @@ function deleteRow(id) {
         }
     });
 }
-
 
 
 function updateTableByData(data) {
@@ -122,13 +122,15 @@ function closeNoty() {
     }
 }
 
-function successNoty(key) {
+function successNoty(message) {
     closeNoty();
     noty({
-        text: i18n[key],
+        text: i18n[message],
         type: 'success',
         layout: 'bottomRight',
+        // speed: 2500,
         timeout: true
+
     });
 }
 
@@ -146,5 +148,34 @@ function failNoty(event, jqXHR, options, jsExc) {
     });
 }
 
+function confirmNoty(message, callback, arg1, arg2) {
+noty({
+    text: i18n[message],
+    type: 'warning',
+    layout: 'bottomRight',
+    buttons: [
+        {addClass: 'btn btn-success btn-circle glyphicon glyphicon-ok', onClick: function($noty) {
+            $noty.close();
+           if (callback==='createRestaurant'){
+               createRestaurant(arg1);
+           } else if (callback==='updateVote'){
+               updateVote(arg1, arg2)
+           } else if (callback==='deleteVote'){
+               decrementVote(arg1, arg2);
+           } else if (callback==='createOrUpdateDish'){
+               createOrUpdateDish(arg1, arg2);
+           } else if (callback==='deleteDish'){
+               deleteDish(arg1);
+           } else if (callback==='deleteRestaurant'){
+               deleteRestaurant(arg1);
+           }
+        }
+        },
+        {addClass: 'btn btn-danger btn-circle glyphicon glyphicon-remove', onClick: function($noty) {
+            $noty.close();
+        }
+        }
+    ]
+});
 
-
+}

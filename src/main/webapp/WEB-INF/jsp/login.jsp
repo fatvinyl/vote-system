@@ -6,18 +6,18 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-
-<nav  class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container">
+<nav  class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header navbar-brand"><spring:message code="app.title"/></div>
 
-        <div class="collapse navbar-collapse" id="navbar-collapse-2">
-            <ul class="nav navbar-nav navbar-right">
+        <div class="navbar-collapse collapse" id="navbar-collapse-2">
+            <ul class="nav navbar-nav pull-right">
                 <li>
-                    <a class="btn btn-default btn-outline btn-circle"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2"><spring:message code="app.enter"/></a>
+                    <a data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2"><spring:message code="app.enter"/></a>
                 </li>
                 <li>
-                    <a class="btn btn-default btn-outline btn-circle"  href="register"><spring:message code="app.register"/></a>
+                    <a href="register"><spring:message code="app.register"/></a>
                 </li>
             </ul>
             <div class="collapse nav navbar-nav nav-collapse" id="nav-collapse2">
@@ -34,6 +34,7 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
 </nav><!-- /.navbar -->
+</div>
 
 <div class="jumbotron">
     <div class="container">
@@ -79,7 +80,7 @@
             <a href="http://jquery.com/">jQuery</a>,
             <a href="http://ned.im/noty/">jQuery notification</a>,
             <a href="http://getbootstrap.com/">Bootstrap</a>.</p>
-    </div>
+
 </div>
 <div class="container">
     <div class="lead">

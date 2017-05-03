@@ -26,8 +26,18 @@ public class DishAjaxController extends AbstractDishController {
         return super.update(dish, id, restaurantId);
     }
 
+    @PostMapping(value = "/{restaurantId}")
+    public void createOrUpdate(Dish dish,  @PathVariable("restaurantId") int restaurantId) {
+        if (dish.isNew()) {
+            super.create(dish, restaurantId);
+        } else {
+            super.update(dish, dish.getId(), restaurantId);
+        }
+    }
+
     @Override
-    void delete(int id) {
+    @DeleteMapping(value = "/{id}")
+    void delete(@PathVariable("id") int id) {
         super.delete(id);
     }
 

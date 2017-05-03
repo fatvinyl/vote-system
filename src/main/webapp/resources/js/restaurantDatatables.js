@@ -31,6 +31,12 @@ function getDatatableApi() {
         },
         "columns": [
             {
+                "data": "id",
+                "render": function (data, type, row) {
+                    return '<img src="/resources/images/'+data+'.png" alt="image" style="width:75px"/>';
+                }
+            },
+            {
                 "data": "restaurantName",
                 "render": function (data, type, row) {
                     return '<span class="table_bold_txt">' + data + '</span>';
@@ -41,11 +47,10 @@ function getDatatableApi() {
                 "render": function (data, type, row) {
                     var result = "";
                     for (x in data) {
-                        result += data[x].dishName + "<br>";
+                        result += data[x].name + "<br>";
                     }
                     return '<span class="table_dishes">' + result + '</span>';
                 }
-
             },
             {
                 "data": "menu",
@@ -56,7 +61,6 @@ function getDatatableApi() {
                     }
                     return '<span class="table_dishes">' + result + '</span>';
                 }
-
             },
             {
                 "data": "vote.amount",
@@ -67,25 +71,22 @@ function getDatatableApi() {
                     } else {
                         return '<span class="badge">' + data + '</span>';
                     }
-
                 }
             },
             {
                 "render": renderBtn,
                 "defaultContent": "",
                 "orderable": false
-
             }
         ],
         "order": [[4, "desc"]]
-
     }));
 }
 
 function renderBtn(data, type, row) {
     if (type == 'display') {
         if (userVote.isVote == false) {
-            return '<a class="btn btn-success btn-circle " onclick="updateVote(' + row.id + ', ' + ((row.vote == undefined) ? null :
+            return '<a class="btn btn-success btn-circle " onclick="addVote(' + row.id + ', ' + ((row.vote == undefined) ? null :
                     '{id:' + row.vote.id + ', amount:' + row.vote.amount + '}' ) + ')"><span class="glyphicon glyphicon-thumbs-up"></span></a>';
         }
         if (userVote.isVote == true && row.vote != undefined && row.vote.id == userVote.voteId) {
@@ -95,11 +96,11 @@ function renderBtn(data, type, row) {
     }
 }
 
-function updateVote(restaurantId, vote) {
-    votes(restaurantId, vote);
+function addVote(restaurantId, vote) {
+    confirmNoty('confirm.vote.add', 'updateVote', restaurantId, vote);
 }
 
-function votes(restaurantId, vote) {
+function updateVote(restaurantId, vote) {
     if (vote == null) {
         saveVote(restaurantId)
     } else {
@@ -109,10 +110,20 @@ function votes(restaurantId, vote) {
     }
 }
 
+// function votes(restaurantId, vote) {
+//     if (vote == null) {
+//         saveVote(restaurantId)
+//     } else {
+//         var date = new Date().toLocaleDateString().split('.');
+//         vote.date = date[2] + '-' + date[1] + '-' + date[0];
+//         incrementVote(vote, restaurantId);
+//     }
+// }
+
 function deleteVote(vote) {
     var restaurantId = vote.restaurant.id;
     delete vote.restaurant;
-    decrementVote(vote, restaurantId);
+    confirmNoty('confirm.vote.delete', 'deleteVote', vote, restaurantId);
 }
 
 

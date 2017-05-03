@@ -10,19 +10,15 @@
 <script type="text/javascript" src="resources/js/userDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
-<div class="jumbotron">
     <div class="container">
-        <div class="shadow">
             <span class="head-txt"> <h3><spring:message code="users.title"/></h3></span>
-
-            <div class="view-box">
                 <a class="btn btn-success btn-circle" onclick="add('<spring:message code="users.add"/>')">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
 
                 <table class="table table-striped display" id="datatable">
                     <thead>
-                    <tr>
+                    <tr class="bg-success" >
                         <th><spring:message code="users.name"/></th>
                         <th><spring:message code="users.email"/></th>
                         <th><spring:message code="users.roles"/></th>
@@ -33,10 +29,7 @@
                     </tr>
                     </thead>
                 </table>
-            </div>
-        </div>
     </div>
-</div>
 <jsp:include page="fragments/footer.jsp"/>
 
 <div class="modal fade" id="editRow">
@@ -76,8 +69,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                            <button type="button" onclick="save()" class="btn btn-success">
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <a class="btn btn-success btn-circle glyphicon glyphicon-ok" type="button" onclick="save()"></a>
                             </button>
                         </div>
                     </div>

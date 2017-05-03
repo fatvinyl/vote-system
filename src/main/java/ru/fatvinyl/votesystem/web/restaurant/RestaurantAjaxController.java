@@ -48,7 +48,8 @@ public class RestaurantAjaxController extends AbstractRestaurantController {
     }
 
     @Override
-    void delete(int id) {
+    @DeleteMapping(value = "/{id}")
+    void delete(@PathVariable("id")int id) {
         super.delete(id);
     }
 }

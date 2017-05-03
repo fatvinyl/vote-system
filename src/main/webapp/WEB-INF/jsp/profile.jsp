@@ -13,8 +13,7 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h3>${userTo.name} <spring:message code="${register ? 'app.register' : 'app.profile'}"/></h3>
-
+                <br><br>
             <div class="view-box">
                 <form:form modelAttribute="userTo" class="form-horizontal" method="post" action="${register ? 'register' : 'profile'}"
                            charset="utf-8" accept-charset="UTF-8">

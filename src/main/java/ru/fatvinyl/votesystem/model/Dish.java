@@ -34,12 +34,6 @@ public class Dish extends NamedEntity {
     public static final String DELETE = "Dish.delete";
     public static final String GET_ALL_BY_DATE = "Dish.getAllByDate";
 
-    @NotBlank
-    @Column(name = "name", nullable = false)
-//    @SafeHtml
-    @JsonProperty("dishName")
-    protected String name;
-
     @Column(name = "price", nullable = false)
     @NotBlank
     private String price;
@@ -58,12 +52,12 @@ public class Dish extends NamedEntity {
     public Dish() {
     }
 
-    //The constructor is used to create test objects
     public Dish(Integer id, String name, String price, LocalDate date) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.date = date;
+        this.date = (date == null) ? LocalDate.now() : date;
+
     }
 
 
