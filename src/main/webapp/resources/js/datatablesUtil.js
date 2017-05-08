@@ -93,7 +93,7 @@ function renderEditBtn(data, type, row) {
 
 function renderDeleteBtn(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-danger btn-circle" onclick="deleteRow(' + row.id + ');">'+
+        return '<a class="btn btn-danger btn-circle" onclick="deleteRow(' + row.id + ');">' +
             '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
     }
 }
@@ -142,40 +142,42 @@ function failNoty(event, jqXHR, options, jsExc) {
     // RFC 7230 states that clients should ignore reason phrases in HTTP/1.1 response messages.
     // Since the reason phrase is optional, Tomcat no longer sends it (statusText).
     failedNote = noty({
-        text: i18n['common.status'] + ': ' + jqXHR.status + "<br>"+ errorInfo.cause + "<br>" + errorInfo.details.join("<br>"),
+        text: i18n['common.status'] + ': ' + jqXHR.status + "<br>" + errorInfo.cause + "<br>" + errorInfo.details.join("<br>"),
         type: 'error',
         layout: 'bottomRight'
     });
 }
 
 function confirmNoty(message, callback, arg1, arg2) {
-noty({
-    text: i18n[message],
-    type: 'warning',
-    layout: 'bottomRight',
-    buttons: [
-        {addClass: 'btn btn-success btn-circle glyphicon glyphicon-ok', onClick: function($noty) {
-            $noty.close();
-           if (callback==='createRestaurant'){
-               createRestaurant(arg1);
-           } else if (callback==='updateVote'){
-               updateVote(arg1, arg2)
-           } else if (callback==='deleteVote'){
-               decrementVote(arg1, arg2);
-           } else if (callback==='createOrUpdateDish'){
-               createOrUpdateDish(arg1, arg2);
-           } else if (callback==='deleteDish'){
-               deleteDish(arg1);
-           } else if (callback==='deleteRestaurant'){
-               deleteRestaurant(arg1);
-           }
-        }
-        },
-        {addClass: 'btn btn-danger btn-circle glyphicon glyphicon-remove', onClick: function($noty) {
-            $noty.close();
-        }
-        }
-    ]
-});
+    noty({
+        text: i18n[message],
+        type: 'warning',
+        layout: 'bottomRight',
+        buttons: [
+            {
+                addClass: 'btn btn-success btn-circle glyphicon glyphicon-ok', onClick: function ($noty) {
+                $noty.close();
+                if (callback === 'updateVote') {
+                    updateVote(arg1, arg2)
+                } else if (callback === 'deleteVote') {
+                    deleteVote(arg1, arg2);
+                } else if (callback === 'createOrUpdateRestaurant') {
+                    createOrUpdateRestaurant(arg1);
+                } else if (callback === 'deleteRestaurant') {
+                    deleteRestaurant(arg1);
+                } else if (callback === 'createOrUpdateDish') {
+                    createOrUpdateDish(arg1, arg2);
+                } else if (callback === 'deleteDish') {
+                    deleteDish(arg1);
+                }
+            }
+            },
+            {
+                addClass: 'btn btn-danger btn-circle glyphicon glyphicon-remove', onClick: function ($noty) {
+                $noty.close();
+            }
+            }
+        ]
+    });
 
 }

@@ -110,16 +110,6 @@ function updateVote(restaurantId, vote) {
     }
 }
 
-// function votes(restaurantId, vote) {
-//     if (vote == null) {
-//         saveVote(restaurantId)
-//     } else {
-//         var date = new Date().toLocaleDateString().split('.');
-//         vote.date = date[2] + '-' + date[1] + '-' + date[0];
-//         incrementVote(vote, restaurantId);
-//     }
-// }
-
 function deleteVote(vote) {
     var restaurantId = vote.restaurant.id;
     delete vote.restaurant;
@@ -158,7 +148,7 @@ function incrementVote(vote, restaurantId) {
     });
 }
 
-function decrementVote(vote, restaurantId) {
+function deleteVote(vote, restaurantId) {
     $.ajax({
         type: "POST",
         url: ajaxVoteUrl + "decrement/" + vote.id + "&" + restaurantId,

@@ -115,8 +115,8 @@ function drawDishesForm() {
                     "<div class='col-xs-3'>" +
                     "<input type='text' class='form-control' name='price' value='" + dish.price + "'>" +
                     "</div>" +
-                    "<a class='btn btn-success btn-circle glyphicon glyphicon-refresh' type='button' onclick='saveDishRow(" + i + ")'></a>" +
-                    "<a class='btn btn-danger btn-circle glyphicon glyphicon-trash' type='button' onclick='deleteDishRow(" + i + ")'></a>" +
+                    "<a class='btn btn-success btn-circle glyphicon glyphicon-refresh' type='button' onclick='clickSaveDish(" + i + ")'></a>" +
+                    "<a class='btn btn-danger btn-circle glyphicon glyphicon-trash' type='button' onclick='clickDeleteDish(" + i + ")'></a>" +
                     "</div></form>");
             }
         });
@@ -131,7 +131,7 @@ function drawDishesForm() {
         "<div class='col-xs-3'>" +
         "<input type='text' class='form-control' name='price' placeholder='Цена'>" +
         "</div>" +
-        "<a class='btn btn-success btn-circle glyphicon glyphicon-plus' type='button' onclick='saveDishRow()'></a>" +
+        "<a class='btn btn-success btn-circle glyphicon glyphicon-plus' type='button' onclick='clickSaveDish()'></a>" +
         "</div></form>");
 }
 
@@ -139,12 +139,12 @@ function drawDishesForm() {
 function drawRestaurantForm() {
     document.getElementById('restaurant_form').innerHTML = '';
     var selector = document.getElementById("select_restaurant");
-    var restaurantId = (selector != undefined) ? selector.options[selector.selectedIndex].value : null;
+    var restaurantId = (selector != undefined) ? selector.options[selector.selectedIndex].value : "";
     var restaurantName = (selector != undefined) ? selector.options[selector.selectedIndex].text : "";
-    var imgSrc = "/resources/images/" + ((restaurantId == null) ? "default_logo" : restaurantId) + ".png";
-    var buttons = (restaurantId == null) ? "<a class='btn btn-success btn-circle glyphicon glyphicon-ok' type='button' onclick='saveRestaurantRow()'></a>" :
-                                           "<a class='btn btn-success btn-circle glyphicon glyphicon-refresh' type='button' onclick='saveRestaurantRow()'></a>"+
-                                           "<a class='btn btn-danger btn-circle glyphicon glyphicon-trash' type='button' onclick='saveRestaurantRow()'></a>";
+    var imgSrc = "/resources/images/" + ((restaurantId == '') ? "default_logo" : restaurantId) + ".png";
+    var buttons = (restaurantId == '') ? "<a class='btn btn-success btn-circle glyphicon glyphicon-ok' type='button' onclick='clickSaveRestaurant()'></a>"
+                                         : "<a class='btn btn-success btn-circle glyphicon glyphicon-refresh' type='button' onclick='clickSaveRestaurant()'></a>"+
+                                           "<a class='btn btn-danger btn-circle glyphicon glyphicon-trash' type='button' onclick='clickDeleteRestaurant()'></a>";
     $('#restaurant_form').append("<form id='modal_restaurant' enctype='multipart/form-data'>" +
     "<input type='hidden' id='id' name='id' value='"+ restaurantId +"'>" +
         "<input type='text' class='form-control' name='name' value='"+ restaurantName +"' placeholder='Введите название ресторана'>" +
@@ -166,47 +166,63 @@ function getImgPreview(par) {
     document.getElementById('imgPreview').src = window.URL.createObjectURL(par.files[0]);
 }
 
-
-
-var restaurant;
-
-function setRestaurant() {
-    var elem = document.getElementById("filt");
-    var opt = document.querySelector("#select_restaurant option[value='" + elem.value + "']");
-    restaurant = {"id": (opt == undefined) ? null : opt.dataset.value, "name": elem.value};
-    if (restaurant.id == null) {
-        confirmNoty('confirm.restaurant.create', 'createRestaurant', restaurant, null);
-    } else {
-        drawDishesForm();
-    }
+function clickSaveRestaurant() {
+    var form = $("#modal_restaurant")[0];
+    var data = new FormData(form);
+    confirmNoty('confirm.save', 'createOrUpdateRestaurant', data, null);
 }
 
+function clickDeleteRestaurant() {
+    var restaurantId = $('#select_restaurant').val();
+    confirmNoty('confirm.restaurant.delete', 'deleteRestaurant', restaurantId, null);
+}
 
-// function drawRestaurant
-
-function saveDishRow(index) {
+function clickSaveDish(index) {
     var dish;
     var restaurantId = $('#select_restaurant').val();
     if (index == undefined) {
         dish = $("#modal_menu").serialize();
-        confirmNoty('confirm.dish.add', 'createOrUpdateDish', dish, restaurantId);
+        confirmNoty('confirm.save', 'createOrUpdateDish', dish, restaurantId);
     } else {
         dish = $("#modal_menu" + index).serialize();
-        confirmNoty('confirm.dish.edit', 'createOrUpdateDish', dish, restaurantId);
+        confirmNoty('confirm.save', 'createOrUpdateDish', dish, restaurantId);
     }
 }
 
-function deleteDishRow(index) {
+
+function clickDeleteDish(index) {
     var id = $("#modal_menu" + index + " #id").val();
-    confirmNoty('confirm.dish.delete', 'deleteDish', id, null);
+    confirmNoty('confirm.delete', 'deleteDish', id, null);
 }
 
-function deleteRestaurantRow() {
-    var restaurantId = getRestaurantId();
-    confirmNoty('confirm.restaurant.delete', 'deleteRestaurant', restaurantId, null);
+function createOrUpdateRestaurant(data) {
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/ajax/profile/restaurants/",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            $(".close").click();
+            successNoty('common.saved');
+        }
+    });
 }
 
-
+function deleteRestaurant(id) {
+    $.ajax({
+        url: "/ajax/profile/restaurants/" + id,
+        type: 'DELETE',
+        success: function () {
+            $(".close").click();
+            successNoty('common.deleted');
+            drawDishesForm();
+        }
+    });
+}
 
 function createOrUpdateDish(dish, restaurantId) {
     $.post("/ajax/profile/dishes/" + restaurantId, dish, function (json) {
@@ -221,18 +237,6 @@ function deleteDish(id) {
         type: 'DELETE',
         success: function () {
             successNoty('common.deleted');
-            drawDishesForm();
-        }
-    });
-}
-
-function deleteRestaurant(id) {
-    $.ajax({
-        url: "/ajax/profile/restaurants/" + id,
-        type: 'DELETE',
-        success: function () {
-            successNoty('common.deleted');
-            form.find(":input").val("");
             drawDishesForm();
         }
     });
@@ -268,46 +272,3 @@ menuDate.datetimepicker({
     onSelectDate: filterTable
 });
 
-
-function saveRestaurantRow() {
-    var form = $("#modal_restaurant")[0];
-
-    var data = new FormData(form);
-    // var fd = new FormData(document.getElementById("#modal_restaurant"));
-    // var fd = new FormData($("#modal_restaurant")[0]);
-    // fd.append( "file", $("#file")[0].files[0]);
-    // fd.append( "text", $("#restName").val());
-    createRestaurant(data);
-
-    // var restaurant = $("#modal_restaurant").serialize();
-    // if (restaurant.id == undefined) {
-    //     // confirmNoty('confirm.dish.add', 'createOrUpdateDish', dish, restaurantId);
-    //     createRestaurant(fd);
-    //     // confirmNoty('confirm.dish.add', 'createOrUpdateDish', dish, restaurantId);
-    // } else {
-    //     // confirmNoty('confirm.dish.edit', 'createOrUpdateDish', dish, restaurantId);
-    //     createRestaurant(fd);
-    //     // confirmNoty('confirm.dish.edit', 'createOrUpdateDish', dish, restaurantId);
-    // }
-}
-
-function createRestaurant(data) {
-    $.ajax({
-        type: "POST",
-        enctype: 'multipart/form-data',
-        url: "/ajax/profile/restaurants/",
-        data: data,
-        processData: false,
-        contentType: false,
-        cache: false,
-        timeout: 600000,
-        success: function (data) {
-
-        }
-    });
-    // $.post("/ajax/profile/restaurants/", fd, function () {
-    //     successNoty('restaurant.saved');
-    //     drawRestaurantsSelector();
-    //     drawDishesForm();
-    // })
-}
