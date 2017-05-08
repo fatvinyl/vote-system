@@ -60,19 +60,34 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="modalTitle"></h4>
             </div>
-            <div id="restaurant_modal_body">
+
+            <div class="modal-body">
+
             </div>
             <div class="modal-footer">
                 <%--dishes form--%>
                 <div id="dishes_form"></div>
 
                 <%--restaurant form--%>
-                <div id="restaurant_form"></div>
+                <div id="restaurant_form">
+                    <%--<form id="modal_restaurant" enctype="multipart/form-data">--%>
+                        <%--<input type="hidden" id="id" name="id" value="">--%>
+                        <%--<input type="text" class="form-control" name="name" value="" placeholder="Введите название ресторана"><br>--%>
 
+                        <%--<div class="input-group">--%>
+                            <%--<label class="input-group-btn">--%>
+                                   <%--<span class="btn btn-success btn-circle">--%>
+                                    <%--&hellip; <input type="file" name="restaurantImage" style="display: none;">--%>
+                                   <%--</span>--%>
+                            <%--</label>--%>
+                            <%--<input type="text" class="form-control" readonly placeholder="Изображение">--%>
+                        <%--</div><br>--%>
+                        <%--<a class="btn btn-success btn-circle glyphicon glyphicon-ok" type="button" onclick="saveRestaurantRow()"></a>--%>
+                    <%--</form>--%>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </body>
 </html>

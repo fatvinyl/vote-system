@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -36,6 +37,9 @@ public class Restaurant extends NamedEntity {
     @JsonIgnoreProperties("restaurant")
     private List<Dish> dishList;
 
+    @Transient
+    private MultipartFile restaurantImage;
+
     public Restaurant() {
     }
 
@@ -57,6 +61,16 @@ public class Restaurant extends NamedEntity {
     public void setDishList(List<Dish> dishList) {
         this.dishList = dishList;
     }
+
+
+    public MultipartFile getRestaurantImage() {
+        return restaurantImage;
+    }
+
+    public void setRestaurantImage(MultipartFile restaurantImage) {
+        this.restaurantImage = restaurantImage;
+    }
+
 
     @Override
     public String toString() {

@@ -33,7 +33,7 @@ function getDatatableApi() {
             {
                 "data": "id",
                 "render": function (data, type, row) {
-                    return '<img src="/resources/images/'+data+'.png" alt="image" style="width:75px"/>';
+                    return '<img src="/resources/images/'+data+'.png" alt="image" style="width:90px" class="img-circle"/>';
                 }
             },
             {

@@ -15,7 +15,7 @@
     "users.edit", "common.search", "common.show", "common.info", "common.loading", "common.first", "common.last",
     "common.next", "common.previous", "common.voted", "common.vote_deleted", "restaurant.saved", "confirm.restaurant.create",
     "confirm.vote.add", "confirm.vote.delete", "confirm.dish.add", "confirm.dish.edit", "confirm.dish.delete", "confirm.restaurant.delete",
-    "restaurant.title"}%>'>
+    "restaurant.choose"}%>'>
     i18n['${key}'] = '<spring:message code="${key}"/>';
     </c:forEach>
 </script>
