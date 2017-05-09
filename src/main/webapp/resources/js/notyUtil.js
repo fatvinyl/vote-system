@@ -61,14 +61,19 @@ function confirmNoty(message, callback, arg1, arg2) {
                     createOrUpdateDish(arg1, arg2);
                 } else if (callback === 'deleteDish') {
                     deleteDish(arg1);
+                } else if (callback === 'createOrUpdateUser') {
+                    createOrUpdateUser(arg1, arg2);
+                }  else if (callback === 'deleteUser') {
+                    deleteUser(arg1);
                 }
-            }
+                }
             },
             {
                 addClass: 'btn btn-danger btn-circle glyphicon glyphicon-remove', onClick: function ($noty) {
                 $noty.close();
             }
             }
+
         ]
     });
 

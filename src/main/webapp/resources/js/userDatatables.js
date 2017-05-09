@@ -87,3 +87,70 @@ $(function () {
         }
     }));
 });
+
+function renderEditBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-success btn-circle" onclick="openUserEditModal(' + row.id + ');">' +
+            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
+    }
+}
+
+function renderDeleteBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-danger btn-circle" onclick="clickDeleteUser(' + row.id + ');">' +
+            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
+    }
+}
+
+function openUserEditModal(id) {
+    $('#modalTitle').html(i18n[editTitleKey]);
+    $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(
+                key === "dateTime" ? formatDate(value) : value
+            );
+        });
+        $('#editRow').modal();
+    });
+}
+
+function openUserAddModal(title) {
+    $('#modalTitle').html(title);
+    form.find(":input").val("");
+    $('#editRow').modal();
+}
+
+function clickSaveUser() {
+    var data = form.serialize();
+    confirmNoty('confirm.save', 'createOrUpdateUser', ajaxUrl, data);
+}
+
+function clickDeleteUser(id) {
+    confirmNoty('confirm.delete', 'deleteUser', id, null);
+}
+
+function createOrUpdateUser(ajaxUrl, data) {
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl,
+        data: data,
+        global: false,
+        success: function () {
+            $('#editRow').modal('hide');
+            successNoty('common.saved');
+            updateTable();
+        }
+    });
+}
+
+function deleteUser(id) {
+    $.ajax({
+        url: ajaxUrl + id,
+        type: 'DELETE',
+        global: false,
+        success: function () {
+            successNoty('common.deleted');
+            updateTable();
+        }
+    });
+}

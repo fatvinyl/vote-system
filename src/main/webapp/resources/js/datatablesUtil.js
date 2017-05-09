@@ -4,6 +4,10 @@ function updateTable() {
     $.get(ajaxUrl, updateTableByData);
 }
 
+function updateTableByData(data) {
+    datatableApi.clear().rows.add(data).draw();
+}
+
 function makeEditable() {
     form = $('#detailsForm');
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
@@ -44,66 +48,8 @@ function extendsOpts(opts) {
     return opts;
 }
 
-function add(title) {
-    $('#modalTitle').html(title);
-    form.find(":input").val("");
-    $('#editRow').modal();
-}
-
-function updateRow(id) {
-    $('#modalTitle').html(i18n[editTitleKey]);
-    $.get(ajaxUrl + id, function (data) {
-        $.each(data, function (key, value) {
-            form.find("input[name='" + key + "']").val(
-                key === "dateTime" ? formatDate(value) : value
-            );
-        });
-        $('#editRow').modal();
-    });
-}
-
-function deleteRow(id) {
-    $.ajax({
-        url: ajaxUrl + id,
-        type: 'DELETE',
-        global: false,
-        success: function () {
-            updateTable();
-            successNoty('common.deleted');
-        }
-    });
-}
-
-function updateTableByData(data) {
-    datatableApi.clear().rows.add(data).draw();
-}
-
-function renderEditBtn(data, type, row) {
-    if (type == 'display') {
-        return '<a class="btn btn-success btn-circle" onclick="updateRow(' + row.id + ');">' +
-            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
-    }
-}
 
 
-function renderDeleteBtn(data, type, row) {
-    if (type == 'display') {
-        return '<a class="btn btn-danger btn-circle" onclick="deleteRow(' + row.id + ');">' +
-            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
-    }
-}
 
-function save() {
-    $.ajax({
-        type: "POST",
-        url: ajaxUrl,
-        data: form.serialize(),
-        global: false,
-        success: function () {
-            $('#editRow').modal('hide');
-            updateTable();
-            successNoty('common.saved');
-        }
-    });
-}
+
 

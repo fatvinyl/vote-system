@@ -13,7 +13,7 @@
 
     <div class="container">
             <span class="head-txt"> <h3><spring:message code="users.title"/></h3></span>
-                <a class="btn btn-success btn-circle" onclick="add('<spring:message code="users.add"/>')">
+                <a class="btn btn-success btn-circle" onclick="openUserAddModal('<spring:message code="users.add"/>')">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
 
@@ -70,7 +70,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
-                                <a class="btn btn-success btn-circle glyphicon glyphicon-ok" type="button" onclick="save()"></a>
+                                <a class="btn btn-success btn-circle glyphicon glyphicon-ok" type="button" onclick="clickSaveUser()"></a>
                             </button>
                         </div>
                     </div>
