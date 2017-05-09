@@ -134,7 +134,7 @@ function createOrUpdateUser(ajaxUrl, data) {
         type: "POST",
         url: ajaxUrl,
         data: data,
-        global: false,
+        // global: false,
         success: function () {
             $('#editRow').modal('hide');
             successNoty('common.saved');

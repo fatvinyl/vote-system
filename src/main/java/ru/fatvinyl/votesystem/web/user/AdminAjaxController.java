@@ -3,7 +3,6 @@ package ru.fatvinyl.votesystem.web.user;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import ru.fatvinyl.votesystem.AuthorizedUser;
 import ru.fatvinyl.votesystem.model.User;
 import ru.fatvinyl.votesystem.to.UserTo;
 import ru.fatvinyl.votesystem.util.UserUtil;

@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.fatvinyl.votesystem.model.Dish;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,18 +17,18 @@ import java.util.List;
 @RequestMapping(value = "/ajax/profile/dishes")
 public class DishAjaxController extends AbstractDishController {
 
-    @Override
-    Dish create(Dish dish, int restaurantId) {
-        return super.create(dish, restaurantId);
-    }
-
-    @Override
-    Dish update(Dish dish, int id, int restaurantId) {
-        return super.update(dish, id, restaurantId);
-    }
+//    @Override
+//    Dish create(Dish dish, int restaurantId) {
+//        return super.create(dish, restaurantId);
+//    }
+//
+//    @Override
+//    Dish update(Dish dish, int id, int restaurantId) {
+//        return super.update(dish, id, restaurantId);
+//    }
 
     @PostMapping(value = "/{restaurantId}")
-    public void createOrUpdate(Dish dish,  @PathVariable("restaurantId") int restaurantId) {
+    public void createOrUpdate(@Valid Dish dish, @PathVariable("restaurantId") int restaurantId) {
         if (dish.isNew()) {
             super.create(dish, restaurantId);
         } else {

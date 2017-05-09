@@ -35,14 +35,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
-        return dao.save(user);
+        return dao.save(prepareToSave(user));
     }
 
     @Transactional
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
-        dao.save(user);
+        dao.save(prepareToSave(user));
     }
 
     @Transactional

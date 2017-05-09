@@ -13,8 +13,10 @@ IF EXISTS restaurants;
 CREATE TABLE restaurants
 (
   id  SERIAL PRIMARY KEY UNIQUE,
-  name VARCHAR(30) NOT NULL UNIQUE
+  name VARCHAR(30) NOT NULL
 );
+CREATE UNIQUE INDEX restaurants_unique_name_idx
+  ON restaurants (name);
 
 CREATE TABLE votes
 (
@@ -38,8 +40,6 @@ CREATE TABLE dishes
   FOREIGN KEY ( restaurant_id ) REFERENCES restaurants (id)
     ON DELETE CASCADE
 );
-CREATE INDEX meals_unique_name_idx
-  ON dishes (restaurant_id, name);
 
 
 CREATE TABLE users

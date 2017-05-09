@@ -12,6 +12,7 @@ import ru.fatvinyl.votesystem.util.DateTimeUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 
@@ -35,7 +36,7 @@ public class Dish extends NamedEntity {
     public static final String GET_ALL_BY_DATE = "Dish.getAllByDate";
 
     @Column(name = "price", nullable = false)
-    @NotBlank
+    @Pattern(regexp="^\\d+[-]\\d{2}$", message = " must be in '123-45' format")
     private String price;
 
     @Column(name = "date", nullable = false)
