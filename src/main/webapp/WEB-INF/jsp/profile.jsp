@@ -10,12 +10,13 @@
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
-<div class="jumbotron">
-    <div class="container">
+<div class="container">
+    <div class="jumbotron">
         <div class="shadow">
-                <br><br>
+            <br><br>
             <div class="view-box">
-                <form:form modelAttribute="userTo" class="form-horizontal" method="post" action="${register ? 'register' : 'profile'}"
+                <form:form modelAttribute="userTo" class="form-horizontal" method="post"
+                           action="${register ? 'register' : 'profile'}"
                            charset="utf-8" accept-charset="UTF-8">
 
                     <spring:message code="users.name" var="userName"/>

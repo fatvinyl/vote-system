@@ -12,6 +12,7 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="container">
+    <span class="head-txt"> <h3><spring:message code="app.menu"/></h3></span>
     <div class="page-header-cstm">
         <div class="row">
             <br>

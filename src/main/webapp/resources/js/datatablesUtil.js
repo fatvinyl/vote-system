@@ -32,15 +32,8 @@ function extendsOpts(opts) {
             "info": true,
             "language": {
                 "search": i18n["common.search"],
-                "lengthMenu": i18n["common.show"],
                 "info": i18n["common.info"],
-                "loadingRecords": i18n["common.loading"],
-                "paginate": {
-                    "first": i18n["common.first"],
-                    "last": i18n["common.last"],
-                    "next": i18n["common.next"],
-                    "previous": i18n["common.previous"]
-                }
+                "loadingRecords": i18n["common.loading"]
             },
             "initComplete": makeEditable
         }
