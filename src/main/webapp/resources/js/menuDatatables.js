@@ -68,7 +68,7 @@ function openModal(title, action) {
         drawRestaurantsSelector();
     } else if (act == 'rest_create') {
         $('#modalTitle').html(title).val();
-        drawModalFooter();
+        renderModalFooter();
     }
     $('#editDishes').modal();
 }
@@ -79,7 +79,7 @@ function drawRestaurantsSelector() {
             '<h5>' + i18n["restaurant.choose"] + ":" + '</h5>' +
             '<div class="form-group">' +
             '<div class="col-xs-7">' +
-            '<select class="form-control" id="select_restaurant" onchange="if(this.value != null) { drawModalFooter();}"></select>' +
+            '<select class="form-control" id="select_restaurant" onchange="if(this.value != null) { renderModalFooter();}"></select>' +
             '</div><br>' +
             '</div>');
         $("#select_restaurant").append("<option>---</option>");
@@ -89,15 +89,15 @@ function drawRestaurantsSelector() {
     });
 }
 
-function drawModalFooter() {
+function renderModalFooter() {
     if (act == 'dish_edit') {
-        drawDishesForm();
+        renderDishesForm();
     } else if (act == 'rest_edit' || act == 'rest_create') {
-        drawRestaurantForm()
+        renderRestaurantForm()
     }
 }
 
-function drawDishesForm() {
+function renderDishesForm() {
     document.getElementById('dishes_form').innerHTML = '';
     var div = $('#dishes_form');
     var restaurantId = $('#select_restaurant').val();
@@ -136,7 +136,7 @@ function drawDishesForm() {
 }
 
 
-function drawRestaurantForm() {
+function renderRestaurantForm() {
     document.getElementById('restaurant_form').innerHTML = '';
     var selector = document.getElementById("select_restaurant");
     var restaurantId = (selector != undefined) ? selector.options[selector.selectedIndex].value : "";
@@ -206,8 +206,8 @@ function createOrUpdateRestaurant(data) {
         cache: false,
         timeout: 600000,
         success: function (data) {
-            $(".close").click();
             successNoty('common.saved');
+            $(".close").click();
         }
     });
 }
@@ -217,9 +217,9 @@ function deleteRestaurant(id) {
         url: "/ajax/profile/restaurants/" + id,
         type: 'DELETE',
         success: function () {
-            $(".close").click();
             successNoty('common.deleted');
-            drawDishesForm();
+            $(".close").click();
+            renderDishesForm();
         }
     });
 }
@@ -227,7 +227,7 @@ function deleteRestaurant(id) {
 function createOrUpdateDish(dish, restaurantId) {
     $.post("/ajax/profile/dishes/" + restaurantId, dish, function (json) {
         successNoty('common.saved');
-        drawDishesForm();
+        renderDishesForm();
     })
 }
 
@@ -237,7 +237,7 @@ function deleteDish(id) {
         type: 'DELETE',
         success: function () {
             successNoty('common.deleted');
-            drawDishesForm();
+            renderDishesForm();
         }
     });
 }

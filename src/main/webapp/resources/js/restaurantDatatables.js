@@ -86,18 +86,24 @@ function getDatatableApi() {
 function renderBtn(data, type, row) {
     if (type == 'display') {
         if (userVote.isVote == false) {
-            return '<a class="btn btn-success btn-circle " onclick="addVote(' + row.id + ', ' + ((row.vote == undefined) ? null :
+            return '<a class="btn btn-success btn-circle " onclick="clickVote(' + row.id + ', ' + ((row.vote == undefined) ? null :
                     '{id:' + row.vote.id + ', amount:' + row.vote.amount + '}' ) + ')"><span class="glyphicon glyphicon-thumbs-up"></span></a>';
         }
         if (userVote.isVote == true && row.vote != undefined && row.vote.id == userVote.voteId) {
             vote = row.vote;
-            return '<a class="btn btn-danger btn-circle " onclick="deleteVote(vote)"><span class="glyphicon glyphicon-thumbs-down"></a>';
+            return '<a class="btn btn-danger btn-circle " onclick="clickDeleteVote(vote)"><span class="glyphicon glyphicon-thumbs-down"></a>';
         }
     }
 }
 
-function addVote(restaurantId, vote) {
+function clickVote(restaurantId, vote) {
     confirmNoty('confirm.vote.add', 'updateVote', restaurantId, vote);
+}
+
+function clickDeleteVote(vote) {
+    var restaurantId = vote.restaurant.id;
+    delete vote.restaurant;
+    confirmNoty('confirm.vote.delete', 'deleteVote', vote, restaurantId);
 }
 
 function updateVote(restaurantId, vote) {
@@ -109,13 +115,6 @@ function updateVote(restaurantId, vote) {
         incrementVote(vote, restaurantId);
     }
 }
-
-function deleteVote(vote) {
-    var restaurantId = vote.restaurant.id;
-    delete vote.restaurant;
-    confirmNoty('confirm.vote.delete', 'deleteVote', vote, restaurantId);
-}
-
 
 function saveVote(restaurantId) {
     $.ajax({

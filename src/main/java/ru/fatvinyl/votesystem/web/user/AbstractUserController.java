@@ -63,6 +63,10 @@ public abstract class AbstractUserController {
         return service.getAll();
     }
 
-
+    public void enable(int id, boolean enabled) {
+//        checkModificationAllowed(id);
+        LOG.info((enabled ? "enable " : "disable ") + id);
+        service.enable(id, enabled);
+    }
 
 }

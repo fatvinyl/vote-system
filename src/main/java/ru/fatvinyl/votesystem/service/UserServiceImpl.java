@@ -84,4 +84,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         return new AuthorizedUser(u);
     }
+
+    @Override
+    @Transactional
+    public void enable(int id, boolean enabled) {
+        User user = get(id);
+        user.setEnabled(enabled);
+        dao.save(user);
+    }
 }
