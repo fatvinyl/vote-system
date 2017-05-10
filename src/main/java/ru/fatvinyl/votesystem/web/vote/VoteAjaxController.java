@@ -21,7 +21,7 @@ public class VoteAjaxController extends AbstractVoteController{
 
     @PostMapping(value = "/{restaurantId}")
     Vote create(@PathVariable("restaurantId") int restaurantId) {
-        return super.create(restaurantId, LocalTime.parse("10:00"));
+        return super.create(restaurantId, LocalTime.now());
     }
 
     @PostMapping(value = "/increment/{voteId}&{restaurantId}")
@@ -29,7 +29,7 @@ public class VoteAjaxController extends AbstractVoteController{
         Restaurant restaurant = new Restaurant();
         restaurant.setId(restaurantId);
         vote.setRestaurant(restaurant);
-        return super.increment(vote, voteId, LocalTime.parse("10:00"));
+        return super.increment(vote, voteId, LocalTime.now());
     }
 
     @PostMapping(value = "/decrement/{voteId}&{restaurantId}")
@@ -37,7 +37,7 @@ public class VoteAjaxController extends AbstractVoteController{
         Restaurant restaurant = new Restaurant();
         restaurant.setId(restaurantId);
         vote.setRestaurant(restaurant);
-        return super.decrement(vote, voteId, LocalTime.parse("10:00"));
+        return super.decrement(vote, voteId, LocalTime.now());
     }
 
 }

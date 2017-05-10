@@ -14,11 +14,10 @@ import java.time.LocalTime;
 public class VoteUtil {
 
     /**
-     * @throws VotingTimeOverException if the current time is after 11:00
+     * @throws VotingTimeOverException if the current time is after deadline
      */
     public static void checkVotingTime(LocalTime currentTime) {
-        LocalTime deadLine = LocalTime.parse("11:00");
-        if (currentTime.isAfter(deadLine)) {
+        if (currentTime.isAfter(DateTimeUtil.deadline)) {
             throw new VotingTimeOverException("The voting time was over");
         }
     }

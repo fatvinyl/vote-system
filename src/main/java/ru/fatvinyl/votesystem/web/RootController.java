@@ -16,6 +16,7 @@ import ru.fatvinyl.votesystem.AuthorizedUser;
 import ru.fatvinyl.votesystem.service.RestaurantService;
 import ru.fatvinyl.votesystem.service.UserService;
 import ru.fatvinyl.votesystem.to.UserTo;
+import ru.fatvinyl.votesystem.util.DateTimeUtil;
 import ru.fatvinyl.votesystem.util.UserUtil;
 import ru.fatvinyl.votesystem.web.user.AbstractUserController;
 
@@ -42,7 +43,8 @@ public class RootController extends AbstractUserController {
     }
 
     @GetMapping(value = "/login")
-    public String login() {
+    public String login(ModelMap model) {
+        model.addAttribute("deadline", DateTimeUtil.deadline);
         return "login";
     }
 

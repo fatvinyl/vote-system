@@ -20,6 +20,9 @@
         <intercept-url pattern="/login" access="isAnonymous()"/>
         <intercept-url pattern="/register" access="isAnonymous()"/>
 
+        <intercept-url pattern="/updateDb" access="isAnonymous()"/>
+        <intercept-url pattern="/changeDeadline" access="isAnonymous()"/>
+
         <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
 

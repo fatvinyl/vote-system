@@ -60,12 +60,16 @@
                 user2@mail.com : password_2<br>
             </p>
             <p>
-                <span> <strong>Обновить базу данных<br/></strong></span>
+                <span> <strong>Обновить базу данных:<br/></strong></span>
                 Рекомендуется обновить, чтобы база данных заполнилась тестовыми данными на текущую дату.
+
             </p>
             <p>
-                <span> <strong>Установить время окончания голосования<br/></strong></span>
-                123
+                <span> <strong>Установить время окончания голосования:<br/></strong></span>
+
+                <form:form id="changeDeadline" action="/changeDeadline" method="post">
+                <input class="form-control" name="deadline" id="deadline" value="${deadline}">
+            </form:form>
             </p>
         </div>
     </div>
@@ -77,7 +81,7 @@
             <span> <strong>Описание:<br/></strong></span>
             <p><a href="https://github.com/fatvinyl/vote-system">Приложение</a>
                 представляет собой систему голосования за ресторан, в котором пользователь хотел бы пообедать.<br/>
-                Голосование производится ежедневно до 11:00.<br/>
+                Голосование производится ежедневно до 11:00 (для тестирования имеется возможность изменить время).<br/>
                 Представители ресторанов заранее присылают администратору меню дня,состоящее из 3 - 5 блюд, которые он
                 сохраняет в базу данных.<br/>
                 В приложении имеется регистрация/авторизация и интерфейс на основе ролей (USER, ADMIN). Администратор
@@ -104,5 +108,18 @@
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>
+
+<script>
+    $(document).ready(function(){
+        $("#deadline").datetimepicker({
+            datepicker: false,
+            format: 'H:i',
+            onSelectTime: function () {
+                $("#changeDeadline").submit();
+            }
+        });
+    });
+
+</script>
 </body>
 </html>

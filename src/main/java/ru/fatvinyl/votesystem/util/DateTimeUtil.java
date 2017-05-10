@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 public class DateTimeUtil {
     public static final String DATE_PATTERN = "yyyy-MM-dd";
 
+    public static LocalTime deadline = LocalTime.of(11, 00, 00);
+
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
     public static LocalDate parseLocalDate(String str) {
