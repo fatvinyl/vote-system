@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 import ru.fatvinyl.votesystem.TestUtil;
 import ru.fatvinyl.votesystem.model.Role;
 import ru.fatvinyl.votesystem.model.User;
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.fatvinyl.votesystem.TestUtil.userHttpBasic;
 import static ru.fatvinyl.votesystem.UserTestData.*;
 
 /**
@@ -31,7 +33,8 @@ public class AdminRestControllerTest extends AbstractControllerTest{
 
     @Test
     public void test1Get() throws Exception {
-        mockMvc.perform(get(REST_URL + ADMIN_ID))
+        mockMvc.perform(get(REST_URL + ADMIN_ID)
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 // https://jira.spring.io/browse/SPR-14472
@@ -40,34 +43,61 @@ public class AdminRestControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void test2GetByEmail() throws Exception {
-        mockMvc.perform(get(REST_URL + "by?email=" + USER1.getEmail()))
+    public void test2GetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + 6)
+                .with(TestUtil.userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print());
+    }
+
+    @Test
+    public void test3GetByEmail() throws Exception {
+        mockMvc.perform(get(REST_URL + "by?email=" + USER1.getEmail())
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(USER_MATCHER.contentMatcher(USER1));
     }
 
     @Test
-    public void test3GetAll() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL))
+    public void test4GetAll() throws Exception {
+        TestUtil.print(mockMvc.perform(get(REST_URL)
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(USER_MATCHER.contentListMatcher(ADMIN, USER1, USER2)));
     }
 
     @Test
-    public void test4Delete() throws Exception {
-        mockMvc.perform(delete(REST_URL + USER_ID2))
+    public void test5Delete() throws Exception {
+        mockMvc.perform(delete(REST_URL + USER_ID2)
+                .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk());
         USER_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER1), userService.getAll());
     }
 
     @Test
-    public void test5Create() throws Exception {
+    public void test6DeleteNotFound() throws Exception {
+        mockMvc.perform(delete(REST_URL + 6)
+                .with(TestUtil.userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print());
+    }
+
+    @Test
+    public void test7GetUnauth() throws Exception {
+        mockMvc.perform(get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @Transactional
+    public void test8Create() throws Exception {
         User expected = new User(null, "New", "new@gmail.com", "newPass", Role.ROLE_USER, Role.ROLE_ADMIN);
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(expected))).andExpect(status().isCreated());
 
         User returned = USER_MATCHER.fromJsonAction(action);
@@ -78,12 +108,14 @@ public class AdminRestControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void test6Update() throws Exception {
+    @Transactional
+    public void test9Update() throws Exception {
         User updated = new User(USER1);
         updated.setName("UpdatedName");
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
         mockMvc.perform(put(REST_URL + USER_ID1)
                 .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
 

@@ -14,10 +14,7 @@ import ru.fatvinyl.votesystem.web.json.JsonUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 
-import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
