@@ -1,8 +1,9 @@
 package ru.fatvinyl.votesystem.web;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,11 +22,14 @@ import java.time.LocalTime;
 @Controller
 public class DemoAppController {
 
+    @Autowired
+    DataSource dataSource;
+
     @GetMapping("/updateDb")
     public String updateDb() {
-        DbPopulator initDb = new DbPopulator("classpath:db/initDB.sql");
+        DbPopulator initDb = new DbPopulator("classpath:db/initDB.sql", dataSource);
         initDb.execute();
-        DbPopulator populateDB = new DbPopulator("classpath:db/populateDB.sql");
+        DbPopulator populateDB = new DbPopulator("classpath:db/populateDB.sql", dataSource);
         populateDB.execute();
         return "redirect:login";
     }
@@ -35,5 +39,6 @@ public class DemoAppController {
         DateTimeUtil.deadline = deadline;
         return "redirect:login";
     }
+
 
 }

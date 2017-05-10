@@ -23,10 +23,9 @@ public class VoteRestController extends AbstractVoteController {
     static final String REST_URL = "/rest/votes";
 
 
-    @PostMapping(value = "/{restaurantId}&{currentTime}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Vote> createWithLocation(@PathVariable("restaurantId") int restaurantId,
-                                            @PathVariable("currentTime")  @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime currentTime) {
-        Vote created = super.create(restaurantId, currentTime);
+    @PostMapping(value = "/{restaurantId}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Vote> createWithLocation(@PathVariable("restaurantId") int restaurantId) {
+        Vote created = super.create(restaurantId, LocalTime.now());
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -35,36 +34,14 @@ public class VoteRestController extends AbstractVoteController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-
-//    @Override
-//    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    Vote update(@RequestBody Vote vote, @PathVariable("id") int id) {
-//        return super.update(vote, id);
-//    }
-
-
-    @PutMapping(value = "/increment/{id}&{currentTime}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Vote increment(@RequestBody Vote vote, @PathVariable("id") int id,
-                   @PathVariable("currentTime")  @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime currentTime) {
-        return super.increment(incrementVote(vote), id, currentTime);
+    @PutMapping(value = "/increment/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Vote increment(@RequestBody Vote vote, @PathVariable("id") int id) {
+        return super.increment(vote, id, LocalTime.now());
     }
 
-    @PutMapping(value = "/decrement/{id}&{currentTime}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    Vote decrement(@RequestBody Vote vote, @PathVariable("id") int id,
-                   @PathVariable("currentTime")  @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime currentTime) {
-        return super.decrement(decrementVote(vote), id, currentTime);
-    }
-
-//    @Override
-//    @DeleteMapping("/{id}")
-//    void delete(@PathVariable("id") int id) {
-//        super.delete(id);
-//    }
-
-    @Override
-    @GetMapping("/{id}")
-    Vote get(@PathVariable("id") int id) {
-        return super.get(id);
+    @PutMapping(value = "/decrement/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    Vote decrement(@RequestBody Vote vote, @PathVariable("id") int id) {
+        return super.decrement(vote, id, LocalTime.now());
     }
 
 }

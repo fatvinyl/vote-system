@@ -15,10 +15,6 @@ import java.time.LocalDate;
 
 @SuppressWarnings("JpaQlInspection")
 @NamedQueries({
-        @NamedQuery(name = Vote.INCREMENT, query = "UPDATE Vote v SET v.amount=v.amount+1 " +
-                "WHERE v.id=:voteId"),
-        @NamedQuery(name = Vote.DECREMENT, query = "UPDATE Vote v SET v.amount=v.amount-1"+
-                "WHERE v.id=:voteId"),
         @NamedQuery(name = Vote.ALL_BY_DATE, query = "SELECT v FROM Vote v WHERE v.date=:date ORDER BY v.restaurant.id")
 })
 
@@ -26,8 +22,6 @@ import java.time.LocalDate;
 @Table(name = "votes")
 public class Vote extends BaseEntity {
 
-    public static final String INCREMENT = "Vote.increment";
-    public static final String DECREMENT = "Vote.decrement";
     public static final String ALL_BY_DATE = "Vote.getAllByDate";
 
     @Column(name = "amount")

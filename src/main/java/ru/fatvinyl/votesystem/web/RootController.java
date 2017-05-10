@@ -1,10 +1,8 @@
 package ru.fatvinyl.votesystem.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.fatvinyl.votesystem.AuthorizedUser;
-import ru.fatvinyl.votesystem.service.RestaurantService;
-import ru.fatvinyl.votesystem.service.UserService;
 import ru.fatvinyl.votesystem.to.UserTo;
 import ru.fatvinyl.votesystem.util.DateTimeUtil;
 import ru.fatvinyl.votesystem.util.UserUtil;

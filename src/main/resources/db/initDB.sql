@@ -33,7 +33,7 @@ CREATE UNIQUE INDEX votes_unique_idx
 CREATE TABLE dishes
 (
   id            SERIAL PRIMARY KEY,
-  name          VARCHAR(50) NOT NULL,
+  name          VARCHAR(100) NOT NULL,
   price         VARCHAR(8)  NOT NULL,
   date          DATE DEFAULT now(),
   restaurant_id INTEGER     NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE users
 (
   id            SERIAL PRIMARY KEY,
   name          VARCHAR(30) NOT NULL,
-  email         VARCHAR(50) NOT NULL,
+  email         VARCHAR(100) NOT NULL,
   password      VARCHAR     NOT NULL,
   registered    TIMESTAMP DEFAULT now(),
   enabled       BOOLEAN   DEFAULT TRUE,

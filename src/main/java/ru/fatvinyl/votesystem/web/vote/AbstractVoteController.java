@@ -52,14 +52,4 @@ public abstract class AbstractVoteController {
         return service.decrement(vote, userId);
     }
 
-//    void delete(int voteId) {
-//        int userId = AuthorizedUser.id();
-//        LOG.info("delete Vote {} for User {}", voteId, userId);
-//        service.delete(voteId, userId);
-//    }
-
-    Vote get(int id) {
-        LOG.info("get Vote {}", id);
-        return service.get(id);
-    }
 }

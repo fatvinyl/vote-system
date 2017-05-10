@@ -9,7 +9,6 @@ import ru.fatvinyl.votesystem.repository.VoteDAO;
 
 
 import static ru.fatvinyl.votesystem.util.ValidationUtil.checkNotFoundWithId;
-import static ru.fatvinyl.votesystem.util.VoteUtil.checkVotingTime;
 import static ru.fatvinyl.votesystem.util.VoteUtil.decrementVote;
 import static ru.fatvinyl.votesystem.util.VoteUtil.incrementVote;
 
@@ -42,15 +41,8 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote decrement(Vote vote, int userId) {
         Assert.notNull(vote, "vote must not be null");
-        return dao.decrement(decrementVote(vote), userId);
+        return dao.save(decrementVote(vote), userId);
     }
-
-//    @Transactional
-//    @Override
-//    public void delete(int voteId, int userId) {
-//        checkVotingTime();
-//        checkNotFoundWithId(dao.delete(voteId, userId), voteId);
-//    }
 
     @Override
     public Vote get(int id) {

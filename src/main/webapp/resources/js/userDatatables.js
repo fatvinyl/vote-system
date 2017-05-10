@@ -147,7 +147,7 @@ function deleteUser(id) {
     $.ajax({
         url: ajaxUrl + id,
         type: 'DELETE',
-        global: false,
+        // global: false,
         success: function () {
             successNoty('common.deleted');
             updateTable();

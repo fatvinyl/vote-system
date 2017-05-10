@@ -37,24 +37,6 @@ public class VoteDAOImpl implements VoteDAO {
     }
 
     @Override
-    public Vote decrement(Vote vote, int userId) {
-        User userRef = em.getReference(User.class, userId);
-        userRef.setVote(null);
-        em.merge(userRef);
-        return em.merge(vote);
-    }
-
-    @Override
-    public boolean delete(int voteId, int userId) {
-        User userRef = em.getReference(User.class, userId);
-        userRef.setVote(null);
-        em.merge(userRef);
-        return  em.createNamedQuery(Vote.DECREMENT)
-                .setParameter("voteId", voteId)
-                .executeUpdate()!=0;
-    }
-
-    @Override
     public Vote get(int id) {
         return em.find(Vote.class, id);
     }

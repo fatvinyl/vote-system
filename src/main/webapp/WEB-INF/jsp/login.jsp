@@ -41,44 +41,18 @@
 </div>
 
 <div class="container">
-    <div class="well">
-        <div class="font_15">
-            <c:if test="${param.error}">
-                <div class="error">
-                        ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-                </div>
-            </c:if>
-            <c:if test="${not empty param.message}">
-                <div class="message">
-                    <spring:message code="${param.message}"/>
-                </div>
-            </c:if>
-            <p>
-                <span> <strong>Логин : пароль<br/></strong></span>
-                admin@mail.com : admin<br>
-                user1@mail.com : password_1<br>
-                user2@mail.com : password_2<br>
-            </p>
-            <p>
-                <span> <strong>Обновить базу данных:<br/></strong></span>
-                Рекомендуется обновить, чтобы база данных заполнилась тестовыми данными на текущую дату.
-
-            </p>
-            <p>
-                <span> <strong>Установить время окончания голосования:<br/></strong></span>
-
-                <form:form id="changeDeadline" action="/changeDeadline" method="post">
-                <input class="form-control" name="deadline" id="deadline" value="${deadline}">
-            </form:form>
-            </p>
+    <c:if test="${param.error}">
+        <div class="error">
+                ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
         </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="well">
-        <div class="font_15">
-            <span> <strong>Описание:<br/></strong></span>
+    </c:if>
+    <c:if test="${not empty param.message}">
+        <div class="message">
+            <spring:message code="${param.message}"/>
+        </div>
+    </c:if>
+    <div class="alert alert-warning">
+            <span> <h4>Описание:<br/></h4></span>
             <p><a href="https://github.com/fatvinyl/vote-system">Приложение</a>
                 представляет собой систему голосования за ресторан, в котором пользователь хотел бы пообедать.<br/>
                 Голосование производится ежедневно до 11:00 (для тестирования имеется возможность изменить время).<br/>
@@ -89,28 +63,47 @@
                 профилем и голосовать за понравившийся ресторан.<br/>
                 Функциональность приложения реализована через UI (по AJAX) и по REST интерфейсу с базовой
                 авторизацией.</p>
-        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="alert alert-success">
+            <strong><h4>Тестовые данные:</h4></strong>
+            <p>
+                <strong> <h5>Логин : пароль</h5></strong>
+                admin@mail.com : admin<br>
+                user1@mail.com : password_1<br>
+                user2@mail.com : password_2<br>
+            </p>
+            <p>
+                <%--<span> <strong>Обновить базу данных:<br/></strong></span>--%>
+                <a class="btn btn-danger btn-circle" href="updateDb">Обновить базу данных</a> -
+                Рекомендуется обновить, для заполнения базы тестовыми данными на текущую дату.
+            </p>
+            <p>
+                <span> <strong>Установить время окончания голосования:<br/></strong></span>
+                <form:form id="changeDeadline" action="/changeDeadline" method="post">
+                    <input class="form-control" name="deadline" id="deadline" value="${deadline}">
+                </form:form>
+            </p>
     </div>
 </div>
 
 <div class="container">
     <div class="well">
-        <div class="font_15">
             <p>
                 <span> <strong>Стек технологий:<br/></strong></span>
                 Spring Security, Spring MVC, Spring Security Test, Hibernate ORM, Hibernate Validator,
-                SLF4J, Json Jackson, JSP, JSTL, Apache Tomcat, WebJars, DataTables plugin, PostgreSQL, JUnit,Hamcrest,
-                jQuery,
-                jQuery notification, Bootstrap.
+                SLF4J, Json Jackson, JSP, JSTL, Apache Tomcat, WebJars, DataTables plugin, PostgreSQL, JUnit, Hamcrest,
+                jQuery, jQuery notification, Bootstrap.
             </p>
-        </div>
     </div>
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#deadline").datetimepicker({
             datepicker: false,
             format: 'H:i',
