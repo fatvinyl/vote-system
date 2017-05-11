@@ -41,7 +41,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote decrement(Vote vote, int userId) {
         Assert.notNull(vote, "vote must not be null");
-        return dao.save(decrementVote(vote), userId);
+        return dao.decrement(decrementVote(vote), userId);
     }
 
     @Override

@@ -26,11 +26,15 @@ public class RestaurantTestData {
 
     public static final int RESTAURANT1_ID = 1;
     public static final int RESTAURANT2_ID = 2;
-    public static final int RESTAURANT_CREATED_ID = 4;
+    public static final int RESTAURANT_CREATED_ID = 8;
 
     public static final Restaurant RESTAURANT1 = new Restaurant(RESTAURANT1_ID, "Шашлыкофф",  DISH_1, DISH_2);
     public static final Restaurant RESTAURANT2 = new Restaurant(2, "Макдоналдс", DISH_3, DISH_4);
-    public static final Restaurant RESTAURANT3 = new Restaurant(3, "Лаундж", DISH_5, DISH_6);
+    public static final Restaurant RESTAURANT3 = new Restaurant(3, "KFC", DISH_5, DISH_6);
+    public static final Restaurant RESTAURANT4 = new Restaurant(4, "Папа Карло");
+    public static final Restaurant RESTAURANT5 = new Restaurant(5, "Перчини");
+    public static final Restaurant RESTAURANT6 = new Restaurant(6, "Чашка Кофе");
+    public static final Restaurant RESTAURANT7 = new Restaurant(7, "Бургер Кинг");
 
     public static final List<Restaurant> RESTAURANTS = Arrays.asList(RESTAURANT1, RESTAURANT2, RESTAURANT3);
 
