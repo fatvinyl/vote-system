@@ -3,7 +3,6 @@ package ru.fatvinyl.votesystem.web.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import ru.fatvinyl.votesystem.model.User;
 import ru.fatvinyl.votesystem.service.UserService;
 import ru.fatvinyl.votesystem.to.UserTo;

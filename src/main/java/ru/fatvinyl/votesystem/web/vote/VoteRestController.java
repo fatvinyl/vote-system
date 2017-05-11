@@ -1,6 +1,5 @@
 package ru.fatvinyl.votesystem.web.vote;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +9,6 @@ import ru.fatvinyl.votesystem.model.Vote;
 import java.net.URI;
 import java.time.LocalTime;
 
-import static ru.fatvinyl.votesystem.util.VoteUtil.decrementVote;
-import static ru.fatvinyl.votesystem.util.VoteUtil.incrementVote;
 
 /**
  * @author Anton Yolgin

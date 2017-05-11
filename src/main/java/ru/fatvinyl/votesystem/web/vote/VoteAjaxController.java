@@ -7,8 +7,6 @@ import ru.fatvinyl.votesystem.model.Vote;
 
 import java.time.LocalTime;
 
-import static ru.fatvinyl.votesystem.util.VoteUtil.decrementVote;
-import static ru.fatvinyl.votesystem.util.VoteUtil.incrementVote;
 
 /**
  * @author Anton Yolgin

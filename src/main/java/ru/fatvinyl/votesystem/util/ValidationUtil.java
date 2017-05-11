@@ -1,7 +1,6 @@
 package ru.fatvinyl.votesystem.util;
 
 import ru.fatvinyl.votesystem.HasId;
-import ru.fatvinyl.votesystem.model.BaseEntity;
 import ru.fatvinyl.votesystem.util.exception.NotFoundException;
 
 /**

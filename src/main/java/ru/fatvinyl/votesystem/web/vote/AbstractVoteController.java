@@ -9,7 +9,6 @@ import ru.fatvinyl.votesystem.service.VoteService;
 
 import java.time.LocalTime;
 
-import static ru.fatvinyl.votesystem.util.ValidationUtil.checkIdConsistent;
 import static ru.fatvinyl.votesystem.util.VoteUtil.checkVotingTime;
 
 /**

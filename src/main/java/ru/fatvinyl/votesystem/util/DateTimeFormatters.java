@@ -1,6 +1,5 @@
 package ru.fatvinyl.votesystem.util;
 
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.Formatter;
 
 import java.text.ParseException;
@@ -9,7 +8,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import static ru.fatvinyl.votesystem.util.DateTimeUtil.DATE_FORMATTER;
 import static ru.fatvinyl.votesystem.util.DateTimeUtil.parseLocalDate;
 import static ru.fatvinyl.votesystem.util.DateTimeUtil.parseLocalTime;
 

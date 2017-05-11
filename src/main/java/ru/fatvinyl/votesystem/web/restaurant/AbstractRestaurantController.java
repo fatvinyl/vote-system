@@ -33,11 +33,6 @@ public abstract class AbstractRestaurantController  {
         return service.getAll();
     }
 
-//    Restaurant getByDate(int id, LocalDate date) {
-//        LOG.info("get restaurant {} for date {}", id, date);
-//        return service.getByDate(id, date);
-//    }
-
     Restaurant update(Restaurant restaurant, int id) {
         checkIdConsistent(restaurant, id);
         LOG.info("update {}", restaurant);
