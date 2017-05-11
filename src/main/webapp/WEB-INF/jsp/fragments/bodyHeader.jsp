@@ -7,16 +7,21 @@
         <nav class="navbar navbar-inverse" style="border-radius:5px;">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/"><spring:message code="app.title"/></a>
+                    <span class="navbar-brand"><spring:message code="app.title"/></span>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <sec:authorize access="isAuthenticated()">
+                            <li><a href="/"><span class="glyphicon glyphicon-ok-sign" style="color:darkgrey"></span>
+                                <spring:message code="restaurant.vote"/></a></li>
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <li><a href="menu"><spring:message code="app.menu"/></a></li>
-                            <li><a href="users"><spring:message code="app.users"/></a></li>
+                            <li><a href="menu"><span class="glyphicon glyphicon-pencil" style="color:darkgrey"></span>
+                                    <spring:message code="app.menu"/></a></li>
+                            <li><a href="users"><span class="glyphicon glyphicon-pencil" style="color:darkgrey"></span>
+                                <spring:message code="app.users"/></a></li>
                         </sec:authorize>
-                        <li><a href="profile"> ${userTo.name} <spring:message code="app.profile"/></a></li>
+                        <li><a href="profile"> <span class="glyphicon glyphicon-user" style="color:darkgrey"></span>
+                        ${userTo.name} <spring:message code="app.profile"/></a></li>
                         </sec:authorize>
                     </ul>
                     <ul class="nav navbar-nav pull-right" >

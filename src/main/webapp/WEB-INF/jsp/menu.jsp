@@ -18,13 +18,13 @@
         <div class="row">
             <br>
             <form:form class="navbar-form navbar-left" id="filter">
-                <span class="table_bold_txt"><spring:message code="restaurant.date"/></span>
+                <span class="glyphicon glyphicon-calendar" style="color:black; font-size: 20px"></span>
                 <div class="form-group">
                     <div class="col-xs-9">
                         <input class="form-control" name="menuDate" id="menuDate">
                     </div>
                 </div>
-                <a class="btn btn-success btn-circle glyphicon glyphicon-list"
+                <a class="btn btn-success btn-circle glyphicon glyphicon-menu-hamburger"
                    onclick="openModal('<spring:message code="menu.on"/>', 'dish_edit')"></a>
                 <span class="dropdown">
                             <a class="btn btn-success btn-circle glyphicon glyphicon-cutlery" type="button"
