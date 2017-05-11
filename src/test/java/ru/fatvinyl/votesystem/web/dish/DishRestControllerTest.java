@@ -18,6 +18,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.fatvinyl.votesystem.DishTestData.*;
 import static ru.fatvinyl.votesystem.RestaurantTestData.RESTAURANT1_ID;
+import static ru.fatvinyl.votesystem.TestUtil.userHttpBasic;
+import static ru.fatvinyl.votesystem.UserTestData.ADMIN;
 
 /**
  * @author Anton Yolgin
@@ -31,7 +33,8 @@ public class DishRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAllByDate() throws Exception {
-        mockMvc.perform(get(REST_URL + "by?date=2017-01-11&restaurantId=1"))
+        mockMvc.perform(get(REST_URL + "by?date=2017-01-11&restaurantId=1")
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(DISHES_MATCHER.contentListMatcher(DISH_1, DISH_2));
@@ -43,6 +46,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
 
         ResultActions action = mockMvc.perform(post(REST_URL + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(created)));
 
         Dish returned = DISHES_MATCHER.fromJsonAction(action);
@@ -58,6 +62,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
 
         mockMvc.perform(put(REST_URL + DISH1_ID + "&" + RESTAURANT1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
 
@@ -67,14 +72,16 @@ public class DishRestControllerTest extends AbstractControllerTest {
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + DISH6_ID)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk());
         DISHES_MATCHER.assertCollectionEquals(Arrays.asList(DISH_5), service.getAllByDate(TEST_DATE, 3));
     }
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + DISH1_ID))
+        mockMvc.perform(get(REST_URL + DISH1_ID)
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

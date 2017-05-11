@@ -28,7 +28,6 @@ public class RestaurantAjaxController extends AbstractRestaurantController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RestaurantWithVote> getAllWIthDishesAndVotes() {
-//        return super.getAllWIthDishesAndVotes(LocalDate.parse("2017-01-11", DateTimeUtil.DATE_FORMATTER));
         return super.getAllWIthDishesAndVotes(LocalDate.now());
     }
 

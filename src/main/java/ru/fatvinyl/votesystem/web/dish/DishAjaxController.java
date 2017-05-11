@@ -17,16 +17,6 @@ import java.util.List;
 @RequestMapping(value = "/ajax/profile/dishes")
 public class DishAjaxController extends AbstractDishController {
 
-//    @Override
-//    Dish create(Dish dish, int restaurantId) {
-//        return super.create(dish, restaurantId);
-//    }
-//
-//    @Override
-//    Dish update(Dish dish, int id, int restaurantId) {
-//        return super.update(dish, id, restaurantId);
-//    }
-
     @PostMapping(value = "/{restaurantId}")
     public void createOrUpdate(@Valid Dish dish, @PathVariable("restaurantId") int restaurantId) {
         if (dish.isNew()) {
