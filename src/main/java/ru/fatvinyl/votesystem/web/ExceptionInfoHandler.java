@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.fatvinyl.votesystem.util.ValidationUtil;
 import ru.fatvinyl.votesystem.util.exception.ErrorInfo;
 import ru.fatvinyl.votesystem.util.exception.NotFoundException;
+import ru.fatvinyl.votesystem.util.exception.VotingTimeOverException;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,10 +72,19 @@ public class ExceptionInfoHandler {
         return logAndGetErrorInfo(req, e, true);
     }
 
+    @ResponseStatus(value = HttpStatus.CONFLICT)  // 409
+    @ExceptionHandler(VotingTimeOverException.class)
+    @ResponseBody
+    @Order(Ordered.HIGHEST_PRECEDENCE + 2)
+    public ErrorInfo timeOver(HttpServletRequest req, VotingTimeOverException e) {
+        String msg = messageSource.getMessage("exception.time.over", null, LocaleContextHolder.getLocale());
+        return logAndGetErrorInfo(req, new VotingTimeOverException(msg), true);
+    }
+
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)  // 422
     @ExceptionHandler(BindException.class)
     @ResponseBody
-    @Order(Ordered.HIGHEST_PRECEDENCE + 2)
+    @Order(Ordered.HIGHEST_PRECEDENCE + 3)
     public ErrorInfo bindValidationError(HttpServletRequest req, BindingResult result) {
         return logAndGetValidationErrorInfo(req, result);
     }

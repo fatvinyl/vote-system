@@ -36,7 +36,7 @@ public class Dish extends NamedEntity {
     public static final String GET_ALL_BY_DATE = "Dish.getAllByDate";
 
     @Column(name = "price", nullable = false)
-    @Pattern(regexp="^\\d+[-]\\d{2}$", message = " must be in '123-45' format")
+    @Pattern(regexp="^\\d+[-]\\d{2}$", message = " format: '123-45'")
     private String price;
 
     @Column(name = "date", nullable = false)
