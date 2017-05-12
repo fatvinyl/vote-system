@@ -33,8 +33,8 @@
         <hibernate.version>5.2.7.Final </hibernate.version>
         <hibernate-validator.version>5.4.0.Final</hibernate-validator.version>
 
-        <!--Tools-->
-        <ehcache.version>2.10.3</ehcache.version>
+        <!--&lt;!&ndash;Tools&ndash;&gt;-->
+        <!--<ehcache.version>2.10.3</ehcache.version>-->
 
         <!--webjars-->
         <webjars-bootstrap.version>3.3.7-1</webjars-bootstrap.version>
@@ -46,7 +46,6 @@
         <!--file_upload-->
         <fileupload.version>1.3.1</fileupload.version>
         <commons-io.version>2.4</commons-io.version>
-
     </properties>
 
     <build>
@@ -81,6 +80,7 @@
                         <containerId>tomcat8x</containerId>
                         <systemProperties>
                             <file.encoding>UTF-8</file.encoding>
+                            <spring.profiles.active>postgres</spring.profiles.active>
                         </systemProperties>
                         <dependencies>
                             <dependency>
@@ -159,18 +159,18 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!--DB-->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
-        </dependency>
+        <!--&lt;!&ndash;DB&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.postgresql</groupId>-->
+            <!--<artifactId>postgresql</artifactId>-->
+            <!--<version>${postgresql.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jdbc</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.tomcat</groupId>-->
+            <!--<artifactId>tomcat-jdbc</artifactId>-->
+            <!--<version>${tomcat.version}</version>-->
+        <!--</dependency>-->
 
         <!-- Spring -->
         <dependency>
@@ -387,6 +387,71 @@
             <version>${commons-io.version}</version>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>postgres</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                    <version>${tomcat.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>heroku</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.10</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>com.github.jsimone</groupId>
+                                            <artifactId>webapp-runner</artifactId>
+                                            <version>8.5.11.2</version>
+                                            <destFileName>webapp-runner.jar</destFileName>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                    <version>${tomcat.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
 
     <dependencyManagement>
         <dependencies>
