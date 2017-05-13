@@ -25,11 +25,11 @@
                     <form:form class="navbar-form navbar-right form-inline" role="form" action="spring_security_check"
                                method="post">
                         <div class="form-group">
-                            <input type="text" placeholder="<spring:message code="users.password"/>"
+                            <input type="text" placeholder="<spring:message code="users.email"/>"
                                    class="form-control" name="username">
                         </div>
                         <div class="form-group">
-                            <input type="password" placeholder="<spring:message code="users.email"/>"
+                            <input type="password" placeholder="<spring:message code="users.password"/>"
                                    class="form-control" name="password">
                         </div>
                         <button type="submit" class="btn btn-success btn-circle glyphicon glyphicon-log-in"></button>
