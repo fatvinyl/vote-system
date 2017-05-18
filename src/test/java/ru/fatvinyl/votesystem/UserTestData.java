@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.fatvinyl.votesystem.matcher.ModelMatcher;
 import ru.fatvinyl.votesystem.model.Role;
 import ru.fatvinyl.votesystem.model.User;
+import ru.fatvinyl.votesystem.util.PasswordUtil;
 
 import java.util.Objects;
 
@@ -26,8 +27,8 @@ public class UserTestData {
 
     public static final ModelMatcher<User> USER_MATCHER = ModelMatcher.of(User.class,
             ((expected, actual) -> expected == actual ||
-//                    (comparePassword(expected.getPassword(), actual.getPassword())
-                               Objects.equals(expected.getId(), actual.getId())
+                    (comparePassword(expected.getPassword(), actual.getPassword()))
+                            &&   Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getName(), actual.getName())
                             && Objects.equals(expected.getEmail(), actual.getEmail())
                             && Objects.equals(expected.isEnabled(), actual.isEnabled())
@@ -35,14 +36,14 @@ public class UserTestData {
                     )
             );
 
-//    private static boolean comparePassword(String rawOrEncodedPassword, String password) {
-//        if (PasswordUtil.isEncoded(rawOrEncodedPassword)) {
-//            return rawOrEncodedPassword.equals(password);
-//        } else if (!PasswordUtil.isMatch(rawOrEncodedPassword, password)) {
-//            LOG.error("Password " + password + " doesn't match encoded " + password);
-//            return false;
-//        }
-//        return true;
-//    }
+    private static boolean comparePassword(String rawOrEncodedPassword, String password) {
+        if (PasswordUtil.isEncoded(rawOrEncodedPassword)) {
+            return rawOrEncodedPassword.equals(password);
+        } else if (!PasswordUtil.isMatch(rawOrEncodedPassword, password)) {
+            LOG.error("Password " + password + " doesn't match encoded " + password);
+            return false;
+        }
+        return true;
+    }
 
 }
