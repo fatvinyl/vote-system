@@ -151,9 +151,9 @@ function renderRestaurantForm() {
         "<div class='input-group'>" +
         "<div class='input-file-row-1'>"+
         "<div class='upload-file-container'>"+
-        "<img id='imgPreview' src='"+imgSrc+"' alt='image' style='width:130px' class='img-circle' />"+
+        "<img id='imgPreview' src='"+imgSrc+"' alt='image' style='width:130px' class='img-circle'/>"+
         "<div class='upload-file-container-text'>	<span>Выберите Изоражение</span>"+
-        "<input type='file' name='restaurantImage' onchange=getImgPreview(this) />"+
+        "<input type='file' name='restaurantImage' accept='image/jpeg,image/png' onchange=getImgPreview(this) />"+
         "</div>"+
         "</div>"+
         "</div>"+
