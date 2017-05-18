@@ -14,8 +14,6 @@ public interface DishDAO {
 
     Dish get(int id);
 
-    Dish get(int id, int restaurantId);
-
     List<Dish> getAllByDate(LocalDate date, int restaurantId);
 
     Dish save(Dish dish, int restaurantId);

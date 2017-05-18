@@ -48,10 +48,10 @@ public class DishServiceImpl implements DishService {
         return checkNotFoundWithId(dao.get(id), id);
     }
 
-    @Override
-    public Dish get(int id, int restaurantId) {
-        return checkNotFoundWithId(dao.get(id, restaurantId), id);
-    }
+//    @Override
+//    public Dish get(int id, int restaurantId) {
+//        return checkNotFoundWithId(dao.get(id, restaurantId), id);
+//    }
 
     @Override
     public List<Dish> getAllByDate(LocalDate date, int restaurantId) {

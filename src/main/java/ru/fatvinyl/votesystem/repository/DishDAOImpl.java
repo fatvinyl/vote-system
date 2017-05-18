@@ -24,12 +24,6 @@ public class DishDAOImpl implements DishDAO {
     }
 
     @Override
-    public Dish get(int id, int restaurantId) {
-        Dish dish = get(id);
-        return dish != null && dish.getRestaurant().getId() == restaurantId ? dish : null;
-    }
-
-    @Override
     public List<Dish> getAllByDate(LocalDate date, int restaurantId) {
         return em.createNamedQuery(Dish.GET_ALL_BY_DATE, Dish.class)
                 .setParameter("date", date)
@@ -39,9 +33,6 @@ public class DishDAOImpl implements DishDAO {
 
     @Override
     public Dish save(Dish dish, int restaurantId) {
-        if (!dish.isNew() && get(dish.getId(), restaurantId) == null) {
-            return null;
-        }
         dish.setRestaurant(em.getReference(Restaurant.class, restaurantId));
         if (dish.isNew()) {
             em.persist(dish);

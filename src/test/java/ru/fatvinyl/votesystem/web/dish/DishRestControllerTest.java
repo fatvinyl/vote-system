@@ -66,7 +66,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
 
-        assertEquals(updated, service.get(DISH1_ID, RESTAURANT1_ID));
+        assertEquals(updated, service.get(DISH1_ID));
     }
 
     @Test

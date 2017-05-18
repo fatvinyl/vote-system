@@ -28,7 +28,7 @@ public class DishServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void test1Get() throws Exception {
-        Dish actual = service.get(DISH1_ID, RESTAURANT1_ID);
+        Dish actual = service.get(DISH1_ID);
         DISHES_MATCHER.assertEquals(DISH_1, actual);
     }
 
@@ -37,7 +37,7 @@ public class DishServiceImplTest extends AbstractServiceTest {
         Thread.sleep(1000);
         Dish created = getCreated();
         service.save(created, RESTAURANT1_ID);
-        DISHES_MATCHER.assertEquals(service.get(created.getId(), RESTAURANT1_ID), created);
+        DISHES_MATCHER.assertEquals(service.get(created.getId()), created);
     }
 
     @Test
