@@ -1,5 +1,6 @@
 package ru.fatvinyl.votesystem.web.restaurant;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -56,15 +57,20 @@ public class RestaurantAjaxController extends AbstractRestaurantController {
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         path = Paths.get(rootDirectory + "/resources/images/" + restaurant.getId() + ".png");
 
-
-        if (restaurantImage != null && !restaurantImage.isEmpty()) {
             try {
-                restaurantImage.transferTo(new File(path.toString()));
+                if (restaurantImage != null && !restaurantImage.isEmpty()) {
+                    restaurantImage.transferTo(new File(path.toString()));
+                } else {
+                    File source = new File(rootDirectory + "/resources/images/default_logo.png");
+                    File dest = new File(rootDirectory + "/resources/images/" + restaurant.getId() + ".png");
+                    FileUtils.copyFile(source, dest);
+                }
+
             } catch (Exception ex) {
                 ex.printStackTrace();
                 throw new RuntimeException("Product image saving failed", ex);
             }
-        }
+
     }
 
     @DeleteMapping(value = "/{id}")
