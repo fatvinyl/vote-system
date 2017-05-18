@@ -67,7 +67,7 @@ function getDatatableApi() {
                 "render": function (data, type, row) {
                     if (data == null) {
                         return '<span class="badge">' + 0 + '</span>';
-                        ;
+
                     } else {
                         return '<span class="badge">' + data + '</span>';
                     }
@@ -96,14 +96,17 @@ function renderBtn(data, type, row) {
     }
 }
 
+
+
 function clickVote(restaurantId, vote) {
-    confirmNoty('confirm.vote.add', 'updateVote', restaurantId, vote);
+        confirmNoty('confirm.vote.add', 'updateVote', restaurantId, vote);
 }
+
 
 function clickDeleteVote(vote) {
     var restaurantId = vote.restaurant.id;
-    delete vote.restaurant;
     confirmNoty('confirm.vote.delete', 'deleteVote', vote, restaurantId);
+
 }
 
 function updateVote(restaurantId, vote) {

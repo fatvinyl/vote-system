@@ -1,5 +1,5 @@
 
-
+var isClick = false;
 
 var failedNote;
 
@@ -41,40 +41,46 @@ function failNoty(event, jqXHR, options, jsExc) {
 }
 
 function confirmNoty(message, callback, arg1, arg2) {
-    noty({
-        text: i18n[message],
-        type: 'warning',
-        layout: 'bottomRight',
-        buttons: [
-            {
-                addClass: 'btn btn-success btn-circle glyphicon glyphicon-ok', onClick: function ($noty) {
-                $noty.close();
-                if (callback === 'updateVote') {
-                    updateVote(arg1, arg2)
-                } else if (callback === 'deleteVote') {
-                    deleteVote(arg1, arg2);
-                } else if (callback === 'createOrUpdateRestaurant') {
-                    createOrUpdateRestaurant(arg1);
-                } else if (callback === 'deleteRestaurant') {
-                    deleteRestaurant(arg1);
-                } else if (callback === 'createOrUpdateDish') {
-                    createOrUpdateDish(arg1, arg2);
-                } else if (callback === 'deleteDish') {
-                    deleteDish(arg1);
-                } else if (callback === 'createOrUpdateUser') {
-                    createOrUpdateUser(arg1, arg2);
-                }  else if (callback === 'deleteUser') {
-                    deleteUser(arg1);
+    if (!isClick) {
+        isClick = true;
+        noty({
+            text: i18n[message],
+            type: 'warning',
+            layout: 'bottomRight',
+            buttons: [
+                {
+                    addClass: 'btn btn-success btn-circle glyphicon glyphicon-ok', onClick: function ($noty) {
+                    $noty.close();
+                    if (callback === 'updateVote') {
+                        updateVote(arg1, arg2);
+                    } else if (callback === 'deleteVote') {
+                        delete arg1.restaurant;
+                        deleteVote(arg1, arg2);
+                    } else if (callback === 'createOrUpdateRestaurant') {
+                        createOrUpdateRestaurant(arg1);
+                    } else if (callback === 'deleteRestaurant') {
+                        deleteRestaurant(arg1);
+                    } else if (callback === 'createOrUpdateDish') {
+                        createOrUpdateDish(arg1, arg2);
+                    } else if (callback === 'deleteDish') {
+                        deleteDish(arg1);
+                    } else if (callback === 'createOrUpdateUser') {
+                        createOrUpdateUser(arg1, arg2);
+                    } else if (callback === 'deleteUser') {
+                        deleteUser(arg1);
+                    }
+                    isClick = false;
+                }
+                },
+                {
+                    addClass: 'btn btn-danger btn-circle glyphicon glyphicon-remove', onClick: function ($noty) {
+                    $noty.close();
+                    isClick = false;
                 }
                 }
-            },
-            {
-                addClass: 'btn btn-danger btn-circle glyphicon glyphicon-remove', onClick: function ($noty) {
-                $noty.close();
-            }
-            }
 
-        ]
-    });
+            ]
+        });
+    }
 
 }
