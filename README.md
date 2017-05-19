@@ -5,8 +5,7 @@
 В приложении имеется регистрация/авторизация и интерфейс на основе ролей (USER, ADMIN). Администратор может создавать/редактировать/удалять пользователей, рестораны и меню, а пользователь - управлять своим профилем и голосовать за понравившийся ресторан.
 Функциональность приложения реализована через UI (по AJAX) и по REST интерфейсу с базовой авторизацией.
 
-## <a href="http://fatvinyl.herokuapp.com">Демо</a> 
-
+## <a href="http://fatvinyl.herokuapp.com">Демо разрабатываемого приложения</a> 
 ## Стек технологий
 `Spring Security, Spring MVC, Spring Security Test, Hibernate ORM, Hibernate Validator, SLF4J, Json Jackson, JSP, JSTL, 
 Apache Tomcat, WebJars, DataTables plugin, PostgreSQL, JUnit, Hamcrest, jQuery, jQuery notification, Bootstrap.`
