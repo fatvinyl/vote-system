@@ -13,6 +13,7 @@ function closeNoty() {
 function successNoty(message) {
     closeNoty();
     noty({
+        theme: 'relax',
         text: i18n[message],
         type: 'success',
         layout: 'bottomRight',
@@ -30,10 +31,8 @@ function failNoty(event, jqXHR, options, jsExc) {
     closeNoty();
     var errorInfo = $.parseJSON(jqXHR.responseText);
 
-    // http://tomcat.apache.org/tomcat-8.5-doc/changelog.html
-    // RFC 7230 states that clients should ignore reason phrases in HTTP/1.1 response messages.
-    // Since the reason phrase is optional, Tomcat no longer sends it (statusText).
     failedNote = noty({
+        theme: 'relax',
         text: errorInfo.details.join("<br>"),
         type: 'error',
         layout: 'bottomRight'
@@ -44,6 +43,7 @@ function confirmNoty(message, callback, arg1, arg2) {
     if (!isClick) {
         isClick = true;
         noty({
+            theme: 'relax',
             text: i18n[message],
             type: 'warning',
             layout: 'bottomRight',
