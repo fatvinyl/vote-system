@@ -16,7 +16,7 @@ $(function () {
                 }
             },
             {
-                "data": "restaurantName",
+                "data": "name",
                 "render": function (data, type, row) {
                     return '<span class="table_bold_txt">' + data + '</span>';
                 }

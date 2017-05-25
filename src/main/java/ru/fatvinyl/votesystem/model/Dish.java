@@ -18,7 +18,6 @@ import java.time.LocalDate;
  * @author Anton Yolgin
  */
 
-@SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id"),
         @NamedQuery(name = Dish.GET_ALL_BY_DATE, query = "SELECT d FROM Dish d WHERE d.date=:date " +

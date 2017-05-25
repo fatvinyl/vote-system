@@ -14,7 +14,6 @@ import java.util.Collection;
 
 public class RestaurantWithVote extends BaseTo{
 
-    @JsonProperty("restaurantName")
     private String name;
 
     private Collection<Dish> menu;
