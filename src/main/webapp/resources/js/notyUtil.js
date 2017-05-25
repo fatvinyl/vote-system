@@ -51,24 +51,7 @@ function confirmNoty(message, callback, arg1, arg2) {
                 {
                     addClass: 'btn btn-success btn-circle glyphicon glyphicon-ok', onClick: function ($noty) {
                     $noty.close();
-                    if (callback === 'updateVote') {
-                        updateVote(arg1, arg2);
-                    } else if (callback === 'deleteVote') {
-                        delete arg1.restaurant;
-                        deleteVote(arg1, arg2);
-                    } else if (callback === 'createOrUpdateRestaurant') {
-                        createOrUpdateRestaurant(arg1);
-                    } else if (callback === 'deleteRestaurant') {
-                        deleteRestaurant(arg1);
-                    } else if (callback === 'createOrUpdateDish') {
-                        createOrUpdateDish(arg1, arg2);
-                    } else if (callback === 'deleteDish') {
-                        deleteDish(arg1);
-                    } else if (callback === 'createOrUpdateUser') {
-                        createOrUpdateUser(arg1, arg2);
-                    } else if (callback === 'deleteUser') {
-                        deleteUser(arg1);
-                    }
+                    callback(arg1, arg2);
                     isClick = false;
                 }
                 },
@@ -84,3 +67,4 @@ function confirmNoty(message, callback, arg1, arg2) {
     }
 
 }
+

@@ -169,30 +169,24 @@ function getImgPreview(par) {
 function clickSaveRestaurant() {
     var form = $("#modal_restaurant")[0];
     var data = new FormData(form);
-    confirmNoty('confirm.save', 'createOrUpdateRestaurant', data, null);
+    confirmNoty('confirm.save', createOrUpdateRestaurant, data);
 }
 
 function clickDeleteRestaurant() {
     var restaurantId = $('#select_restaurant').val();
-    confirmNoty('confirm.restaurant.delete', 'deleteRestaurant', restaurantId, null);
+    confirmNoty('confirm.restaurant.delete', deleteRestaurant, restaurantId);
 }
 
 function clickSaveDish(index) {
-    var dish;
     var restaurantId = $('#select_restaurant').val();
-    if (index == undefined) {
-        dish = $("#modal_menu").serialize();
-        confirmNoty('confirm.save', 'createOrUpdateDish', dish, restaurantId);
-    } else {
-        dish = $("#modal_menu" + index).serialize();
-        confirmNoty('confirm.save', 'createOrUpdateDish', dish, restaurantId);
-    }
+    var dish = (index == undefined) ? $("#modal_menu").serialize() : $("#modal_menu" + index).serialize();
+    confirmNoty('confirm.save', createOrUpdateDish, dish, restaurantId);
 }
 
 
 function clickDeleteDish(index) {
     var id = $("#modal_menu" + index + " #id").val();
-    confirmNoty('confirm.delete', 'deleteDish', id, null);
+    confirmNoty('confirm.delete', deleteDish, id);
 }
 
 function createOrUpdateRestaurant(data) {

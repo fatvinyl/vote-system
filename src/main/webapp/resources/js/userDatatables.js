@@ -17,7 +17,6 @@ function enable(chkbox, id) {
     });
 }
 
-// $(document).ready(function () {
 $(function () {
     datatableApi = $('#datatable').DataTable(extendsOpts({
         "ajax": {
@@ -122,11 +121,11 @@ function openUserAddModal(title) {
 
 function clickSaveUser() {
     var data = form.serialize();
-    confirmNoty('confirm.save', 'createOrUpdateUser', ajaxUrl, data);
+    confirmNoty('confirm.save', createOrUpdateUser, ajaxUrl, data);
 }
 
 function clickDeleteUser(id) {
-    confirmNoty('confirm.delete', 'deleteUser', id, null);
+    confirmNoty('confirm.delete', deleteUser, id);
 }
 
 function createOrUpdateUser(ajaxUrl, data) {

@@ -99,13 +99,13 @@ function renderBtn(data, type, row) {
 
 
 function clickVote(restaurantId, vote) {
-        confirmNoty('confirm.vote.add', 'updateVote', restaurantId, vote);
+        confirmNoty('confirm.vote.add', updateVote, restaurantId, vote);
 }
 
 
 function clickDeleteVote(vote) {
     var restaurantId = vote.restaurant.id;
-    confirmNoty('confirm.vote.delete', 'deleteVote', vote, restaurantId);
+    confirmNoty('confirm.vote.delete', deleteVote, vote, restaurantId);
 
 }
 

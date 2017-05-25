@@ -8,7 +8,7 @@
 <body>
 <script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>
 <script type="text/javascript" src="resources/js/notyUtil.js" defer></script>
-<script type="text/javascript" src="resources/js/restaurantDatatables.js" defer></script>
+<script type="text/javascript" src="resources/js/voteDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
     <div class="container">
